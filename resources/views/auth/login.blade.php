@@ -25,7 +25,7 @@
 			<div class="box">
 				<div class="box-content">
 					<div class="text-center">
-						INICIO DE SESIÒN
+						   <img src="{{url('img/0.png')}}" style="width: 100%;">
 					</div>
 					<form method="POST" action="login">
 						@if($data)

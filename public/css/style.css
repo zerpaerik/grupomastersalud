@@ -421,7 +421,7 @@ a.show-sidebar:hover {
   opacity: 0;
   width: 0%;
   padding: 0;
-  background: #04B45F;
+  background: #0489B1;
 }
 .sidebar-show #sidebar-left.col-xs-2 {
   opacity: 1;
@@ -2078,7 +2078,7 @@ td.beauty-hover {
 }
 #page-500, #page-login {
   position: absolute;
-  background: #04B45F;
+  background:#0489B1;
   height: 100%;
   width: 100%;
 }
