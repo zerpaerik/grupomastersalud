@@ -87,13 +87,7 @@ class ProfesionalesController extends Controller
   }
 
 	public function create(Request $request){
-        $validator = \Validator::make($request->all(), [
-          
-        ]);
-        if($validator->fails()) {
-	      Toastr::error('Error Registrando.', 'Profesional- DNI YA REGISTRADO!', ['progressBar' => true]);
-          return redirect()->action('Archivos\ProfesionalesController@createView', ['errors' => $validator->errors()]);
-		} else {
+       
 		$centros = Profesionales::create([
 	      'name' => $request->name,
 	      'apellidos' => $request->apellidos,
@@ -117,16 +111,15 @@ class ProfesionalesController extends Controller
 	      $historial = new Historiales();
           $historial->accion ='Registro';
           $historial->origen ='Profesional de Apoyo';
-		  $historial->detalle = $request->dni;
+		  $historial->detalle = $request->name;
           $historial->id_usuario = \Auth::user()->id;
-		  $historial->sede = $request->session()->get('sede');
           $historial->save();
           
 
      Toastr::success('Registrado Exitosamente.', 'Profesional de Apoyo!', ['progressBar' => true]);
 
 		return redirect()->action('Archivos\ProfesionalesController@index', ["created" => true, "centros" => Profesionales::all()]);
-		}
+		
 	}
 
   public function delete($id){
