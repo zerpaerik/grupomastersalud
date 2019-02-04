@@ -290,7 +290,7 @@ class EventController extends Controller
 
   public function createView($extra = []){
     $data = [
-	  "especialistas" => Personal::where('tipo','=','Especialista')->orwhere('tipo','=','Tecnòlogo')->orwhere('tipo','=','ProfSalud')->where('estatus','=','1')->get(),
+	  "especialistas" => Personal::where('estatus','=',1)->get(),
       "pacientes" => Paciente::where('estatus','=',1)->get(),
       "tiempos" => RangoConsulta::all(),
 	  "ciex" => Ciex::all(),

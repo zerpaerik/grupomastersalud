@@ -815,6 +815,7 @@ class AtencionesController extends Controller
     ->where('a.id_sede','=', $request->session()->get('sede'))
     ->where('b.nombres','like','%'.$nombre.'%')
     ->where('b.apellidos','like','%'.$apellido.'%')
+    ->groupBy('a.id')
     ->orderby('a.id','desc')
     ->get();
   
