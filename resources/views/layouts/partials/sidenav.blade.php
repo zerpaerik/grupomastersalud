@@ -122,6 +122,9 @@
         <a href="{{route('labporpagar.index')}}"><i class="fa fa-dollar"></i> Laboratorios por Pagar</a>
       </li>
       <li>
+        <a href="{{route('labpagados.index')}}"><i class="fa fa-dollar"></i> Laboratorios Pagados</a>
+      </li>
+      <li>
         <a href="{{route('ingresos.index')}}"><i class="fa fa-money"></i> Otros Ingresos</a>
       </li>
       <li>
@@ -255,7 +258,10 @@
     <ul class="dropdown-menu">
       <li>
         <a href="{{route('cierre.index')}}"><i class="fa fa-file-o"></i> Cierre de Caja</a>
-      </li>      
+      </li>  
+       <li>
+        <a href="{{route('historial.pacientes')}}"><i class="fa fa-file-o"></i> Historial Pacientes</a>
+      </li>     
       <li>
         <a href="reporte-solicitar_diario"><i class="fa fa-file-o"></i> Atenciòn Diaria Consolidado</a>
       </li>
@@ -559,6 +565,10 @@
       <span class="hidden-xs">Reportes</span>
     </a>
     <ul class="dropdown-menu">
+
+       <li>
+        <a href="{{route('historial.pacientes')}}"><i class="fa fa-file-o"></i> Historial Pacientes</a>
+      </li> 
       <li>
         <a href="reporte-solicitar_diario"><i class="fa fa-file-o"></i> Atenciòn Diaria Consolidado</a>
       </li>
@@ -586,6 +596,7 @@
       <span class="hidden-xs">Administración</span>
     </a>
     <ul class="dropdown-menu">
+
         <li>
         <a href="{{route('cierre.index')}}"><i class="fa fa-file-o"></i> Cierre de Caja</a>
       </li>     
@@ -784,6 +795,9 @@
       <span class="hidden-xs">Reportes</span>
     </a>
     <ul class="dropdown-menu">
+       <li>
+        <a href="{{route('historial.pacientes')}}"><i class="fa fa-file-o"></i> Historial Pacientes</a>
+      </li> 
       <li>
         <a href="reporte-solicitar_diario"><i class="fa fa-file-o"></i> Atenciòn Diaria Consolidado</a>
       </li>

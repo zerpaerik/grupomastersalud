@@ -99,7 +99,7 @@ class ServiceController extends Controller
     ->join('analises as d','d.id','a.id_laboratorio')
     ->join('users as e','e.id','a.origen_usuario')
     ->join('paquetes as f','f.id','a.id_paquete')
-	->where('a.serv_prog','=',1)
+	  ->where('a.es_servicio','=',1)
     ->orderby('a.id','desc')
     ->get();
 

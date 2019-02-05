@@ -9,7 +9,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-linux"></i>
-					<span>Movimientos/Historial de Cobros a Pacientes</span>
+					<span>Movimientos/Laboratorios Pagados</span>
 
 				</div>
 
@@ -29,7 +29,7 @@
 				<div class="no-move"></div>
 				
 			</div>
-			{!! Form::open(['method' => 'get', 'route' => ['historialcobros.index']]) !!}
+			{!! Form::open(['method' => 'get', 'route' => ['labpagados.index']]) !!}
 
 			<div class="row">
 				<div class="col-md-2">
@@ -59,53 +59,38 @@
 				</div>
 			</div>	
 
+		
+
+
 			<div class="box-content no-padding">
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
 					<thead>
 						<tr>
-						    <th>Nº Atenciòn</th>
-							<th>Paciente</th>
-							<th>DNI</th>
-							<th>Monto Total</th>
-							<th>Monto Abonado</th>
-							<th>Monto Total Abonado</th>
-							<th>Monto Pendiente</th>
+							<th>Laboratorio</th>
+							<th>Analisis</th>
+							<th>Monto</th>
 							<th>Fecha</th>
-							<th>Recibo</th>
+							<th>Paciente</th>
+							<th>Registrado Por</th>
 						</tr>
 					</thead>
 					<tbody>
-                         	@foreach($atenciones as $atec)	
+                          @foreach($pagados as $atec)	
 
 							<tr>
-								<td>{{$atec->id_atencion}}</td>
-								<td>{{$atec->nombres}},{{$atec->apellidos}}</td>
-								<td>{{$atec->dni}}</td>
+								<td>{{$atec->laboratorio}}</td>
+								<td>{{$atec->analisis}}</td>
 								<td>{{$atec->monto}}</td>
-								<td>{{$atec->abono_parcial}}</td>
-								<td>{{$atec->abono}}</td>
-								<td>{{$atec->pendiente}}</td>
-								<td>{{$atec->updated_at}}</td>
-								<td>
-						       <a target="_blank" href="{{asset('recibo_cobro_ver')}}/{{$atec->id}}" class="btn btn-xs btn-danger">Recibo</a>
+								<td>{{$atec->created_at}}</td>
+								<td>{{$atec->nompac}},{{$atec->apepac}}</td>
+							   <td>{{$atec->nombre}},{{$atec->apellido}}</td>
 
-								</td>
+							
 							</tr>
 						@endforeach
 					</tbody>
-					</tbody>
 					<tfoot>
-					<tr>
-						    <th>Nº Atenciòn</th>
-							<th>Paciente</th>
-							<th>Monto Total</th>
-							<th>Monto Abonado</th>
-							<th>Monto Total Abonado</th>
-							<th>Monto Pendiente</th>
-							<th>Fecha</th>
-							<th>Recibo</th>
-
-						</tr>
+						
 
 					</tfoot>
 

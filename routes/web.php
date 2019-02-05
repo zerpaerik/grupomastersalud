@@ -58,6 +58,9 @@ Route::get('profesionales-edit-{id}', 'Archivos\ProfesionalesController@editView
 Route::post('profesionales/edit', 'Archivos\ProfesionalesController@edit');
 Route::get('profesionales-delete-{id}','Archivos\ProfesionalesController@delete');
 
+Route::get('historial_pacientes', 'ReportesController@historialp')->name('historial.pacientes');
+
+
 
 Route::get('laboratorios', 'Archivos\LaboratoriosController@index')->name('laboratorios.index')->middleware('auth');
 Route::get('laboratorios-search', 'Archivos\LaboratoriosController@search')->name('laboratorios.search')->middleware('auth');
@@ -190,6 +193,9 @@ Route::get('labporpagar-edit-{id}', 'LabporPagarController@editView')->name('lab
 Route::post('labporpagar/edit', 'LabporPagarController@edit');
 Route::get('pagar/{id}', 'LabporPagarController@pagar')->middleware('auth');
 
+Route::get('labpagados', 'LaboratoriosPagadosController@index')->name('labpagados.index')->middleware('auth');
+
+
 Route::get('comporpagar', 'ComporPagarController@index')->name('comporpagar.index')->middleware('auth');
 Route::get('comporpagar-search', 'ComporPagarController@search')->name('comporpagar.search')->middleware('auth');
 Route::get('comporpagar-create', 'ComporPagarController@createView')->name('comporpagar.create')->middleware('auth');
@@ -249,6 +255,12 @@ Route::get('cuentasporcobrar-edit-{id}', 'CuentasporCobrarController@editView')-
 Route::post('cuentasporcobrar/edit', 'CuentasporCobrarController@edit');
 
 Route::get('historialcobros', 'HistorialCobrosController@index')->name('historialcobros.index')->middleware('auth');
+//Route::get('recibo_cobro_ver/{id}', 'ReportesController@recibo_cobro_ver');
+
+Route::get('recibo_cobro_ver/{id}','ReportesController@recibo_cobro_ver');
+
+
+
 
 
 Route::get('movimientos/atencion/personal','AtencionesController@personal');
