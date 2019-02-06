@@ -102,14 +102,14 @@ class ReporteIngresosController extends Controller
         ->whereNotIn('a.monto',[0,0.00])
         ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
         ->orderby('a.id','desc')
-                                    ->where('mostrar','<>',1)
+                                    ->where('mostrar','=',NULL)
         ->paginate(200000000);
 
           $aten = Debitos::where('id_sede','=', $request->session()->get('sede'))
                         ->whereNotIn('monto',[0,0.00])
                         ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
                        ->select(DB::raw('SUM(monto) as monto'))
-                                                   ->where('mostrar','<>',1)
+                                    ->where('mostrar','=',NULL)
 
                        ->first();
         if ($aten->monto == 0) {
@@ -123,7 +123,7 @@ class ReporteIngresosController extends Controller
         ->whereNotIn('a.monto',[0,0.00])
         ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
         ->orderby('a.id','desc')
-                                    ->where('mostrar','<>',1)
+                                    ->where('mostrar','=',NULL)
 
         ->paginate(200000000);
 
@@ -132,7 +132,7 @@ class ReporteIngresosController extends Controller
                         ->whereNotIn('monto',[0,0.00])
                         ->whereDate('created_at', '=',Carbon::today()->toDateString())
                        ->select(DB::raw('SUM(monto) as monto'))
-                                                   ->where('mostrar','<>',1)
+                                    ->where('mostrar','=',NULL)
 
                        ->first();
         if ($aten->monto == 0) {
