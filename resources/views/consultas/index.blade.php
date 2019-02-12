@@ -71,6 +71,7 @@
 							<th>Fecha</th>
 							<th>Horas</th>
 							<th>Estatus</th>
+							<th>Tipo</th>
 							<th>Acciones:</th>
 						</tr>
 					</thead>
@@ -89,13 +90,21 @@
 						@else
 						<td style="background: #FE642E;">No ha sido Atendido</td>
 						@endif
-						<td>
+						<td>{{$d->tipo}}</td>
+					<td>
 
-						<a class="btn btn-danger" href="consulta-atendido-{{$d->EventId}}">Atender</a>
+
+
+                        @if($d->tipo == 'CONSULTAS')
+
 						<a class="btn btn-danger" href="event-{{$d->EventId}}">Cargar Historia</a>
-						@if(\Auth::user()->role_id <> 6 && \Auth::user()->role_id <> 7)							 
+						@else
+
+						<a class="btn btn-danger" href="prenatal-create-{{$d->paciente}}-{{$d->EventId}}">Cargar Control</a>
+						@endif
 
 						<a target="_blank" class="btn btn-primary" href="consulta-ticket-ver-{{$d->EventId}}">Ticket</a>
+						@if(\Auth::user()->role_id <> 6 && \Auth::user()->role_id <> 7)							 
 
 						<a  class="btn btn-success" href="consulta-edit-{{$d->EventId}}">Editar</a>	
 
