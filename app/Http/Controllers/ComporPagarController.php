@@ -16,7 +16,7 @@ class ComporPagarController extends Controller
 
 {
 
-	public function index(Request $request){
+  public function index(Request $request){
         $total = 0;
         $inicio = Carbon::now()->toDateString();
         $final = Carbon::now()->addDay()->toDateString();
@@ -25,7 +25,7 @@ class ComporPagarController extends Controller
           $total = $total + $aten->porcentaje; 
         }
         return view('movimientos.comporpagar.index', ["atenciones" => $atenciones, "total" => $total]);
-	}
+  }
 
     public function search(Request $request)
     {
@@ -51,7 +51,7 @@ class ComporPagarController extends Controller
       }    
     }
 
-	public function pagarcom($id, Request $request) {
+  public function pagarcom($id, Request $request) {
 
           $last = Atenciones::select('recibo')->orderby('recibo', 'DESC')->first();
           if (!empty($last->recibo)) {
@@ -66,13 +66,13 @@ class ComporPagarController extends Controller
                       'pagado_com' => 1,
                       'recibo' => 'REC'.date('Y').'-'.str_pad($last+1, 4, "0", STR_PAD_LEFT)
                   ]);
-				  
-		  $historial = new Historiales();
+          
+      $historial = new Historiales();
           $historial->accion ='Registro';
           $historial->origen ='Comisiones por Pagar';
-		  $historial->detalle ='Comision Por Pagar';
+      $historial->detalle ='Comision Por Pagar';
           $historial->id_usuario = \Auth::user()->id;
-		  $historial->sede = $request->session()->get('sede');
+      $historial->sede = $request->session()->get('sede');
           $historial->save();
      
     Toastr::success('La comisión ha sido pagada.', 'Comisiones!', ['progressBar' => true]);
@@ -89,11 +89,11 @@ class ComporPagarController extends Controller
         ->join('analises as d','d.id','a.id_laboratorio')
         ->join('users as e','e.id','a.origen_usuario')
        // ->join('profesionales as f','f.id','a.origen_usuario')
-	    // ->where('a.id_sede','=', $request->session()->get('sede'))
-	    ->whereNotIn('a.monto',[0,0.00])
-	    ->whereNotIn('a.porcentaje',[0,0.00])
-	     ->whereNotIn('a.porc_pagar',[0,0.00])
-		 ->whereNotIn('a.pendiente','>',0)
+      // ->where('a.id_sede','=', $request->session()->get('sede'))
+      ->whereNotIn('a.monto',[0,0.00])
+      ->whereNotIn('a.porcentaje',[0,0.00])
+       ->whereNotIn('a.porc_pagar',[0,0.00])
+     ->whereNotIn('a.pendiente','>',0)
         ->where('a.pagado_com','=', NULL)
         ->where('e.name','like','%'.$nom.'%')
         ->where('e.lastname','like','%'.$ape.'%')
@@ -156,12 +156,17 @@ class ComporPagarController extends Controller
 
 {
 
-	public function index(Request $request){
-
+  public function index(Request $request){
+    
       if(! is_null($request->fecha)) {
 
+
+    
+
     $f1 = $request->fecha;
-    $f2 = $request->fecha2;    
+    $f2 = $request->fecha2; 
+
+
 
 
    $atenciones = DB::table('atenciones as a')
@@ -171,12 +176,13 @@ class ComporPagarController extends Controller
    ->join('analises as d','d.id','a.id_laboratorio')
    ->join('users as e','e.id','a.origen_usuario')
    ->join('paquetes as p','p.id','a.id_paquete')
+   //->whereBetween('a.created_at', [$f1, $f2])
    ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
    ->where('a.id_sede','=', $request->session()->get('sede'))
    ->where('a.pago_com_tec','=',NULL)
    ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
    ->whereNotIn('a.origen_usuario',[99999999])
-  ->whereNotIn('a.porcentaje',[0,0.00,99999])
    ->where('a.pendiente','=',0)
    ->where('a.pagado_com','=', NULL)
    ->orderby('a.id','desc')
@@ -185,7 +191,6 @@ class ComporPagarController extends Controller
    $aten = Atenciones::where('id_sede','=', $request->session()->get('sede'))
                                     ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
                                     ->whereNotIn('monto',[0,0.00])
-                                      ->whereNotIn('porcentaje',[0,0.00,99999])
                                      ->whereNotIn('origen_usuario',[99999999])
                                      ->where('pendiente','=',0)
                                      ->where('pagado_com','=', NULL)
@@ -193,6 +198,26 @@ class ComporPagarController extends Controller
                                     ->first();
         if ($aten->monto == 0) {
         }
+
+
+  $origen = DB::table('atenciones as a')
+   ->select('a.id','a.origen_usuario','e.name','e.lastname','a.created_at')
+   ->join('users as e','e.id','a.origen_usuario')
+    ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+    ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('e.lastname','asc')
+   ->groupBy('a.origen_usuario')
+   ->get();
+
+
+ 
+
 
  }else{
 
@@ -207,7 +232,7 @@ class ComporPagarController extends Controller
     ->where('a.pago_com_tec','=',NULL)
    ->whereNotIn('a.monto',[0,0.00,99999])
    ->whereNotIn('a.origen_usuario',[99999999])
-      ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
    ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
    ->where('a.pendiente','=',0)
    ->where('a.pagado_com','=', NULL)
@@ -217,7 +242,6 @@ class ComporPagarController extends Controller
     $aten = Atenciones::where('id_sede','=', $request->session()->get('sede'))
                       ->whereNotIn('monto',[0,0.00])
                       ->whereNotIn('origen_usuario',[99999999])
-                      ->whereNotIn('porcentaje',[0,0.00,99999])
                       ->where('pendiente','=',0)
                       ->where('pagado_com','=', NULL)
                       ->whereDate('created_at', '=',Carbon::today()->toDateString())
@@ -228,17 +252,168 @@ class ComporPagarController extends Controller
 
 
 
+         $f1 = Carbon::today()->toDateString();
+         $f2 = Carbon::today()->toDateString(); 
+
+   $origen = DB::table('atenciones as a')
+   ->select('a.id','a.origen_usuario','e.name','e.lastname','a.created_at')
+   ->join('users as e','e.id','a.origen_usuario')
+    ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+    ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('e.lastname','asc')
+   ->groupBy('a.origen_usuario')
+   ->get();
+
 
 
 
  }
-       
-        return view('movimientos.comporpagar.index', ['atenciones' => $atenciones,'aten' => $aten]);
-	}
+
+
+
+
+
+
+        return view('movimientos.comporpagar.index', ['atenciones' => $atenciones,'aten' => $aten,'f1' => $f1,'f2' => $f2,'origen' => $origen]);
+  }
+
+    public function index1(Request $request){
+
+
+    
+      if((! is_null($request->f1)) && (! is_null($request->origen))) {
+
+
+    
+
+    $f1 = $request->f1;
+    $f2 = $request->f2; 
+
+
+   $atenciones = DB::table('atenciones as a')
+   ->select('a.id','a.id_paciente','a.created_at','a.origen_usuario','a.pago_com_tec','a.origen','a.porc_pagar','a.id_servicio','es_laboratorio','a.pagado_com','a.id_paquete','a.id_laboratorio','a.es_servicio','a.es_laboratorio','a.monto','a.pendiente','a.porcentaje','a.abono','b.nombres','b.apellidos','c.detalle as servicio','e.name','e.lastname','d.name as laboratorio','p.detalle as paquete')
+   ->join('pacientes as b','b.id','a.id_paciente')
+   ->join('servicios as c','c.id','a.id_servicio')
+   ->join('analises as d','d.id','a.id_laboratorio')
+   ->join('users as e','e.id','a.origen_usuario')
+   ->join('paquetes as p','p.id','a.id_paquete')
+   //->whereBetween('a.created_at', [$f1, $f2])
+   ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+   ->where('a.origen_usuario','=',$request->origen)
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+   ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('a.id','desc')
+   ->paginate(20000);
+
+   $aten = Atenciones::where('id_sede','=', $request->session()->get('sede'))
+                                    ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+                                    ->where('origen_usuario','=',$request->origen)
+                                    ->whereNotIn('monto',[0,0.00,99999])
+                                     ->whereNotIn('origen_usuario',[99999999])
+                                     ->where('pendiente','=',0)
+                                     ->where('pagado_com','=', NULL)
+                                    ->select(DB::raw('SUM(porcentaje) as monto'))
+                                    ->first();
+        if ($aten->monto == 0) {
+        }
+
+         $origen = DB::table('atenciones as a')
+   ->select('a.id','a.origen_usuario','e.name','e.lastname','a.created_at')
+   ->join('users as e','e.id','a.origen_usuario')
+   ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+    ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('e.lastname','asc')
+   ->groupBy('a.origen_usuario')
+   ->get();
+
+
+ 
+
+
+ }else{
+
+   $atenciones = DB::table('atenciones as a')
+   ->select('a.id','a.id_paciente','a.created_at','a.origen_usuario','a.pago_com_tec','a.origen','a.porc_pagar','a.id_servicio','es_laboratorio','a.pagado_com','a.id_paquete','a.id_laboratorio','a.es_servicio','a.es_laboratorio','a.monto','a.pendiente','a.porcentaje','a.abono','b.nombres','b.apellidos','c.detalle as servicio','e.name','e.lastname','d.name as laboratorio','p.detalle as paquete')
+   ->join('pacientes as b','b.id','a.id_paciente')
+   ->join('servicios as c','c.id','a.id_servicio')
+   ->join('analises as d','d.id','a.id_laboratorio')
+   ->join('users as e','e.id','a.origen_usuario')
+   ->join('paquetes as p','p.id','a.id_paquete')
+   //->whereBetween('a.created_at', [$f1, $f2])
+   ->whereDate('created_at','=',Carbon::today()->toDateString())
+   ->where('e.lastname','like','%'.$request->origen.'%')
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+   ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('a.id','desc')
+   ->paginate(20000);
+
+   $aten = Atenciones::where('id_sede','=', $request->session()->get('sede'))
+                                    ->whereDate('created_at','=',Carbon::today()->toDateString())
+                                    ->whereNotIn('monto',[0,0.00])
+                                     ->whereNotIn('origen_usuario',[99999999])
+                                     ->where('pendiente','=',0)
+                                     ->where('pagado_com','=', NULL)
+                                    ->select(DB::raw('SUM(porcentaje) as monto'))
+                                    ->first();
+        if ($aten->monto == 0) {
+        }
+
+
+         $f1 = Carbon::today()->toDateString();
+         $f2 = Carbon::today()->toDateString(); 
+
+
+
+
+         $origen = DB::table('atenciones as a')
+   ->select('a.id','a.origen_usuario','e.name','e.lastname','a.created_at')
+   ->join('users as e','e.id','a.origen_usuario')
+   ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+   ->where('a.id_sede','=', $request->session()->get('sede'))
+    ->where('a.pago_com_tec','=',NULL)
+   ->whereNotIn('a.monto',[0,0.00,99999])
+   ->whereNotIn('a.origen_usuario',[99999999])
+   ->whereNotIn('a.porcentaje',[0,0.00,99999])
+   ->where('a.pendiente','=',0)
+   ->where('a.pagado_com','=', NULL)
+   ->orderby('e.lastname','asc')
+   ->groupBy('a.origen_usuario')
+   ->get();
+
+
+ }
+
+
+
+
+        return view('movimientos.comporpagar.index', ['atenciones' => $atenciones,'aten' => $aten,'f1' => $f1,'f2' => $f2,'origen' => $origen]);
+  }
 
    
 
-	public function pagarcom($id, Request $request) {
+  public function pagarcom($id, Request $request) {
 
           $last = Atenciones::select('recibo')->orderby('recibo', 'DESC')->first();
           if (!empty($last->recibo)) {
@@ -251,18 +426,19 @@ class ComporPagarController extends Controller
           Atenciones::where('id', $id)
                   ->update([
                       'pagado_com' => 1,
+                      'fecha_pago_comision' => Carbon::today()->toDateString(),
                       'recibo' => 'REC'.date('Y').'-'.str_pad($last+1, 4, "0", STR_PAD_LEFT)
                   ]);
-				  
-		  $historial = new Historiales();
+          
+      $historial = new Historiales();
           $historial->accion ='Registro';
           $historial->origen ='Comisiones por Pagar';
-		  $historial->detalle ='Comision Por Pagar';
+      $historial->detalle ='Comision Por Pagar';
           $historial->id_usuario = \Auth::user()->id;
           $historial->save();
      
     Toastr::success('La comisión ha sido pagada.', 'Comisiones!', ['progressBar' => true]);
-    return redirect()->route('comporpagar.index');
+    return back();
 
   }
 
@@ -275,10 +451,10 @@ class ComporPagarController extends Controller
         ->join('analises as d','d.id','a.id_laboratorio')
         ->join('users as e','e.id','a.origen_usuario')
        // ->join('profesionales as f','f.id','a.origen_usuario')
-	    ->where('a.id_sede','=', $request->session()->get('sede'))
-	    ->whereNotIn('a.monto',[0,0.00])
-		->whereNotIn('a.origen_usuario',[99999999])
-		->where('a.pendiente','=',0)
+      ->where('a.id_sede','=', $request->session()->get('sede'))
+      ->whereNotIn('a.monto',[0,0.00])
+    ->whereNotIn('a.origen_usuario',[99999999])
+    ->where('a.pendiente','=',0)
         ->where('a.pagado_com','=', NULL)
         ->where('e.name','like','%'.$nom.'%')
         ->where('e.lastname','like','%'.$ape.'%')
@@ -293,6 +469,9 @@ class ComporPagarController extends Controller
 
   public function pagarmultiple(Request $request)
   {
+
+  
+
     if(isset($request->com)){
       $last = Atenciones::select('recibo')->orderby('recibo', 'DESC')->first();
       if (!empty($last->recibo)) {
@@ -308,16 +487,18 @@ class ComporPagarController extends Controller
         Atenciones::where('id', $atencion)
                   ->update([
                       'pagado_com' => 1,
+                      'fecha_pago_comision' => Carbon::today()->toDateString(),
                       'recibo' => $recibo
                   ]);
       }
 
-      Toastr::success('Las comisiones han sido pagadas.', 'Comisiones!', ['progressBar' => true]);
     } 
 
-    return redirect()->route('comporpagar.index');
+      return back();
   }
        
    
 }
+
+
 

@@ -17,18 +17,20 @@ class GastosController extends Controller
   if(! is_null($request->fecha)) {
 
       $gastos = DB::table('debitos as a')
-      ->select('a.id','a.descripcion','a.monto','a.nombre','a.created_at','a.id_sede')
+      ->select('a.id','a.descripcion','a.monto','a.nombre','a.created_at','a.id_sede','a.origen')
       ->whereDate('a.created_at','=' ,$request->fecha)
       ->where('a.id_sede','=', $request->session()->get('sede'))
+      ->where('a.origen','=','RELACION DE GASTOS')
       ->orderby('a.id','desc')
       ->paginate(200000);  
 
     } else {
 
        $gastos = DB::table('debitos as a')
-      ->select('a.id','a.descripcion','a.monto','a.nombre','a.created_at','a.id_sede')
+      ->select('a.id','a.descripcion','a.monto','a.nombre','a.created_at','a.id_sede','a.origen')
       ->whereDate('a.created_at','=' ,Carbon::today()->toDateString())
       ->where('a.id_sede','=', $request->session()->get('sede'))
+            ->where('a.origen','=','RELACION DE GASTOS')
       ->orderby('a.id','desc')
       ->paginate(200000);  
 

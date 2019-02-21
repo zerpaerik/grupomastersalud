@@ -116,7 +116,7 @@ class MetodosController extends Controller
 		        "origen" => 'METODOS ANTICONCEPTIVOS',
 		        "descripcion" => 'METODOS ANTICONCEPTIVOS',
 		        "monto" => $request->monto,
-		        "tipo_ingreso" => 'EF',
+		        "tipo_ingreso" => $request->tipopago,
 		        "id_sede" => $request->session()->get('sede'),
 		        "id_metodo" => $metodos->id
 		      ]);
