@@ -350,6 +350,23 @@ class ProductoController extends Controller
 
    public function delete_venta($id)
   {
+
+     $venta = Ventas::where('id', '=',$id)->first();
+
+     $productoventa=$venta->id_producto;
+     $cantidadventa=$venta->cantidad;
+
+    $producto = Producto::where('id', '=',$productoventa)
+      ->get()->first();
+
+    $cantactual=$producto->cantidad;
+
+     Producto::where('id', $productoventa)
+                  ->update([
+                      'cantidad' => $cantactual + $cantidadventa,
+                  ]);
+
+
     $venta = Ventas::find($id);
     $venta->delete();
 
