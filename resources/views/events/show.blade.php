@@ -26,8 +26,8 @@
 		<p>Antecedentes patologicos: {{$historial->antecedentes_patologicos}}</p>
 		<p>Antecedentes Personales: {{$historial->antecedentes_personales}}</p>
 		<p>Antecedentes Familiares: {{$historial->antecedentes_familiar}}</p>
-		<p>Menarquia: {{$historial->menarquia}}</p>
-		<p>1º R.S : {{$historial->prs}}</p>
+		<p>Menarquia: {{$historial->menarquia}}</p> años
+		<p>1º R.S : {{$historial->prs}}</p> años
 
 	@else
 	<h4>Este usuario no cuenta con un historial base, por favor agregue uno</h4>
@@ -38,34 +38,83 @@
 				<input type="hidden" name="paciente_id" value="{{$data->pacienteId}}">
 				<input type="hidden" name="profesional_id" value="{{$data->profesionalId}}">
 				<h3>Antecedentes Medicos</h3>
+				<div class="row">
 
-				<label for="" class="col-sm-12">Antecedentes familiares</label>
-				<div class="col-sm-12">
-					<input required type="text" name="a_familiares">
+				<label for="" class="col-sm-3">Antecedentes familiares</label>
+				<div class="col-sm-3">
+					<select id="el12" name="af">
+							<option value="0">Seleccione</option>
+							<option value="1">Ninguno</option>
+							<option value="2">Otros</option>
+						</select>
 				</div>
-
-				<label for="" class="col-sm-12">Antecedentes personales</label>
-				<div class="col-sm-12">			
-					<input required type="text" name="a_personales">
-				</div>
-
-				<label for="" class="col-sm-12">Antecedentes patologicos</label>
-				<div class="col-sm-12">			
-					<input required type="text" name="a_patologicos">
+				<div class="col-sm-3">
+					<div id="af1"></div>
 				</div>
 
-				<label for="" class="col-sm-12">Alergias</label>
-				<div class="col-sm-12">
-					<input required type="text" name="alergias">
+
+
 				</div>
-				<label for="" class="col-sm-12">Menarquia</label>
-				<div class="col-sm-12">
-					<input type="text" name="menarquia">
+				<div class="row">
+
+				<label for="" class="col-sm-3">Antecedentes personales</label>
+				<div class="col-sm-3">			
+						<select id="el11" name="ap">
+														<option value="0">Seleccione</option>
+							<option value="1">Ninguno</option>
+							<option value="2">Otros</option>
+						</select>
 				</div>
-				<label for="" class="col-sm-12">1º R.S</label>
-				<div class="col-sm-12">
-					<input type="text" name="prs">
+
+				<div class="col-sm-3">
+					<div id="ap1"></div>
 				</div>
+			  </div>
+
+			  <div class="row">
+
+				<label for="" class="col-sm-3">Antecedentes patologicos</label>
+				<div class="col-sm-3">			
+					<select id="el14" name="apa">
+													<option value="0">Seleccione</option>
+							<option value="1">Ninguno</option>
+							<option value="2">Otros</option>
+						</select>
+				</div>
+					<div class="col-sm-3">
+					<div id="apa1"></div>
+				</div>
+
+				</div>
+				<div class="row">
+
+				<label for="" class="col-sm-3">Alergias</label>
+				<div class="col-sm-3">
+					<select id="el10" name="al">
+					<option value="0">Seleccione</option>
+					<option value="1">No</option>
+					<option value="2">Si</option>
+				</select>
+
+				</div>
+					<div class="col-sm-3">
+					<div id="alerg"></div>
+				</div>
+
+					</div>
+				
+
+
+				<label for="" class="col-sm-3">Menarquia</label>
+				<div class="col-sm-3">
+					<input type="text" name="menarquia"> años.
+				</div>
+				<label for="" class="col-sm-3">1º R.S</label>
+				<div class="col-sm-3">
+					<input type="text" name="prs"> años.
+				</div>
+			
+			
 				<br>
 				<div class="col-sm-12">
 					<input type="button" onclick="form.submit()" value="Registrar" class="btn btn-success">
@@ -77,33 +126,38 @@
 	<h2>Resultados anteriores de {{$data->nombres}} {{$data->apellidos}}</h2>
 	@foreach($consultas as $consulta)
 	<div class="rows">
-		<div class="col-sm-6">
+		<div class="col-sm-12">
 			<div class="rows">
 				<h3 class="col-sm-12"><strong>Consulta del {{$consulta->created_at}}</strong></h3>
-				<p class="col-sm-6"><strong>P/A:</strong> {{ $consulta->pa }}</p>
+				<p class="col-sm-6"><strong>P/A:</strong> {{ $consulta->pa }}mmhg-</p>
 
 				<p class="col-sm-6"><strong>Sed:</strong> {{ $consulta->sed }}</p>
 				<p class="col-sm-6"><strong>Apetito:</strong> {{ $consulta->apetito }}</p>
 				<p class="col-sm-6"><strong>Animo:</strong> {{ $consulta->animo }}</p>
-				<p class="col-sm-6"><strong>Frecuencia Micciones:</strong> {{ $consulta->orina }}</p>
-				<p class="col-sm-6"><strong>Frecuencia Deposiciones:</strong> {{ $consulta->deposiciones }}</p>
-				<p class="col-sm-6"><strong>Frecuencia Cardìaca:</strong> {{ $consulta->card }}</p>
+				<p class="col-sm-6"><strong>Frecuencia Micciones:</strong> {{ $consulta->orina }}c 24/hrs</p>
+				<p class="col-sm-6"><strong>Frecuencia Deposiciones:</strong> {{ $consulta->deposiciones }}c 24/hrs</p>
+				<p class="col-sm-6"><strong>Frecuencia Cardìaca:</strong> {{ $consulta->card }}x min</p>
 				<p class="col-sm-6"><strong>Pulso:</strong> {{ $consulta->pulso }}</p>
-				<p class="col-sm-6"><strong>Temperatura:</strong> {{ $consulta->temperatura }}</p>
-				<p class="col-sm-6"><strong>peso:</strong> {{ $consulta->peso }}</p>
+				<p class="col-sm-6"><strong>Temperatura:</strong> {{ $consulta->temperatura }}ºC</p>
+				<p class="col-sm-6"><strong>Peso:</strong> {{ $consulta->peso }} kG</p>
 				<p class="col-sm-6"><strong>FUR:</strong> {{ $consulta->fur }}</p>
 				<p class="col-sm-6"><strong>PAP:</strong> {{ $consulta->pap }}</p>
-			    <p class="col-sm-6"><strong>MAC:</strong> {{ $consulta->mac }}</p>
-				<p class="col-sm-6"><strong>P:</strong> {{ $consulta->p }}</p>
-				<p class="col-sm-6"><strong>G:</strong> {{ $consulta->g }}</p>
+			    <p class="col-sm-6"><strong>MAC:</strong> {{ $consulta->MAC }}</p>
+				<p class="col-sm-6"><strong>P:</strong> {{ $consulta->p }},<strong>G</strong>:{{ $consulta->g }}</p>
 				<p class="col-sm-6"><strong>Motivo de Consulta:</strong> {{ $consulta->motivo_consulta }}</p>
 				<p class="col-sm-6"><strong>Tipo de Enfermedad:</strong> {{ $consulta->tipo_enfermedad }}</p>
 				<p class="col-sm-6"><strong>Evolucion Enfermedad:</strong>{{ $consulta->evolucion_enfermedad }}</p>
-				<p class="col-sm-6"><strong>Examen Fisico Regional: </strong>{{ $consulta->examen_fisico_regional }}</p>
+				<p class="col-sm-6"><strong>Examen Fisico Regional: </strong></p>
+				<p class="col-sm-6"><strong>Piel/Mucosas: </strong>{{ $consulta->piel }}</p>
+				<p class="col-sm-6"><strong>Mamas: </strong>{{ $consulta->mamas }}</p>
+				<p class="col-sm-6"><strong>Abdomen: </strong>{{ $consulta->abdomen }}</p>
+				<p class="col-sm-6"><strong>Genitales Externos: </strong>{{ $consulta->genext }}</p>
+				<p class="col-sm-6"><strong>Genitales Internos: </strong>{{ $consulta->genint }}</p>
+				<p class="col-sm-6"><strong>Miembros Inferiores: </strong>{{ $consulta->miembros }}</p>
 				<p class="col-sm-6"><strong>Presuncion Diagnostica:</strong> {{ $consulta->presuncion_diagnostica }}</p>
 				<p class="col-sm-6"><strong>Diagnostico Final: </strong>{{ $consulta->diagnostico_final }}</p>
-				<p class="col-sm-6"><strong>CIEX:</strong> {{ $consulta->CIEX }}</p>
-				<p class="col-sm-6"><strong>CIEX: </strong>{{ $consulta->CIEX2 }}</p>
+				<p class="col-sm-6"><strong>CIEX Pres.Diag.:</strong> {{ $consulta->CIEX }}</p>
+				<p class="col-sm-6"><strong>CIEX Diag.Final: </strong>{{ $consulta->CIEX2 }}</p>
 				<p class="col-sm-6"><strong>Examen Auxiliar: </strong>{{ $consulta->examen_auxiliar }}</p>
 				<p class="col-sm-6"><strong>Plan de Tratamiento: </strong>{{ $consulta->plan_tratamiento }}</p>
 				<p class="col-sm-6"><strong>Proxima CITA </strong>{{ $consulta->prox }}</p>
@@ -123,7 +177,7 @@
 		<div class="form-group">
 			<input type="hidden" name="paciente_id" value="{{$data->pacienteId}}">
 			<input type="hidden" name="profesional_id" value="{{$data->profesionalId}}">
-			<input type="hidden" name="evento" value="{{$data->id}}">
+		    <input type="hidden" name="evento" value="{{$evento->id}}">
              <div class="row">
 			  <label class="col-sm-3">DEJAR PENDIENTE?:</label>
 			<div class="col-sm-2">
@@ -150,43 +204,55 @@
 		  </div>
 			 <label for="" class="col-sm-2 control-label">Apetito</label>
 			<div class="col-sm-4">
-				<input type="text" name="apetito" class="form-control">
+				<select id="el7" name="apetito">
+					<option value="Aumentado">Aumentado</option>
+					<option value="Normal">Normal</option>
+					<option value="Disminuido">Disminuido</option>
+				</select>
 			</div>
 			
 		
 			<label for="" class="col-sm-2 control-label">P/A</label>
 			<div class="col-sm-4">
-				<input type="text" name="pa" class="form-control">
+				<input type="text" name="pa" class="form-control" placeholder="mmgh-">
 			</div>
 			<label for="" class="col-sm-2 control-label">Sed:</label>
 			<div class="col-sm-4">	
-				<input  class="form-control" type="text" name="sed">
+				<select id="el8" name="sed">
+					<option value="Aumentado">Aumentado</option>
+					<option value="Normal">Normal</option>
+					<option value="Disminuido">Disminuido</option>
+				</select>
 			</div>
 			<label for=""class="col-sm-2 control-label">Frec.Cardìaca</label>
 			<div class="col-sm-4">
-				<input class="form-control" type="text" name="card">
+				<input class="form-control" type="text" name="card" placeholder="x min">
 			</div>
 			
 
 			<label for="" class="col-sm-2 control-label">Frecuencia.Micciones</label>
 			<div class="col-sm-4">	
-				<input   class="form-control" placeholder="Frecuencia Micciones" type="text" name="orina">
+				<input   class="form-control" placeholder="Frecuencia Micciones" type="text" name="orina" placeholder="c 24/hrs">
 			</div>
 			<label for="" class="col-sm-2 control-label">Peso</label>
 			<div class="col-sm-4">			
-				<input  class="form-control" type="text" name="peso">
+				<input  class="form-control" type="text" name="peso" placeholder="Kg">
 			</div>
 			<label for="" class="col-sm-2 control-label">Animo</label>
 			<div class="col-sm-4">	
-				<input   class="form-control" type="text" name="animo">
+				<select id="el9" name="animo">
+					<option value="Deprimido">Deprimido</option>
+					<option value="Eufòrico">Eufòrico</option>
+					<option value="Tendencia al llanto">Tendencia al llanto</option>
+				</select>
 			</div>
 			<label for="" class="col-sm-2 control-label">Temperatura</label>
 			<div class="col-sm-4">	
-				<input   class="form-control" type="text" name="temperatura">
+				<input   class="form-control" type="text" name="temperatura" placeholder="ºC">
 			</div>
 			<label for="" class="col-sm-2 control-label">Frecuencia.Deposiciones</label>
 			<div class="col-sm-4">	
-				<input  class="form-control" placeholder="Frecuencia Deposiciones" type="text" name="deposiciones">
+				<input  class="form-control" placeholder="Frecuencia Deposiciones" type="text" name="deposiciones" placeholder="c 24/hrs">
 			</div>
 			<label for="" class="col-sm-2 control-label">Pulso:</label>
 			<div class="col-sm-4">	
@@ -194,14 +260,22 @@
 			</div>
 			<label for="" class="col-sm-2 control-label">Evol.Enf</label>
 			<div class="col-sm-4">	
-				<input   class="form-control" placeholder="Evolucion de la enfermedad" type="text" name="evolucion_enfermedad">
+				<select id="el16" name="evolucion_enfermedad">
+					<option value="Insidioso">Insidioso</option>
+					<option value="Progresivo">Progresivo</option>
+					
+				</select>
 			</div>	
 			<label for="" class="col-sm-2 control-label">Tipo de enfermedad:</label>
 			<div class="col-sm-4">	
-				<input   class="form-control" type="text" name="tipo_enfermedad">
+					<select id="el15" name="tipo_enfermedad">
+					<option value="Agudo">Agudo</option>
+					<option value="Crònico">Crònico</option>
+					
+				</select>
 			</div>
 			<br>
-			<label for="" class="col-sm-12 control-label"><strong>Solo para pacientes Femeninas:</strong></label>
+		
 
 			<label for="" class="col-sm-2 control-label">FUR:</label>
 			<div class="col-sm-4">	
@@ -218,23 +292,45 @@
 				<input  class="form-control" type="text" name="mac">
 			</div>
 
-			<label for="" class="col-sm-2 control-label">P:</label>
-			<div class="col-sm-4">	
-				<input  class="form-control" type="text" name="p">
-			</div>
-
 			<label for="" class="col-sm-2 control-label">G:</label>
-			<div class="col-sm-4">	
+			<div class="col-sm-1">	
 				<input   class="form-control" type="text" name="g">
 			</div>
 
+			<label for="" class="col-sm-2 control-label">P:</label>
+			<div class="col-sm-1">	
+				<input  class="form-control" type="text" name="p">
+			</div>
+
+			
+
 
 			<br>
+			<div class="row">
 			<label class="col-sm-12" for="">Examen Fisico General y Regional</label>
-			<div class="col-sm-12">	
-				<input   class="form-control" type="text" name="examen_fisico_regional">
+			<div class="col-sm-2">Piel/Mucosas	
+				<input class="form-control" type="text" name="piel">
 			</div>
-			<br>
+			<div class="col-sm-2">Mamas	
+				<input class="form-control" type="text" name="mamas">
+			</div>
+			<div class="col-sm-2">Abdomen	
+				<input class="form-control" type="text" name="abdomen">
+			</div>
+			<div class="col-sm-2">Genitales Externos	
+				<input class="form-control" type="text" name="genext">
+			</div>
+			<div class="col-sm-2">Genitales Internos	
+				<input class="form-control" type="text" name="genint">
+			</div>
+			<div class="col-sm-2">Miembros Inferiores	
+				<input class="form-control" type="text" name="miembros">
+			</div>
+
+
+		    </div>
+
+
             <div class="row">
 			<label for="" class="col-sm-2 control-label">Pres.Diag</label>
 			<div class="col-sm-4">	
@@ -256,7 +352,7 @@
 			</div>
             
 		<div class="row">
-			<label for="" class="col-sm-2 ">Diag.Final</label>
+			<label for="" class="col-sm-2 control-label">Diag.Final</label>
 			<div class="col-sm-4">	
 				<input   class="form-control" placeholder="Diagnostica Final" type="text" name="diagnostico_final">
 			</div>
@@ -278,13 +374,19 @@
 			<div class="col-sm-4">	
 				<input   class="form-control" type="text" name="examen_auxiliar">
 			</div>
+
+			<label for="" class="col-sm-2 control-label"></label>
+			<div class="col-sm-4">	
+				<input   class="form-control" type="text" name="" disabled="true">
+			</div>
 			
 			
 			<div class="row">
-			<label for="" class="col-sm-3 control-label">Plan de Tratamiento</label>
+			<label for="" class="col-sm-2 control-label"><strong>Plan de Tratamiento:</strong></label>
+		    </div>
+
 			<div class="col-sm-12">	
 				<input   class="form-control" type="text" name="plan_tratamiento">
-			</div>
 			</div>
 
 			<label for="" class="col-sm-2 control-label">Observaciones</label>
@@ -295,24 +397,7 @@
 			<div class="col-sm-3">
 				<input type="date" name="prox" class="form-control" >
 			</div>
-
-
-
-
-
-
-			<label class="col-sm-2">Personal Responsable:</label>
-			<div class="col-sm-3">
-				<select id="el1" name="personal">
-					@foreach($personal as $per)
-					<option value="{{$per->name}},{{$per->lastname}}">
-						{{$per->name}} {{$per->lastname}}
-					</option>
-					@endforeach
-				</select>
-			</div> 
-
-				
+		
 			
 			<label class="col-sm-12 alert"><i class="fa fa-tasks" aria-hidden="true"></i> Materiales Usados</label>
             <!-- sheepIt Form -->
@@ -512,7 +597,24 @@ function Select2Test(){
 	$("#el3").select2();
   $("#el5").select2();
   $("#el4").select2();
-    $("#el6").select2();
+  $("#el6").select2();
+  $("#el7").select2();
+  $("#el8").select2();
+  $("#el9").select2();
+  $("#el10").select2();
+  $("#el11").select2();
+  $("#el12").select2();
+    $("#el13").select2();
+  $("#el14").select2();
+    $("#el15").select2();
+
+  $("#el16").select2();
+
+  $("#el17").select2();
+
+
+
+
 }
 $(document).ready(function() {
 	// Load script of Select2 and run this
@@ -535,6 +637,110 @@ function DemoTimePicker(){
 	});
 }
 </script>
+
+
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        $('#el12').on('change',function(){
+          var link;
+          if ($(this).val() ==  2) {
+            link = '/af/otros/';
+          } else {
+           link = '/af/ningunof/';
+          }
+
+          $.ajax({
+                 type: "get",
+                 url:  link,
+                 success: function(a) {
+                    $('#af1').html(a);
+                 }
+          });
+
+        });
+        
+
+      });
+       
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#el11').on('change',function(){
+          var link;
+          if ($(this).val() ==  2) {
+            link = '/ap/otros/';
+          } else {
+           link = '/ap/ningunop/';
+          }
+
+          $.ajax({
+                 type: "get",
+                 url:  link,
+                 success: function(a) {
+                    $('#ap1').html(a);
+                 }
+          });
+
+        });
+        
+
+      });
+       
+    </script>
+
+        <script type="text/javascript">
+      $(document).ready(function(){
+        $('#el14').on('change',function(){
+          var link;
+          if ($(this).val() ==  2) {
+            link = '/apa/otros/';
+          } else {
+           link = '/apa/ningunopa/';
+          }
+
+          $.ajax({
+                 type: "get",
+                 url:  link,
+                 success: function(a) {
+                    $('#apa1').html(a);
+                 }
+          });
+
+        });
+        
+
+      });
+       
+    </script>
+
+
+        <script type="text/javascript">
+      $(document).ready(function(){
+        $('#el10').on('change',function(){
+          var link;
+          if ($(this).val() ==  2) {
+            link = '/alerg/si/';
+          } else {
+           link = '/alerg/no/';
+          }
+
+          $.ajax({
+                 type: "get",
+                 url:  link,
+                 success: function(a) {
+                    $('#alerg').html(a);
+                 }
+          });
+
+        });
+        
+
+      });
+       
+    </script>
+
 
 
 @endsection

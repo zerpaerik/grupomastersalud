@@ -57,13 +57,13 @@
 				<p class="col-sm-6"><strong>Examen Fisico Regional: </strong>{{ $consulta->examen_fisico_regional }}</p>
 				<p class="col-sm-6"><strong>Presuncion Diagnostica:</strong> {{ $consulta->presuncion_diagnostica }}</p>
 				<p class="col-sm-6"><strong>Diagnostico Final: </strong>{{ $consulta->diagnostico_final }}</p>
-				<p class="col-sm-6"><strong>CIEX:</strong> {{ $consulta->CIEX1 }}</p>
-				<p class="col-sm-6"><strong>CIEX: </strong>{{ $consulta->CIEX2 }}</p>
+				<p class="col-sm-6"><strong>CIEX Pres.Diag:</strong> {{ $consulta->CIEX1 }}</p>
+				<p class="col-sm-6"><strong>CIEX Diag.Final: </strong>{{ $consulta->CIEX2 }}</p>
 				<p class="col-sm-6"><strong>Examen Auxiliar: </strong>{{ $consulta->examen_auxiliar }}</p>
 				<p class="col-sm-6"><strong>Plan de Tratamiento: </strong>{{ $consulta->plan_tratamiento }}</p>
 				<p class="col-sm-6"><strong>Proxima CITA </strong>{{ $consulta->prox }}</p>
 				<p class="col-sm-12"><strong>Atendido Por: </strong> {{ $consulta->personal }}</p>
-				<p class="col-sm-12"><strong>Observaciones: </strong> {{ $consulta->obervaciones }}</p>
+				<p class="col-sm-12"><strong>Observaciones: </strong> {{ $consulta->observaciones }}</p>
 
 				<br>
 			</div>

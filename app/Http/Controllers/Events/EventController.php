@@ -26,14 +26,14 @@ class EventController extends Controller
 
   public function index(Request $request)
   {
-	 $personal = DB::table('personals as e')
+   $personal = DB::table('personals as e')
     ->select('e.id','e.name','e.lastname','e.dni')
     ->join('events as p','p.profesional','=','e.id')
-	->groupBy('p.profesional')
+  ->groupBy('p.profesional')
     ->get();
-	
+  
 
-	
+  
     if($request->isMethod('get')){
       $calendar = false;
       return view('events.index', ["calendar" => $calendar, "especialistas" => $personal]);
@@ -55,7 +55,7 @@ class EventController extends Controller
     $f2 = $request->fecha2;    
 
     $event = DB::table('events as e')
-    ->select('e.id as EventId','e.paciente','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
+    ->select('e.id as EventId','e.paciente','e.tipo','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
     ->join('pacientes as p','p.id','=','e.paciente')
     ->join('personals as per','per.id','=','e.profesional')
     ->join('rangoconsultas as rg','rg.id','=','e.time')
@@ -66,7 +66,7 @@ class EventController extends Controller
   } else {
 
      $event = DB::table('events as e')
-    ->select('e.id as EventId','e.paciente','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
+    ->select('e.id as EventId','e.paciente','e.tipo','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
     ->join('pacientes as p','p.id','=','e.paciente')
     ->join('personals as per','per.id','=','e.profesional')
     ->join('rangoconsultas as rg','rg.id','=','e.time')
@@ -74,9 +74,11 @@ class EventController extends Controller
     ->where('e.sede','=',$request->session()->get('sede'))
     ->get();
 
-  
 
   }
+
+
+
 
     return view('consultas.index',[
       'eventos' => $event
@@ -88,8 +90,11 @@ class EventController extends Controller
     $consulta = Event::find($id);
     $consulta->delete();
 
+
     $creditos = Creditos::where('id_event','=',$id);
     $creditos->delete();
+
+
     return back();
   } 
 
@@ -140,33 +145,49 @@ class EventController extends Controller
               'time' => $request->time,
               'monto' => $request->monto
             ]);
+
+    DB::table('creditos')
+            ->where('id_event', $request->event)
+            ->update([
+              'monto' => $request->monto
+            ]);        
+     
+
+
   return redirect('consulta');            
   }
 
   public function show(Request $request,$id)
   {
     $event = DB::table('events as e')
-    ->select('e.id','e.paciente','e.title','e.profesional','e.tipo','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
+    ->select('e.id as evento','e.paciente','e.title','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
     ->join('pacientes as p','p.id','=','e.paciente')
     ->join('personals as per','per.id','=','e.profesional')
     ->join('rangoconsultas as rg','rg.id','=','e.time')
     ->where('e.id','=',$id)
     ->first();
 
+    $evento= DB::table('events')
+    ->select('*')
+    ->where('id','=',$id)
+    ->first();
+
+
     $edad = Carbon::parse($event->fechanac)->age;
     $historial = Historial::where('paciente_id','=',$event->pacienteId)->first();
     $consultas = Consulta::where('paciente_id','=',$event->pacienteId)->get();
     $personal = Personal::where('estatus','=',1)->get();
-	$productos = Producto::where('almacen','=',2)->where("sede_id", "=", $request->session()->get('sede'))->get();
+  $productos = Producto::where('almacen','=',2)->where("sede_id", "=", $request->session()->get('sede'))->get();
     $ciex = Ciex::all();
     return view('events.show',[
       'data' => $event,
       'historial' => $historial,
       'consultas' => $consultas,
       'personal' => $personal,
-	  'productos' => $productos,
+    'productos' => $productos,
       'ciex' => $ciex,
-      'edad' => $edad
+      'edad' => $edad,
+      'evento' => $evento
     ]);
   }
 
@@ -244,9 +265,8 @@ class EventController extends Controller
       ->where("time", "=", $request->time)
       ->get()->first();
     if(!$exists){
-   
-
-          $evt = new Event;
+    
+        $evt = new Event;
         $evt->paciente=$request->paciente;
         $evt->profesional=$request->especialista;
         $evt->date=Carbon::createFromFormat('d/m/Y', $request->date);
@@ -261,17 +281,17 @@ class EventController extends Controller
         "origen" => 'CONSULTAS',
         "descripcion" => 'CONSULTAS',
         "monto" => $request->monto,
-        "tipo_ingreso" =>  $request->tipopago,
-        "id_sede" => $request->session()->get('sede'), 
+        "tipo_ingreso" => $request->tipopago,
+        "id_sede" => $request->session()->get('sede'),
         "id_event" => $evt->id
       ]);
-	  
-	  $historial = new Historiales();
+    
+    $historial = new Historiales();
           $historial->accion ='Registro';
           $historial->origen ='Consultas';
-		  $historial->detalle = $paciente->nombres . " " . $paciente->apellidos . " Paciente.";
+      $historial->detalle = $paciente->nombres . " " . $paciente->apellidos . " Paciente.";
           $historial->id_usuario = \Auth::user()->id;
-		  $historial->sede = $request->session()->get('sede');
+      $historial->sede = $request->session()->get('sede');
           $historial->save();
     }
 
@@ -298,10 +318,10 @@ class EventController extends Controller
 
   public function createView($extra = []){
     $data = [
-	  "especialistas" => Personal::where('estatus','=',1)->get(),
+    "especialistas" => Personal::where('tipo','=','Especialista')->orwhere('tipo','=','Tecnòlogo')->orwhere('tipo','=','ProfSalud')->where('estatus','=','1')->get(),
       "pacientes" => Paciente::where('estatus','=',1)->get(),
       "tiempos" => RangoConsulta::all(),
-	  "ciex" => Ciex::all(),
+    "ciex" => Ciex::all(),
     ];
     return view('consultas.create', $data + $extra);
   }
