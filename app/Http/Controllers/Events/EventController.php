@@ -87,6 +87,9 @@ class EventController extends Controller
   {
     $consulta = Event::find($id);
     $consulta->delete();
+
+    $creditos = Creditos::where('id_event','=',$id);
+    $creditos->delete();
     return back();
   } 
 
