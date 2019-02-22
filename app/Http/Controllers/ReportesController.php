@@ -183,6 +183,8 @@ class ReportesController extends Controller
         return view('reportes.form_consolidado');
     }
 
+    
+
 
     public function relacion_diario(Request $request)
     {
@@ -235,6 +237,23 @@ class ReportesController extends Controller
             $cuentasXcobrar->monto = 0;
         }
 
+
+         $ventas = Creditos::where('origen', 'VENTA DE PRODUCTOS')
+                                    ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('Y-m-d 23:59:59', strtotime($request->fecha))])
+                                    ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
+                                    ->first();
+        if ($ventas->cantidad == 0) {
+            $ventas->monto = 0;
+        }
+
+        $punziones = Creditos::where('origen', 'VENTA DE PUNZIONES')
+                                    ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('Y-m-d 23:59:59', strtotime($request->fecha))])
+                                    ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
+                                    ->first();
+        if ($punziones->cantidad == 0) {
+            $punziones->monto = 0;
+        }
+
         $egresos = Debitos::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('Y-m-d 23:59:59', strtotime($request->fecha))])
 		                    ->where('id_sede','=', $request->session()->get('sede'))
                             ->where('mostrar','=',NULL)
@@ -271,7 +290,7 @@ class ReportesController extends Controller
             $metodos->monto = 0;
         }
 
-        $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $metodos->monto;
+        $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $ventas->monto + $punziones->monto;
 
         $totalEgresos = 0;
 
@@ -282,7 +301,10 @@ class ReportesController extends Controller
 
         $hoy=date('d-m-Y');
 
-        $view = \View::make('reportes.diario', compact('atenciones', 'consultas','otros_servicios', 'cuentasXcobrar', 'egresos', 'tarjeta', 'efectivo', 'totalEgresos', 'totalIngresos','metodos','hoy'));
+                $fecha= $request->fecha;
+
+
+        $view = \View::make('reportes.diario', compact('atenciones', 'consultas','otros_servicios', 'cuentasXcobrar', 'egresos', 'tarjeta', 'efectivo', 'totalEgresos', 'totalIngresos','metodos','hoy','fecha','ventas','punziones'));
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);

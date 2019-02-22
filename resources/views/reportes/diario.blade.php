@@ -61,7 +61,7 @@
 	</div> 
 </div>
 <div style="width: 49%;padding: 8px 5px;font-size: 18px;">
-		Fecha de Consulta: {{$hoy}}
+		Fecha de Consulta:{{date('d/m/Y', strtotime($fecha))}}
 </div>
 <div style="background: #eaeaea;">
 	<table>
@@ -91,9 +91,14 @@
 			<td>{{ $cuentasXcobrar->monto }}</td>
 		</tr>
 		<tr>
-			<td>Métodos Anticonceptivos</td>
-			<td>{{ $metodos->cantidad }}</td>
-			<td>{{ $metodos->monto }}</td>
+			<td>Ventas</td>
+			<td>{{ $ventas->cantidad }}</td>
+			<td>{{ $ventas->monto }}</td>
+		</tr>
+		<tr>
+			<td>Ventas Punziones</td>
+			<td>{{ $punziones->cantidad }}</td>
+			<td>{{ $punziones->monto }}</td>
 		</tr>
 		<tr>
 			<td>TOTAL</td>
