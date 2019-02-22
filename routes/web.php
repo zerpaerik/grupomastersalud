@@ -402,7 +402,15 @@ Route::get('proveedores-delete-{id}','Config\ProveedorController@delete');
 Route::get('categorias', 'Config\CategoriaController@index')->name('categorias.index');
 Route::get('categorias-create', 'Config\CategoriaController@createView')->name('categorias.create');
 Route::get('categorias-edit-{id}', 'Config\CategoriaController@editView')->name('categorias.edit');
+Route::get('af/otros','ConsultaController@af');
+Route::get('af/ningunof','ConsultaController@ningunof');
+Route::get('ap/otros','ConsultaController@ap');
+Route::get('ap/ningunop','ConsultaController@ningunop');
+Route::get('apa/otros','ConsultaController@apa');
+Route::get('apa/ningunopa','ConsultaController@ningunopa');
 
+Route::get('alerg/si','ConsultaController@alsi');
+Route::get('alerg/no','ConsultaController@alno');
 //Consultas
 Route::get('consulta','Events\EventController@all')->name('consultas.inicio')->middleware('auth');
 Route::get('consulta-edit-{id}','Events\EventController@editView_consulta')->name('consultas.edit')->middleware('auth');
