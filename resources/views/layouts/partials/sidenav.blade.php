@@ -103,6 +103,10 @@
         </ul>      
     </li>
 
+      <li>
+        <a href="{{route('ventas.index')}}"><i class="fa fa-plus-circle"></i> Listado de Ventas</a>
+      </li>
+
   </ul>
 </li>
 
@@ -410,6 +414,10 @@
         </ul>      
     </li>
 
+      <li>
+        <a href="{{route('ventas.index')}}"><i class="fa fa-plus-circle"></i> Listado de Ventas</a>
+      </li>
+
   </ul>
 </li>
 
@@ -655,6 +663,10 @@
 
         </ul>      
     </li>
+
+      <li>
+        <a href="{{route('ventas.index')}}"><i class="fa fa-plus-circle"></i> Listado de Ventas</a>
+      </li>
 
   </ul>
 </li>

@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Existencias\{Producto, Existencia, Transferencia};
 use App\Models\Config\{Medida, Categoria, Sede, Proveedor};
 use DB;
-use App\Models\Creditos;
+use App\Models\{Creditos, Ventas};
 use Toastr;
+use Carbon\Carbon;
+use Auth;
+
 
 
 class ProductoController extends Controller
@@ -128,6 +131,13 @@ class ProductoController extends Controller
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
               $creditos->save();
+
+               $ventas = new Ventas();
+              $ventas->id_producto = $request->producto;
+              $ventas->monto = $request->monto;
+              $ventas->cantidad= $request->cantidadplus;
+              $ventas->id_usuario = Auth::user()->id;
+              $ventas->save();
 			  
        Toastr::success('Registrada Exitosamente', 'Venta!', ['progressBar' => true]);
       return redirect()->action('Existencias\ProductoController@index2', ["created" => true]);
@@ -265,6 +275,76 @@ class ProductoController extends Controller
       $t = Transferencia::where('code', '=', $code)->get();
       return view('existencias.transferencia', ["transferencias" => $t, "code" => $code]);
     }
+
+       public function indexv(Request $request){
+
+       if(! is_null($request->fecha)) {
+
+    $f1 = $request->fecha;
+    $f2 = $request->fecha2;    
+
+
+          $atenciones = DB::table('ventas as a')
+            ->select('a.id','a.id_producto','a.created_at','a.monto','a.id_usuario','a.cantidad','e.name','e.lastname','b.nombre','b.codigo')
+            ->join('users as e','e.id','a.id_usuario')
+            ->join('productos as b','b.id','a.id_producto')
+            ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+            ->orderby('a.id','desc')
+            ->get();
+
+           $aten = Ventas::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
+                                    ->select(DB::raw('SUM(monto) as monto'))
+                                    ->first();
+
+            if ($aten->monto == 0) {
+        }
+          
+           $cantidad = Ventas::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
+                        ->select(DB::raw('COUNT(*) as cantidad'))
+                       ->first();
+
+        if ($cantidad->cantidad == 0) {
+        }
+
+
+        
+
+
+        } else {
+
+
+           $atenciones = DB::table('ventas as a')
+            ->select('a.id','a.id_producto','a.created_at','a.monto','a.id_usuario','a.cantidad','e.name','e.lastname','b.nombre','b.codigo')
+            ->join('users as e','e.id','a.id_usuario')
+            ->join('productos as b','b.id','a.id_producto')
+            ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
+            ->orderby('a.id','desc')
+            ->get();
+           
+
+        $aten = Ventas::whereDate('created_at', '=',Carbon::today()->toDateString())
+                                    ->select(DB::raw('SUM(monto) as monto'))
+                                    ->first();
+        if ($aten->monto == 0) {
+        }
+
+            $cantidad = Ventas::whereDate('created_at', '=',Carbon::today()->toDateString())
+                        ->select(DB::raw('COUNT(*) as cantidad'))
+                       ->first();
+
+        if ($cantidad->cantidad == 0) {
+        }
+
+
+
+
+
+        }
+
+
+        return view('existencias.ventas.index', ["atenciones" => $atenciones, "aten" => $aten,"cantidad" => $cantidad]);
+  }
+
 
     function unique_multidim_array($array, $key) { 
         $temp_array = array(); 
