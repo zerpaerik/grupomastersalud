@@ -122,6 +122,13 @@ class ProductoController extends Controller
                   ->update([
                       'cantidad' => $cantidadactual - $request->cantidadplus,
                   ]);
+
+               $ventas = new Ventas();
+              $ventas->id_producto = $request->producto;
+              $ventas->monto = $request->monto;
+              $ventas->cantidad= $request->cantidadplus;
+              $ventas->id_usuario = Auth::user()->id;
+              $ventas->save();        
 				  
 		      $creditos = new Creditos();
               $creditos->origen = 'VENTA DE PRODUCTOS';
@@ -130,14 +137,10 @@ class ProductoController extends Controller
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
+              $creditos->id_venta= $ventas->id;
               $creditos->save();
 
-               $ventas = new Ventas();
-              $ventas->id_producto = $request->producto;
-              $ventas->monto = $request->monto;
-              $ventas->cantidad= $request->cantidadplus;
-              $ventas->id_usuario = Auth::user()->id;
-              $ventas->save();
+          
 			  
        Toastr::success('Registrada Exitosamente', 'Venta!', ['progressBar' => true]);
       return redirect()->action('Existencias\ProductoController@index2', ["created" => true]);
@@ -344,6 +347,16 @@ class ProductoController extends Controller
 
         return view('existencias.ventas.index', ["atenciones" => $atenciones, "aten" => $aten,"cantidad" => $cantidad]);
   }
+
+   public function delete_venta($id)
+  {
+    $venta = Ventas::find($id);
+    $venta->delete();
+
+    $creditos = Creditos::where('id_venta','=',$id);
+    $creditos->delete();
+    return back();
+  } 
 
 
     function unique_multidim_array($array, $key) { 

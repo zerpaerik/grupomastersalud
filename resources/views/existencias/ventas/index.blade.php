@@ -81,6 +81,7 @@
 							<th>Monto</th>
 							<th>Usuario</th>
 						    <th>Fecha</th>
+						    <th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -93,6 +94,9 @@
 						        <td>{{$atec->monto}}</td>
 								<td>{{$atec->name}},{{$atec->lastname}}</td>
 								<td>{{$atec->created_at}}</td>
+								<td>
+									<a class="btn btn-danger" href="ventas-delete-{{$atec->id}}"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
