@@ -19,12 +19,14 @@ use App\User;
 use Auth;
 use Carbon\Carbon;
 use Toastr;
+use App\Models\Events\{Event, RangoConsulta};
+
 
 class AtencionesController extends Controller
 
 {
 
-	public function index(Request $request){
+  public function index(Request $request){
     $initial = Carbon::now()->toDateString();
     $atenciones = $this->elasticSearch($initial,'','',$request);
     return view('movimientos.atenciones.index', [
@@ -84,7 +86,7 @@ class AtencionesController extends Controller
 
    
 
-	public function createView() {
+  public function createView() {
 
     //$servicios = Servicios::all();
     //$laboratorios = Analisis::all();
@@ -139,10 +141,18 @@ class AtencionesController extends Controller
 
   public function create(Request $request)
   {
-	
+    if(is_null($request->origen_usuario) && ($request->origen <> 3)){
+      Toastr::error('Debe Seleccionar un Origen', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+
+    return back();
+  }
+
+
+
+  
    if($request->origen == 3){
-	   
-	   if (is_null($request->id_servicio['servicios'][0]['servicio']) && is_null($request->id_laboratorio['laboratorios'][0]['laboratorio'])){
+     
+     if (is_null($request->id_servicio['servicios'][0]['servicio']) && is_null($request->id_laboratorio['laboratorios'][0]['laboratorio'])){
       return redirect()->route('atenciones.create');
     }
 
@@ -160,7 +170,7 @@ class AtencionesController extends Controller
               $paq->id_paquete = $paquete->id;
               $paq->comollego = $request->comollego;
               $paq->es_paquete =  true;
-			  $paq->serv_prog = FALSE;
+        $paq->serv_prog = FALSE;
               $paq->tipopago = $request->tipopago;
               $paq->porc_pagar = $paquete->porcentaje;
               $paq->pendiente = (float)$request->monto_p['paquetes'][$key]['monto'] - (float)$request->monto_abop['paquetes'][$key]['abono'];
@@ -188,10 +198,10 @@ class AtencionesController extends Controller
 
         }
       }
-	  
-	         
-	////////// guardar servicios y analisis que conforman el paquete
-	 if(! is_null($request->id_paquete)){
+    
+           
+  ////////// guardar servicios y analisis que conforman el paquete
+   if(! is_null($request->id_paquete)){
      foreach ($request->id_paquete as $key => $value) {
 
         $searchServPaq = DB::table('paquete_servicios')
@@ -199,18 +209,19 @@ class AtencionesController extends Controller
                    // ->where('estatus','=','1')
         ->where('paquete_id','=', $value)
         ->get();
-		
-		
+    
+    
 
         foreach ($searchServPaq as $serv) {
             $id_servicio = $serv->servicio_id;
-			
-			$servdetalle =  DB::table('servicios')
-			->select('*')
-			->where('id','=',$id_servicio)
-			->first();
-			
-			$detalle = $servdetalle->detalle;
+      
+      $servdetalle =  DB::table('servicios')
+      ->select('*')
+      ->where('id','=',$id_servicio)
+      ->first();
+      
+      $detalle = $servdetalle->detalle;
+      $sesion = $servdetalle->sesion;
 
             if(! is_null($id_servicio)){
               $s = new Atenciones();
@@ -222,15 +233,16 @@ class AtencionesController extends Controller
               $s->id_paquete = 1;
               $s->comollego = $request->comollego;
               $s->es_paquete =  0;
-			  $s->es_servicio =  1;
+        $s->es_servicio =  1;
               $s->es_laboratorio =  0;
-			  $s->serv_prog = FALSE;
+        $s->serv_prog = FALSE;
               $s->tipopago = $request->tipopago;
               $s->porc_pagar = 0;
               $s->pendiente = 0;
               $s->monto = 99999;
               $s->abono = 0;
               $s->porcentaje =0;
+              $s->sesion =$sesion;
               $s->id_sede =$request->session()->get('sede');
               $s->estatus = 1;
               $s->particular = $request->particular;
@@ -251,7 +263,7 @@ class AtencionesController extends Controller
 
 
             if(!is_null($id_laboratorio)){
-			  $l = new Atenciones();
+        $l = new Atenciones();
               $l->id_paciente = $request->id_paciente;
               $l->origen = $request->origen;
               $l->origen_usuario = 99999999;
@@ -260,9 +272,9 @@ class AtencionesController extends Controller
               $l->id_paquete = 1;
               $l->comollego = $request->comollego;
               $l->es_paquete =  0;
-			  $l->es_servicio =  0;
+        $l->es_servicio =  0;
               $l->es_laboratorio = 1;
-			  $l->serv_prog = FALSE;
+        $l->serv_prog = FALSE;
               $l->tipopago = $request->tipopago;
               $l->porc_pagar = 0;
               $l->pendiente = 0;
@@ -279,18 +291,100 @@ class AtencionesController extends Controller
          }
         }
 
+         
+        $paciente = DB::table('pacientes')
+        ->select('*')
+        ->where('id','=', $request->id_paciente)
+        ->first();
+          
+         $searchConsPaq = DB::table('paquete_consultas')
+        ->select('*')
+        ->where('paquete_id','=', $value)
+        ->get();
+
+                if(count($searchConsPaq) > 0){
+
+
+          foreach ($searchConsPaq as $cons) {
+            $cantidad=$cons->cantidad;
+             }
+
+
+
+         $contador=0;
+         
+        while ($contador < $cantidad) {
+        
+        $evt = new Event;
+        $evt->paciente=$request->id_paciente;
+        $evt->profesional=36;
+        $evt->date=date('Y-m-d');
+        $evt->time=17;
+        $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
+        $evt->monto=0;
+        $evt->sede=$request->session()->get('sede');
+        $evt->tipo='CONSULTAS';
+        $evt->save();
+
+           $contador++;
+         } 
+
+       }
+
+
+           $searchContPaq = DB::table('paquete_controles')
+        ->select('*')
+        ->where('paquete_id','=', $value)
+        ->get();
+
+
+        $paciente = DB::table('pacientes')
+        ->select('*')
+        ->where('id','=', $request->id_paciente)
+        ->first();
+
+                if(count($searchContPaq) > 0){
+
+
+          foreach ($searchContPaq as $cons) {
+            $cantidad=$cons->cantidad;
+             }
+
+
+
+         $contador=0;
+         
+        while ($contador < $cantidad) {
+        
+        $evt = new Event;
+        $evt->paciente=$request->id_paciente;
+        $evt->profesional=36;
+        $evt->date=date('Y-m-d');
+        $evt->time=17;
+        $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
+        $evt->monto=0;
+        $evt->sede=$request->session()->get('sede');
+        $evt->tipo='CONTROLES';
+        $evt->save();
+
+           $contador++;
+         }   
+
+         } 
+   
+
 
 }
 }
-	
-		
-		
+  
+    
+    
 
-	//////////
-		
-				
-			
-					
+  //////////
+    
+        
+      
+          
     }
 
     if (isset($request->id_servicio)) {
@@ -298,17 +392,18 @@ class AtencionesController extends Controller
               ->select('*')
               ->where('id','=', $request->id_servicio)
               ->first();  
-			  
+        
      // $porcentaje = $searchServicio->porcentaje;
-	  $programa = $searchServicio->programa;
-	  
-	  if ($request->origen == 1 ){
-		    $porcentaje = $searchServicio->por_per;
-	  } else {
-		    $porcentaje = $searchServicio->porcentaje;
-	  }
-	  
-	
+    $programa = $searchServicio->programa;
+    $sesion= $searchServicio->sesion;
+    
+    if ($request->origen == 1 ){
+        $porcentaje = $searchServicio->por_per;
+    } else {
+        $porcentaje = $searchServicio->porcentaje;
+    }
+    
+  
       foreach ($request->id_servicio['servicios'] as $key => $servicio) {
         if (!is_null($servicio['servicio'])) {
               $serMateriales = ServicioMaterial::where('servicio_id', $servicio['servicio'])
@@ -329,7 +424,8 @@ class AtencionesController extends Controller
               $serv->id_paquete =  1;
               $serv->id_servicio =  $servicio['servicio'];
               $serv->es_servicio =  true;
-			  $serv->serv_prog =  $programa;
+              $serv->serv_prog =  $programa;
+              $serv->sesion =  $sesion;
               $serv->tipopago = $request->tipopago;
               $serv->porc_pagar = $porcentaje;
               $serv->comollego = $request->comollego;
@@ -340,8 +436,8 @@ class AtencionesController extends Controller
               $serv->id_sede = $request->session()->get('sede');
               $serv->estatus = 1;
               $serv->particular = $request->particular;
-                            $serv->usuario = Auth::user()->id;
-                                          $serv->ticket =AtencionesController::generarId($request);
+              $serv->usuario = Auth::user()->id;
+              $serv->ticket =AtencionesController::generarId($request);
               $serv->save(); 
 
               $creditos = new Creditos();
@@ -370,8 +466,10 @@ class AtencionesController extends Controller
 
     if ($request->origen == 2 ){
         $porcentaje = $searchAnalisis->porcentaje;
-    } else {
+    } elseif($request->origen == 1) {
         $porcentaje = 0;
+    } else {
+      $porcentaje=0;
     }           
 
       foreach ($request->id_laboratorio['laboratorios'] as $key => $laboratorio) {
@@ -387,7 +485,7 @@ class AtencionesController extends Controller
           $lab->es_laboratorio =  true;
           $lab->tipopago = $request->tipopago;
           $lab->porc_pagar = $porcentaje;
-		  $lab->serv_prog = FALSE;
+          $lab->serv_prog = FALSE;
           $lab->comollego = $request->comollego;
           $lab->pendiente = (float)$request->monto_l['laboratorios'][$key]['monto'] - (float)$request->monto_abol['laboratorios'][$key]['abono'];
           $lab->monto = (float)$request->monto_l['laboratorios'][$key]['monto'];
@@ -397,8 +495,8 @@ class AtencionesController extends Controller
           $lab->id_sede = $request->session()->get('sede');
           $lab->estatus = 1;
           $lab->particular = $request->particular;
-                        $lab->usuario = Auth::user()->id;
-                                      $lab->ticket =AtencionesController::generarId($request);
+       $lab->usuario = Auth::user()->id;
+         $lab->ticket =AtencionesController::generarId($request);
           $lab->save();
 
           $creditos = new Creditos();
@@ -414,9 +512,9 @@ class AtencionesController extends Controller
         }
       }
     }
-		
-		
-  } else {		
+    
+    
+  } else {    
     
     $searchUsuarioID = DB::table('users')
                     ->select('*')
@@ -442,7 +540,7 @@ class AtencionesController extends Controller
               $paq->id_paquete = $paquete->id;
               $paq->comollego = $request->comollego;
               $paq->es_paquete =  true;
-			      $paq->serv_prog = FALSE;
+            $paq->serv_prog = FALSE;
               $paq->tipopago = $request->tipopago;
               $paq->porc_pagar = $paquete->porcentaje;
               $paq->pendiente = (float)$request->monto_p['paquetes'][$key]['monto'] - (float)$request->monto_abop['paquetes'][$key]['abono'];
@@ -470,8 +568,8 @@ class AtencionesController extends Controller
 
         }
       }
-	  //////
-	   if(! is_null($request->id_paquete)){
+    //////
+     if(! is_null($request->id_paquete)){
      foreach ($request->id_paquete as $key => $value) {
 
         $searchServPaq = DB::table('paquete_servicios')
@@ -479,18 +577,28 @@ class AtencionesController extends Controller
                    // ->where('estatus','=','1')
         ->where('paquete_id','=', $value)
         ->get();
-		
-		
+
+
+
+    
+
+    
 
         foreach ($searchServPaq as $serv) {
             $id_servicio = $serv->servicio_id;
-			
-			$servdetalle =  DB::table('servicios')
-			->select('*')
-			->where('id','=',$id_servicio)
-			->first();
-			
-			$detalle = $servdetalle->detalle;
+      
+      $servdetalle =  DB::table('servicios')
+      ->select('*')
+      ->where('id','=',$serv->servicio_id)
+      ->first();
+
+     
+
+
+
+      
+      $detalle = $servdetalle->detalle;
+      $sesion= $servdetalle->sesion;
 
             if(! is_null($id_servicio)){
               $s = new Atenciones();
@@ -502,13 +610,14 @@ class AtencionesController extends Controller
               $s->id_paquete = 1;
               $s->comollego = $request->comollego;
               $s->es_paquete =  FALSE;
-			        $s->es_servicio =  1;
+              $s->es_servicio =  1;
               $s->es_laboratorio =  FALSE;
-			        $s->serv_prog = FALSE;
+              $s->serv_prog = FALSE;
               $s->tipopago = $request->tipopago;
               $s->porc_pagar = 0;
               $s->pendiente = 0;
               $s->monto = 99999;
+              $s->sesion = $sesion;
               $s->abono = 0;
               $s->porcentaje =0;
               $s->id_sede =$request->session()->get('sede');
@@ -531,7 +640,7 @@ class AtencionesController extends Controller
 
 
             if(! is_null($id_laboratorio)){
-			  $l = new Atenciones();
+        $l = new Atenciones();
               $l->id_paciente = $request->id_paciente;
               $l->origen = $request->origen;
               $l->origen_usuario = $searchUsuarioID->id;
@@ -540,9 +649,9 @@ class AtencionesController extends Controller
               $l->id_paquete = 1;
               $l->comollego = $request->comollego;
               $l->es_paquete =  FALSE;
-			  $l->es_servicio =  FALSE;
+        $l->es_servicio =  FALSE;
               $l->es_laboratorio = 1;
-			  $l->serv_prog = FALSE;
+        $l->serv_prog = FALSE;
               $l->tipopago = $request->tipopago;
               $l->porc_pagar = 0;
               $l->pendiente = 0;
@@ -559,10 +668,127 @@ class AtencionesController extends Controller
          }
         }
 
+        $paciente = DB::table('pacientes')
+        ->select('*')
+        ->where('id','=', $request->id_paciente)
+        ->first();
+
+        $searchConsPaq = DB::table('paquete_consultas')
+        ->select('*')
+        ->where('paquete_id','=', $value)
+        ->get();
+
+        
+        if(count($searchConsPaq) > 0){
+    
+          foreach ($searchConsPaq as $cons) {
+            $cantidad=$cons->cantidad;
+             }
+
+
+
+         $contador=0;
+         
+        while ($contador < $cantidad) {
+        
+        $evt = new Event;
+        $evt->paciente=$request->id_paciente;
+        $evt->profesional=36;
+        $evt->date=date('Y-m-d');
+        $evt->time=17;
+        $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
+        $evt->monto=0;
+        $evt->sede=$request->session()->get('sede');
+        $evt->tipo='CONSULTAS';
+        $evt->save();
+
+           $contador++;
+         } 
+
+          } 
+
+$paciente = DB::table('pacientes')
+        ->select('*')
+        ->where('id','=', $request->id_paciente)
+        ->first();
+
+           $searchContPaq = DB::table('paquete_controles')
+        ->select('*')
+        ->where('paquete_id','=', $value)
+        ->get();
+
+
+        
+
+        if(count($searchContPaq) > 0){
+
+
+          foreach ($searchContPaq as $cons) {
+            $cantidad=$cons->cantidad;
+             }
+
+
+
+         $contador=0;
+         
+        while ($contador < $cantidad) {
+        
+        $evt = new Event;
+        $evt->paciente=$request->id_paciente;
+        $evt->profesional=36;
+        $evt->date=date('Y-m-d');
+        $evt->time=17;
+        $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
+        $evt->monto=0;
+        $evt->sede=$request->session()->get('sede');
+        $evt->tipo='CONTROLES';
+        $evt->save();
+
+           $contador++;
+         }   
+
+          }   
+   
+
+
+
+        ////
+        /*EJEMPLO
+
+         $contador=1;
+          if(count($searchContador) ==0){
+            $contador=1;
+          
+            $correlativo = new Correlativo;
+            $correlativo->contador=$contador;
+            $correlativo->id_org=$id_org;
+            $correlativo->id_dep=$id_dep;
+            $correlativo->id_tipo_correspondencia=$id_tipo_correspondencia;
+            $correlativo->tipo_correlativo='2';
+            $correlativo->save();
+
+          
+        } else {
+         foreach ($searchContador as $correlativo){
+            $contador=$correlativo->contador+1;
+
+         
+            $correlativo=Correlativo::findOrFail($correlativo->id);
+            $correlativo->contador=$contador;
+            $correlativo->updated_at=date('Y-m-d H:i:s');
+            $correlativo->update();
+
+        } 
+
+
+
+
+        */
+
 
 }
 }
-	  //////
+    //////
     }
 
     if (isset($request->id_servicio)) {
@@ -570,17 +796,20 @@ class AtencionesController extends Controller
               ->select('*')
               ->where('id','=', $request->id_servicio)
               ->first();  
-			  
+        
      // $porcentaje = $searchServicio->porcentaje;
-	  $programa = $searchServicio->programa;
-	  
-	  if ($request->origen == 1 ){
-		    $porcentaje = $searchServicio->por_per;
-	  } else {
-		    $porcentaje = $searchServicio->porcentaje;
-	  }
-	  
-	
+    $programa = $searchServicio->programa;
+    $sesion = $searchServicio->sesion;
+
+
+    
+    if ($request->origen == 1 ){
+        $porcentaje = $searchServicio->por_per;
+    } else {
+        $porcentaje = $searchServicio->porcentaje;
+    }
+    
+  
       foreach ($request->id_servicio['servicios'] as $key => $servicio) {
         if (!is_null($servicio['servicio'])) {
               $serMateriales = ServicioMaterial::where('servicio_id', $servicio['servicio'])
@@ -601,7 +830,8 @@ class AtencionesController extends Controller
               $serv->id_paquete =  1;
               $serv->id_servicio =  $servicio['servicio'];
               $serv->es_servicio =  true;
-			  $serv->serv_prog =  $programa;
+              $serv->serv_prog =  $programa;
+              $serv->sesion =  $sesion;
               $serv->tipopago = $request->tipopago;
               $serv->porc_pagar = $porcentaje;
               $serv->comollego = $request->comollego;
@@ -638,7 +868,12 @@ class AtencionesController extends Controller
                     ->where('id','=', $request->id_laboratorio)
                     ->first();   
                    
-                   $porcentaje =  $searchAnalisis->porcentaje;
+                   
+    if ($request->origen == 2 ){
+        $porcentaje = $searchAnalisis->porcentaje;
+    } else {
+      $porcentaje=0;
+    }   
 
       foreach ($request->id_laboratorio['laboratorios'] as $key => $laboratorio) {
         if (!is_null($laboratorio['laboratorio'])) {
@@ -652,7 +887,7 @@ class AtencionesController extends Controller
           $lab->es_laboratorio =  true;
           $lab->tipopago = $request->tipopago;
           $lab->porc_pagar = $porcentaje;
-		  $lab->serv_prog = FALSE;
+      $lab->serv_prog = FALSE;
           $lab->comollego = $request->comollego;
           $lab->pendiente = (float)$request->monto_l['laboratorios'][$key]['monto'] - (float)$request->monto_abol['laboratorios'][$key]['abono'];
           $lab->monto = (float)$request->monto_l['laboratorios'][$key]['monto'];
@@ -679,12 +914,14 @@ class AtencionesController extends Controller
         }
       }
     }
-	}
-	
-	
-    	 Toastr::success('Registrado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+  }
+  
+  
+       Toastr::success('Registrado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+
 
     return redirect()->route('atenciones.index');
+     
   }
 
   public function personal(){
@@ -706,6 +943,7 @@ class AtencionesController extends Controller
                    // ->where('estatus','=','1')
                     ->where('tipo','=','2')
                     ->orderBy('lastname','asc')
+                    ->whereNotIn('id',[99999999])
                     ->get();  
 
     return view('movimientos.atenciones.profesional', compact('profesional'));
@@ -793,8 +1031,8 @@ class AtencionesController extends Controller
     ->where('a.id_sede','=', $request->session()->get('sede'))
     ->orderby('a.id','desc')
     ->paginate(20);
-	
-	
+  
+  
 
     return $atenciones;
   }*/
@@ -815,8 +1053,8 @@ class AtencionesController extends Controller
     ->where('a.id_sede','=', $request->session()->get('sede'))
     ->where('b.nombres','like','%'.$nombre.'%')
     ->where('b.apellidos','like','%'.$apellido.'%')
-    ->groupBy('a.id')
     ->orderby('a.id','desc')
+    ->groupBy('a.id')
     ->get();
   
   
@@ -827,27 +1065,27 @@ class AtencionesController extends Controller
    public function delete($id){
     $atenciones = Atenciones::find($id);
     $atenciones->delete();
-	
-	$creditos = Creditos::where('id_atencion','=',$id);
+  
+  $creditos = Creditos::where('id_atencion','=',$id);
     $creditos->delete();
   
-	 Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
 
      return redirect()->action('AtencionesController@index', ["created" => true, "atenciones" => Atenciones::all()]);
-	
+  
   }
   
   public function asoc(Request $request,$id){
     $atenciones = Atenciones::find($id);
-	$atenciones->informe = $request->informe;
+  $atenciones->informe = $request->informe;
     $atenciones->save();
-	
-	$creditos = Creditos::where('id_atencion','=',$id);
+  
+  $creditos = Creditos::where('id_atencion','=',$id);
     $creditos->delete();
   
-	 Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
 
      return redirect()->action('AtencionesController@index', ["created" => true, "atenciones" => Atenciones::all()]);
-	
+  
   }
 }

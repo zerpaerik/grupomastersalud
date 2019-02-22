@@ -74,6 +74,7 @@ class EventController extends Controller
     ->where('e.sede','=',$request->session()->get('sede'))
     ->get();
 
+  
 
   }
 
