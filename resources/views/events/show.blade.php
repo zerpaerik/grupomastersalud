@@ -265,7 +265,7 @@
 			<div class="col-sm-4">
 				<select id="el4" name="ciex2">
 					@foreach($ciex as $c)
-					<option value="{{$c->nombre}}">
+					<option value="{{$c->codigo}}-{{$c->nombre}}">
 						{{$c->codigo}}-{{$c->nombre}}
 					</option>
 					@endforeach
