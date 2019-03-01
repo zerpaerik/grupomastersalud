@@ -72,6 +72,7 @@
 							<th>Monto Pendiente</th>
 							<th>Fecha</th>
 							<th>Recibo</th>
+							<th>Ticket</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,6 +90,9 @@
 								<td>
 						       <a target="_blank" href="{{asset('recibo_cobro_ver')}}/{{$atec->id}}" class="btn btn-xs btn-danger">Recibo</a>
 
+								</td>
+								<td>
+									<a target="_blank" class="btn btn-primary" href="{{asset('ticket-ver')}}-{{$atec->id}}">Ver Ticket</a>
 								</td>
 							</tr>
 						@endforeach

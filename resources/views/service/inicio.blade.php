@@ -9,7 +9,8 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-linux"></i>
-					<span>Listado de Ventas</span>
+					<span>Programacion</span>
+					<a href="{{route('service.create')}}" class="btn btn-success">Agregar</a>
 
 				</div>
 
@@ -29,7 +30,7 @@
 				<div class="no-move"></div>
 				
 			</div>
-			{!! Form::open(['method' => 'get', 'route' => ['ventas.index']]) !!}
+			{!! Form::open(['method' => 'get', 'route' => ['service.inicio']]) !!}
 
 			<div class="row">
 				<div class="col-md-2">
@@ -59,59 +60,53 @@
 				</div>
 			</div>	
 
-			<div class="row">
-				<div class="col-md-2">
-				<strong>Total:</strong>{{$aten->monto}} Soles
-			   </div>
-
-			   <div class="col-md-2">
-				<strong>Cantidad:</strong>{{$cantidad->cantidad}} Venta
-			   </div>
-				
-			</div>
-
-
 			<div class="box-content no-padding">
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
 					<thead>
 						<tr>
-							<th>Nro</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Monto</th>
-							<th>Usuario</th>
-						    <th>Fecha</th>
-						    <th>Acciones</th>
+							<th>Id</th>
+							<th>Paciente</th>
+							<th>Especialista</th>
+							<th>Fecha</th>
+							<th>Horas</th>
+							<th>Acciones:</th>
 						</tr>
 					</thead>
 					<tbody>
-                         @foreach($atenciones as $atec)	
 
-							<tr>
-								<td>{{$atec->id}}</td>
-								<td>{{$atec->nombre}}-<strong>Còdigo:</strong>{{$atec->codigo}}</td>
-								<td>{{$atec->cantidad}}</td>
-						        <td>{{$atec->monto}}</td>
-								<td>{{$atec->name}},{{$atec->lastname}}</td>
-								<td>{{$atec->created_at}}</td>
-								@if(\Auth::user()->role_id <> 6)
-								<td>
-									<a class="btn btn-danger" href="ventas-delete-{{$atec->id}}"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
-								</td>
-								@endif
-							</tr>
-						@endforeach
+						@foreach($data as $d)
+						<tr>
+						<td>{{$d->SerId}}</td>
+						<td>{{$d->apepac}} {{$d->nompac}}</td>
+						<td>{{$d->nombrePro}} {{$d->apellidoPro}}</td>
+						<td>{{$d->date}}</td>
+						<td>{{$d->start_time}}-{{$d->end_time}}</td>
+						<td>
+						@if(\Auth::user()->role_id <> 6 && \Auth::user()->role_id <> 7)							 
+
+						<a class="btn btn-primary" href="service-{{$d->SerId}}">Ver</a>
+
+						<a  class="btn btn-success" href="services-edit-{{$d->SerId}}">Editar</a>	
+
+						<a _blank" class="btn btn-warning" href="services-delete-{{$d->SerId}}" onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
+						@endif
+							
+
+						</td>
+
+				        @endforeach
+				    </tr>
 					</tbody>
 					<tfoot>
-					        <th>Nro</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Monto</th>
-							<th>Usuario</th>
-						    <th>Fecha</th>
-
+						<tr>
+							<th>Id</th>
+							<th>Paciente</th>
+							<th>Especialista</th>
+							<th>Fecha</th>
+							<th>Horas</th>
+							<th>Acciones:</th>
+						</tr>
 					</tfoot>
-
 				</table>
 			</div>
 		</div>

@@ -92,8 +92,10 @@
 								<td>{{$atec->name}},{{$atec->lastname}}</td>
 								<td>
 							    <a target="_blank" href="metodos-ticket-ver-{{$atec->id}}" class="btn btn-success">Ver Ticket</a>
+							    								@if(\Auth::user()->role_id <> 6)
 							    <a href="metodos-edit-{{$atec->id}}" class="btn btn-primary">Editar</a>
 							    <a href="metodos-delete-{{$atec->id}}" class="btn btn-danger"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>
+							    @endif
 								</td>
 							</tr>
 						@endforeach

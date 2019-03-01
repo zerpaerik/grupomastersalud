@@ -22,11 +22,11 @@
 			</div>
 			<div class="box-content">
 				<h4 class="page-header"></h4>
-				<form class="form-horizontal" role="form" method="post" action="services/create">
+				<form class="form-horizontal" role="form" method="post" action="services/edit">
 					{{ csrf_field() }}
+					<input type="hidden" value="{{$service->id}}" name="id_servicio">
 					<div class="form-group">
-
-					    <label class="col-sm-1 control-label">Paciente</label>
+						<label class="col-sm-1 control-label">Paciente</label>
 						<div class="col-sm-3">
 							<select id="el4" name="paciente">
 								@foreach($pacientes as $atec)
@@ -36,28 +36,18 @@
 								@endforeach
 							</select>
 						</div>
-						
-						<label class="col-sm-1 control-label">Servicio</label>
-						<div class="col-sm-3">
-							<select id="el1" name="servicio">
-								@foreach($servicios as $serv)
-									<option value="{{$serv->id}}">
-										{{$serv->detalle}}
-									</option>
-								@endforeach
-							</select>
-						</div>
-						
 						<label class="col-sm-1 control-label">Especialista</label>
 						<div class="col-sm-3">
-							<select id="el2" name="especialista">
-								@foreach($especialistas as $esp)
-									<option value="{{$esp->id}}">
-										{{$esp->name}},{{$esp->lastname}}
+							<select id="el1" name="especialista" value="{{$service->especialista_id}}">
+								@foreach($especialistas as $especialista)
+									<option value="{{$especialista->id}}">
+										{{$especialista->name}} {{$especialista->lastname}}
+										/ {{$especialista->tipo}}
 									</option>
 								@endforeach
 							</select>
 						</div>
+
 						<label class="col-sm-1 control-label">Fecha</label>
 						<div class="col-sm-3">
 							<input type="text" id="input_date" class="form-control" placeholder="Fecha" name="date" required="required">
@@ -74,7 +64,7 @@
 							</div>						
 
 						<br>
-						<input onclick="form.submit()"  type="submit" style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-primary" value="Agregar">
+						<input type="button" onclick="form.submit()"style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-primary" value="Editar">
 
 						<a href="#" style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-danger">Volver</a>
 					</div>			

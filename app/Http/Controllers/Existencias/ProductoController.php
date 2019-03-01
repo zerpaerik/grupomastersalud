@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Existencias;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Existencias\{Producto, Existencia, Transferencia};
+use App\Models\Existencias\{Producto, Existencia, Transferencia,Salidas,SalidasProductos};
 use App\Models\Config\{Medida, Categoria, Sede, Proveedor};
 use DB;
-use App\Models\{Creditos, Ventas};
+use App\Models\{Creditos, Ventas, Servicios,Pacientes};
 use Toastr;
 use Carbon\Carbon;
 use Auth;
@@ -84,6 +84,56 @@ class ProductoController extends Controller
       $sedes = Sede::where("id",'=',1)->get(["id", "name"]);
       return view('existencias.entrada', ["productos" => Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 1)->get(['id', 'nombre']),"sedes" => $sedes,"proveedores" => Proveedor::all()]);    
     }
+
+        public function salida_servicios(){
+      $sedes = Sede::where("id",'=',1)->get(["id", "name"]);
+      return view('existencias.salidaserv', ["productos" => Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 2)->get(['id', 'nombre']),"pacientes" => Pacientes::where('estatus','=',1)->get(), "servicios" => Servicios::where('estatus','=',1)->get()]);    
+    }
+
+    public function salidaservicio(Request $request){
+
+              $salida = new Salidas();
+              $salida->paciente = $request->paciente;
+              $salida->servicio = $request->servicio;
+              $salida->usuario = Auth::user()->id;
+              $salida->sede = \Session::get("sede");
+              $salida->save(); 
+
+              if (isset($request->id_laboratorio)) {
+                foreach ($request->id_laboratorio['laboratorios'] as $key => $laboratorio) {
+                  if (!is_null($laboratorio['laboratorio'])) {
+
+                  $searchProduct = DB::table('productos')
+                    ->select('*')
+                    ->where('id','=', $laboratorio['laboratorio'])
+                    ->first();   
+
+                   $cantidadactual = $searchProduct->cantidad;
+
+
+
+                    $lab = new SalidasProductos();
+                    $lab->id_producto =  $laboratorio['laboratorio'];
+                    $lab->cantidad =  $request->monto_abol['laboratorios'][$key]['abono'];
+                    $lab->id_salida = $salida->id;
+                    $lab->save();
+
+                    Producto::where('id', $laboratorio['laboratorio'])
+                  ->update([
+                      'cantidad' => $cantidadactual - $request->monto_abol['laboratorios'][$key]['abono'],
+                  ]);
+
+
+
+                  } 
+                }
+              } 
+
+        Toastr::success('Registrada Exitosamente', 'Salida de Producto!', ['progressBar' => true]);
+      return redirect()->action('Existencias\ProductoController@salida_servicios', ["created" => true]);
+
+    }
+
 
     public function productOutView(){
       return view('existencias.salida', [

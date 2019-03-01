@@ -99,6 +99,11 @@
             <a href="{{route('productos.trans')}}"><i class="fa fa-refresh"></i> Movimientos</a>
           </li>
 
+           <li>
+            <!--{{route('productos.trans')}}-->
+            <a href="{{route('salidaserv.in')}}"><i class="fa fa-refresh"></i> Servicios</a>
+          </li>
+
 
         </ul>      
     </li>
@@ -182,6 +187,9 @@
     <ul class="dropdown-menu">
       <li>
         <a href="{{route('service.create')}}"><i class="fa fa-plus-circle"></i> Programar Servicio</a>
+      </li>
+      <li>
+        <a href="{{route('service.inicio')}}"><i class="fa fa-plus-circle"></i> Listado de Programacion</a>
       </li> 
       <li>
         <a href="{{route('service.index')}}"><i class="fa fa-plus-circle"></i> Mostrar Programaciòn</a>
@@ -343,7 +351,7 @@
    <li>
       <a href="#" class="dropdown-toggle"><i class="fa fa-tasks"></i> Productos</a>
         <ul class="dropdown-menu">
-@if(Session::get('sedeName') == 'PROCERES')
+@if(Session::get('sedeName') == 'PRINCIPAL')
 
           <li>
             <a href="{{route('productos.index')}}"><i class="fa fa-list-alt"></i> Almacen Central</a>
@@ -366,7 +374,7 @@
             <a href="{{route('requerimientos.index')}}"><i class="fa fa-plus-square-o"></i> Enviados</a>
           </li>
 
-@if(Session::get('sedeName') == 'PROCERES')
+@if(Session::get('sedeName') == 'PRINCIPAL')
 
           <li>
             <a href="{{route('requerimientos.index2')}}"><i class="fa fa-plus-square-o"></i> Recibidos</a>
@@ -376,14 +384,14 @@
 
         </ul>      
     </li>
-@if(Session::get('sedeName') == 'PROCERES')
+@if(Session::get('sedeName') == 'PRINCIPAL')
 
     <li>
       <a href="{{route('historico')}}"><i class="fa fa-list-alt"></i> Historico de Transferencias</a>
     </li>
 @endif
 
-@if(Session::get('sedeName') == 'PROCERES')
+@if(Session::get('sedeName') == 'PRINCIPAL')
   
     <li>
       <a href="#" class="dropdown-toggle"><i class="fa fa-share"></i> Ingreso de Productos</a>
@@ -402,7 +410,11 @@
           <li>
             <a href="{{route('productos.out')}}"><i class="fa fa-plus-square-o"></i> Ventas</a>
           </li>
-@if(Session::get('sedeName') == 'PROCERES')
+             <li>
+            <!--{{route('productos.trans')}}-->
+            <a href="{{route('salidaserv.in')}}"><i class="fa fa-refresh"></i> Servicios</a>
+          </li>
+@if(Session::get('sedeName') == 'PRINCIPAL')
 
           <li>
             <!--{{route('productos.trans')}}-->
@@ -486,6 +498,9 @@
     <ul class="dropdown-menu">
       <li>
         <a href="{{route('service.create')}}"><i class="fa fa-plus-circle"></i> Programar Servicio</a>
+      </li>
+      <li>
+        <a href="{{route('service.inicio')}}"><i class="fa fa-plus-circle"></i> Listado de Programacion</a>
       </li> 
       <li>
         <a href="{{route('service.index')}}"><i class="fa fa-plus-circle"></i> Mostrar Programaciòn</a>
@@ -664,6 +679,12 @@
             <a href="{{route('productos.out')}}"><i class="fa fa-plus-square-o"></i> Ventas</a>
           </li>
 
+          
+           <li>
+            <!--{{route('productos.trans')}}-->
+            <a href="{{route('salidaserv.in')}}"><i class="fa fa-refresh"></i> Servicios</a>
+          </li>
+
 
         </ul>      
     </li>
@@ -737,7 +758,7 @@
       </li>           
     </ul>
   </li>
-  <li class="dropdown">
+ <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-unsorted"></i>
       <span class="hidden-xs">Programaciones</span>
@@ -745,6 +766,9 @@
     <ul class="dropdown-menu">
       <li>
         <a href="{{route('service.create')}}"><i class="fa fa-plus-circle"></i> Programar Servicio</a>
+      </li>
+      <li>
+        <a href="{{route('service.inicio')}}"><i class="fa fa-plus-circle"></i> Listado de Programacion</a>
       </li> 
       <li>
         <a href="{{route('service.index')}}"><i class="fa fa-plus-circle"></i> Mostrar Programaciòn</a>
@@ -863,6 +887,9 @@
     <ul class="dropdown-menu">
       <li>
         <a href="{{route('service.create')}}"><i class="fa fa-plus-circle"></i> Programar Servicio</a>
+      </li>
+      <li>
+        <a href="{{route('service.inicio')}}"><i class="fa fa-plus-circle"></i> Listado de Programacion</a>
       </li> 
       <li>
         <a href="{{route('service.index')}}"><i class="fa fa-plus-circle"></i> Mostrar Programaciòn</a>
