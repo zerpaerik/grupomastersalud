@@ -8,7 +8,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-users"></i>
-					<span><strong>Nueva consulta</strong></span>
+					<span><strong>Nueva Consulta</strong></span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -57,11 +57,30 @@
 							</select>
 						</div>
 
+						<label class="col-sm-1 control-label">TipoConsulta</label>
+						<div class="col-sm-3">
+							<select id="el4" name="tipoc">
+								@foreach($tipo as $t) 
+									<option value="{{$t->id}}">
+										{{$t->detalle}}-Precio:{{$t->precio}}
+									</option>
+								@endforeach
+							</select>
+						</div>
+
+            @if(\Auth::user()->role_id == 6 && \Auth::user()->role_id == 7)              
 
 						<label class="col-sm-1 control-label">Monto</label>
 						<div class="col-sm-3">
-							<input type="number" class="form-control" placeholder="Monto" name="monto" required="required">
+							<input type="number" class="form-control" placeholder="Monto" name="monto" required="required" disabled="">
 						</div>
+            @else
+            <label class="col-sm-1 control-label">Monto</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control" placeholder="Monto" name="monto" required="required">
+            </div>
+            @endif
+
 
 						<label class="col-sm-1 control-label">Fecha</label>
 						<div class="col-sm-3">
@@ -80,15 +99,15 @@
 
 							<label class="col-sm-1 control-label">TipoPago</label>
 							<div class="col-sm-3">
-								<select id="el3" name="tipopago">
+								<select id="el5" name="tipopago">
 										<option value="EF">EF</option>
 										<option value="EF">TJ</option>
 								</select>
 							</div>
 
 							<label class="col-sm-1 control-label">Tipo</label>
-							<div class="col-sm-2">
-								<select id="el3" name="tipo">
+							<div class="col-sm-3">
+								<select id="el6" name="tipo">
 										<option value="CONSULTAS">CONSULTAS</option>
 										<option value="CONTROLES">CONTROLES</option>
 								</select>
@@ -111,6 +130,9 @@ $(document).ready(function() {
 	LoadSelect2Script(function (){
 		$("#el2").select2();
 		$("#el1").select2();
+		$("#el4").select2();
+		$("#el5").select2();
+		$("#el6").select2();
 		$("#el3").select2({disabled : true});
 	});
 	WinMove();
@@ -138,6 +160,23 @@ function getAva (){
       }
     });	
 }
+
+  $(document).on('change','.selecTipo',function(){
+      var labId = $(this).attr('id');
+      var labArr = labId.split('_');
+      var id = labArr[1];
+
+      $.ajax({
+         type: "GET",
+         url:  "tipo/getTipo/"+$(this).val(),
+         success: function(a) {
+           
+            $('#servicios_'+id+'_montoHidden').val(a.precio);
+            $('#servicios_'+id+'_monto').val(a.precio);
+
+         }
+      });
+    })
 
 function DemoTimePicker(){
 	$('#input_date').datepicker({

@@ -197,6 +197,23 @@
     </ul>
   </li>
 
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-copy"></i>
+      <span class="hidden-xs"> Control de Sesiones</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('sesiones.index')}}"><i class="fa fa-list-alt"></i> Atender Sesiones</a>
+      </li>
+      <li>
+        <a href="{{route('sesionesa.index')}}"><i class="fa fa-list-alt"></i> Consultar Sesiones</a>
+      </li>
+      
+    </ul>
+  </li>
+
+
    <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-bell"></i>
@@ -291,6 +308,9 @@
       <span class="hidden-xs">Administración</span>
     </a>
     <ul class="dropdown-menu">
+       <li>
+        <a href="{{route('tipo.index')}}"><i class="fa fa-hospital-o"></i> Tipos de Consulta</a>
+      </li> 
       <li>
         <a href="{{route('correlativo.index')}}"><i class="fa fa-hospital-o"></i> Nùmeros de Ticket</a>
       </li> 
@@ -507,6 +527,22 @@
       </li>                  
     </ul>
   </li>
+      <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-copy"></i>
+      <span class="hidden-xs"> Control de Sesiones</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('sesiones.index')}}"><i class="fa fa-list-alt"></i> Atender Sesiones</a>
+      </li>
+      <li>
+        <a href="{{route('sesionesa.index')}}"><i class="fa fa-list-alt"></i> Consultar Sesiones</a>
+      </li>
+      
+    </ul>
+  </li>
+
    <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-bell"></i>
@@ -776,6 +812,23 @@
     </ul>
   </li>
 
+      <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-copy"></i>
+      <span class="hidden-xs"> Control de Sesiones</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('sesiones.index')}}"><i class="fa fa-list-alt"></i> Atender Sesiones</a>
+      </li>
+      <li>
+        <a href="{{route('sesionesa.index')}}"><i class="fa fa-list-alt"></i> Consultar Sesiones</a>
+      </li>
+      
+    </ul>
+  </li>
+
+
    <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-bell"></i>
@@ -896,6 +949,23 @@
       </li>                  
     </ul>
   </li>
+
+      <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-copy"></i>
+      <span class="hidden-xs"> Control de Sesiones</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('sesiones.index')}}"><i class="fa fa-list-alt"></i> Atender Sesiones</a>
+      </li>
+      <li>
+        <a href="{{route('sesionesa.index')}}"><i class="fa fa-list-alt"></i> Consultar Sesiones</a>
+      </li>
+      
+    </ul>
+  </li>
+
 
    <li class="dropdown">
     <a href="#" class="dropdown-toggle">

@@ -12,6 +12,7 @@ use App\Models\Creditos;
 use App\Models\Events;
 use App\Models\Ciex;
 use App\Models\Historiales;
+use App\Models\TipoConsulta;
 use Calendar;
 use Carbon\Carbon;
 use DB;
@@ -244,6 +245,7 @@ class EventController extends Controller
   }
 
   public function create(Request $request){
+
     $validator = \Validator::make($request->all(), [
       "paciente" => "required", 
       "especialista" => "required", 
@@ -265,6 +267,15 @@ class EventController extends Controller
       ->where("time", "=", $request->time)
       ->get()->first();
     if(!$exists){
+       
+       $searchtipo= TipoConsulta::where("id",'=',$request->tipoc)->first();
+
+       if($request->monto == NULL){
+        $monto= $searchtipo->precio;
+       } else {
+        $monto=$request->monto;
+       }
+
     
         $evt = new Event;
         $evt->paciente=$request->paciente;
@@ -272,7 +283,7 @@ class EventController extends Controller
         $evt->date=Carbon::createFromFormat('d/m/Y', $request->date);
         $evt->time=$request->time;
         $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
-        $evt->monto=$request->monto;
+        $evt->monto=$monto;
         $evt->sede=$request->session()->get('sede');
         $evt->tipo=$request->tipo;
         $evt->save();
@@ -280,19 +291,13 @@ class EventController extends Controller
       $credito = Creditos::create([
         "origen" => 'CONSULTAS',
         "descripcion" => 'CONSULTAS',
-        "monto" => $request->monto,
+        "monto" => $monto,
         "tipo_ingreso" => $request->tipopago,
         "id_sede" => $request->session()->get('sede'),
         "id_event" => $evt->id
       ]);
     
-    $historial = new Historiales();
-          $historial->accion ='Registro';
-          $historial->origen ='Consultas';
-      $historial->detalle = $paciente->nombres . " " . $paciente->apellidos . " Paciente.";
-          $historial->id_usuario = \Auth::user()->id;
-      $historial->sede = $request->session()->get('sede');
-          $historial->save();
+  
     }
 
     $calendar = Calendar::addEvents($this->getEvents())
@@ -322,6 +327,7 @@ class EventController extends Controller
       "pacientes" => Paciente::where('estatus','=',1)->get(),
       "tiempos" => RangoConsulta::all(),
     "ciex" => Ciex::all(),
+    "tipo" => TipoConsulta::all()
     ];
     return view('consultas.create', $data + $extra);
   }

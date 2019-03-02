@@ -81,6 +81,16 @@ Route::get('analisis-edit-{id}', 'Archivos\AnalisisController@editView')->name('
 Route::post('analisis/edit', 'Archivos\AnalisisController@edit');
 Route::get('analisis-delete-{id}','Archivos\AnalisisController@delete');
 
+Route::get('tipo', 'TipoConsultaController@index')->name('tipo.index')->middleware('auth');
+Route::get('tipo-create', 'TipoConsultaController@createView')->name('tipo.create')->middleware('auth');
+Route::post('tipo/create', 'TipoConsultaController@create')->middleware('auth');
+Route::get('tipo/{id}', 'TipoConsultaController@delete')->middleware('auth');
+Route::get('tipo-edit-{id}', 'TipoConsultaController@editView')->name('tipo.edit');
+Route::post('tipo/edit', 'TipoConsultaController@edit');
+Route::get('tipo-delete-{id}','TipoConsultaController@delete');
+
+Route::get('tipo/getTipo/{id}', 'TipoConsultaController@getTipo');
+
 
 Route::get('analisis/getAnalisi/{id}', 'Archivos\AnalisisController@getAnalisi');
 
@@ -174,6 +184,9 @@ Route::post('atenciones/asoc/{id}', 'AtencionesController@asoc');
 Route::post('atenciones/asoc1/{id}', 'AtencionesController@asoc1');
 Route::get('atenciones-delete-{id}','AtencionesController@delete');
 
+Route::get('sesiones', 'SesionesController@index')->name('sesiones.index')->middleware('auth');
+Route::get('sesionesa', 'SesionesController@indexa')->name('sesionesa.index')->middleware('auth');
+Route::get('sesiones-atender', 'SesionesController@atender');
 
 Route::get('gastos', 'GastosController@index')->name('gastos.index')->middleware('auth');
 Route::get('gastos-search', 'GastosController@search')->name('gastos.search')->middleware('auth');
