@@ -248,7 +248,7 @@
 					    <p>
 							
                          <div class="col-sm-12">
-							<select id="my-select" multiple="true" name="af[]" style="width: 350px;">
+							<select id="el5" multiple="true" name="af[]" style="width: 350px;">
 							<option value="Ninguno">Ninguno</option>
 							<option value="Alergias">Alergias</option>
 							<option value="Anomalias Congenitas">Anomalias Congenitas</option>
@@ -272,7 +272,7 @@
 					    <p>
 							
                          <div class="col-sm-12">
-							<select id="my-select2" multiple="true" name="ap[]" style="width: 350px;">
+							<select id="el6" multiple="true" name="ap[]" style="width: 350px;">
 							<option value="Ninguno">Ninguno</option>
 							<option value="Alergias">Alergias</option>
 							<option value="Anomalias Congenitas">Anomalias Congenitas</option>
@@ -640,73 +640,63 @@
 
  @foreach($control as $c)
 <div class="col-sm-12">
-   <strong>Fecha:</strong> {{$c->created_at}}
+   <h2>Fecha de Control: {{$c->created_at}}</h2>
             <div class="row">
 			<label class="col-sm-12" for="">Funciones Vitales</label>
-			<div class="col-sm-2">F/C	
-				<input class="form-control" type="text" name="fc" value="{{$c->fc}}" disabled="">
+			<div class="col-sm-2"><strong>F/C:</strong>	
+{{$c->fc}}			</div>
+			<div class="col-sm-2"><strong>F/R:</strong>	
+{{$c->fr}}			</div>
+			<div class="col-sm-2"><strong>1º:</strong>	
+{{$c->pri}}			</div>
+			<div class="col-sm-2"><strong>Peso:</strong>
+{{$c->peso}}			</div>
+			<div class="col-sm-2"><strong>Talla:</strong>
+{{$c->talla}}			</div>
+			<div class="col-sm-2"><strong>Peso.PGest:</strong>	
+{{$c->pp}}			</div>
 			</div>
-			<div class="col-sm-2">F/R	
-				<input class="form-control" type="text" name="fr" value="{{$c->fr}}" disabled="">
-			</div>
-			<div class="col-sm-2">1º	
-				<input class="form-control" type="text" name="pri" value="{{$c->pri}}" disabled="">
-			</div>
-			<div class="col-sm-2">Peso	
-				<input class="form-control" type="text" name="peso" value="{{$c->peso}}" disabled="">
-			</div>
-			<div class="col-sm-2">Talla	
-				<input class="form-control" type="text" name="talla" value="{{$c->talla}}" disabled="">
-			</div>
-			<div class="col-sm-2">Peso.PGest	
-				<input class="form-control" type="text" name="pp" value="{{$c->pp}}" disabled="">
-			</div>
+
 
 
 		    </div>
           <div class="row">
 			<label class="col-sm-12" for="">Examen Fisico General y Regional</label>
-			<div class="col-sm-2">Piel/Mucosas	
-				<input class="form-control" type="text" name="piel" value="{{$c->piel}}" disabled="">
-			</div>
-			<div class="col-sm-2">Mamas	
-				<input class="form-control" type="text" name="mamas" value="{{$c->mamas}}" disabled="">
-			</div>
-			<div class="col-sm-2">Abdomen	
-				<input class="form-control" type="text" name="abdomen" value="{{$c->abdomen}}" disabled="">
-			</div>
-			<div class="col-sm-2">Genitales Externos	
-				<input class="form-control" type="text" name="genext" value="{{$c->genext}}" disabled="">
-			</div>
-			<div class="col-sm-2">Genitales Internos	
-				<input class="form-control" type="text" name="genint" value="{{$c->genint}}" disabled="">
-			</div>
-			<div class="col-sm-2">Miembros Inferiores	
-				<input class="form-control" type="text" name="miembros" value="{{$c->miembros}}" disabled="">
-			</div>
+			<div class="col-sm-2"><strong>Piel/Mucosas:</strong>	
+{{$c->piel}}			</div>
+			<div class="col-sm-2"><strong>Mamas:</strong>	
+{{$c->mamas}}			</div>
+			<div class="col-sm-2"><strong>Abdomen:</strong>	
+{{$c->abdomen}}			</div>
+			<div class="col-sm-2"><strong>Gen.Ext:</strong>		
+{{$c->genext}}			</div>
+			<div class="col-sm-2"><strong>Gen.Int:</strong>		
+{{$c->genint}}			</div>
+			<div class="col-sm-2"><strong>MiembrosInf.:</strong>		
+{{$c->miembros}}			</div>
 
 
 		    </div>
 
 		    <div class="row">
-		    	<div class="col-sm-3">Diag.Pres	
-				<input class="form-control" type="text" name="pres" value="{{$c->pres}}" disabled="">
-			    </div>
+		    	<div class="col-sm-6"><strong>Diag.Presuntivo:</strong>	
+{{$c->pres}}			    </div>
 
-			    <div class="col-sm-3">Exa.Auxiliares	
-				<input class="form-control" type="text" name="exa" value="{{$c->exa}}" disabled="">
-			</div>
+			    <div class="col-sm-6"><strong>Exa.Auxiliares:</strong>		
+{{$c->exa}}			</div>
+		    </div>
 
-			<div class="col-sm-3">Diag.Def	
-				<input class="form-control" type="text" name="def" value="{{$c->def}}" disabled="">
-			</div>
+		    <div class="row">
 
-			<div class="col-sm-3">PlanTratamiento	
-				<input class="form-control" type="text" name="tra" value="{{$c->def}}" disabled="">
+			<div class="col-sm-6"><strong>Diag.Definito:</strong>		
+{{$c->def}}			</div>
+
+			<div class="col-sm-6"><strong>PlanTratamiento:</strong>		
+{{$c->def}}			</div>
+
 			</div>
 
 		    	
-		    </div>
 </div>
   @endforeach
 
@@ -988,6 +978,8 @@ function Select2Test(){
 	$("#el1").select2();
 	$("#el3").select2();
   $("#el5").select2();
+    $("#el6").select2();
+  $("#el7").select2();
   $("#el4").select2();
 }
 $(document).ready(function() {

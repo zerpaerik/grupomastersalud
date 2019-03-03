@@ -340,7 +340,7 @@
 		
 			<label class="col-sm-2">CIE-X:</label>
 			<div class="col-sm-4">
-				<select id="el6" name="ciex">
+				<select id="el6" name="ciex[]" multiple="">
 					@foreach($ciex as $c)
 					<option value="{{$c->codigo}}-{{$c->nombre}}">
 						{{$c->codigo}}-{{$c->nombre}}
@@ -359,7 +359,7 @@
 
 			<label class="col-sm-2">CIE-X:</label>
 			<div class="col-sm-4">
-				<select id="el4" name="ciex2">
+				<select id="el4" name="ciex2[]" multiple="">
 					@foreach($ciex as $c)
 					<option value="{{$c->codigo}}-{{$c->nombre}}">
 						{{$c->codigo}}-{{$c->nombre}}
