@@ -302,7 +302,23 @@ class PrenatalController extends Controller
 			"vih" => $request->vih,
 			"vihd" => $request->vihd,
 			"hemo" => $request->hemo,
-			"hemod" => $request->hemod
+			"hemod" => $request->hemod,
+			"fc" => $request->fc,
+			"fr" => $request->fr,
+			"pri" => $request->pri,
+			"peso" => $request->peso,
+			"talla" => $request->talla,
+			"pp" => $request->pp,
+			"piel" => $request->piel,
+			"mamas" => $request->mamas,
+			"abdomen" => $request->abdomen,
+			"genext" => $request->genext,
+			"genint" => $request->genint,
+			"miembros" => $request->miembros,
+			"pres" => $request->pres,
+			"exa" => $request->exa,
+			"def" => $request->def,
+			"tra" => $request->tra,
 
     	]);
 

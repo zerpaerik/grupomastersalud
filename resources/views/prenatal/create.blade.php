@@ -638,6 +638,77 @@
   @endforeach
   </tr>
 
+ @foreach($control as $c)
+<div class="col-sm-6">
+   <strong>Fecha:</strong> {{$c->created_at}}
+            <div class="row">
+			<label class="col-sm-12" for="">Funciones Vitales</label>
+			<div class="col-sm-2">F/C	
+				<input class="form-control" type="text" name="fc" value="{{$c->fc}}" disabled="">
+			</div>
+			<div class="col-sm-2">F/R	
+				<input class="form-control" type="text" name="fr" value="{{$c->fr}}" disabled="">
+			</div>
+			<div class="col-sm-2">1º	
+				<input class="form-control" type="text" name="pri" value="{{$c->pri}}" disabled="">
+			</div>
+			<div class="col-sm-2">Peso	
+				<input class="form-control" type="text" name="peso" value="{{$c->peso}}" disabled="">
+			</div>
+			<div class="col-sm-2">Talla	
+				<input class="form-control" type="text" name="talla" value="{{$c->talla}}" disabled="">
+			</div>
+			<div class="col-sm-2">Peso.PGest	
+				<input class="form-control" type="text" name="pp" value="{{$c->pp}}" disabled="">
+			</div>
+
+
+		    </div>
+          <div class="row">
+			<label class="col-sm-12" for="">Examen Fisico General y Regional</label>
+			<div class="col-sm-2">Piel/Mucosas	
+				<input class="form-control" type="text" name="piel" value="{{$c->piel}}" disabled="">
+			</div>
+			<div class="col-sm-2">Mamas	
+				<input class="form-control" type="text" name="mamas" value="{{$c->mamas}}" disabled="">
+			</div>
+			<div class="col-sm-2">Abdomen	
+				<input class="form-control" type="text" name="abdomen" value="{{$c->abdomen}}" disabled="">
+			</div>
+			<div class="col-sm-2">Genitales Externos	
+				<input class="form-control" type="text" name="genext" value="{{$c->genext}}" disabled="">
+			</div>
+			<div class="col-sm-2">Genitales Internos	
+				<input class="form-control" type="text" name="genint" value="{{$c->genint}}" disabled="">
+			</div>
+			<div class="col-sm-2">Miembros Inferiores	
+				<input class="form-control" type="text" name="miembros" value="{{$c->miembros}}" disabled="">
+			</div>
+
+
+		    </div>
+
+		    <div class="row">
+		    	<div class="col-sm-3">Diag.Pres	
+				<input class="form-control" type="text" name="pres" value="{{$c->pres}}" disabled="">
+			    </div>
+
+			    <div class="col-sm-3">Exa.Auxiliares	
+				<input class="form-control" type="text" name="exa" value="{{$c->exa}}" disabled="">
+			</div>
+
+			<div class="col-sm-3">Diag.Def	
+				<input class="form-control" type="text" name="def" value="{{$c->def}}" disabled="">
+			</div>
+
+			<div class="col-sm-3">PlanTratamiento	
+				<input class="form-control" type="text" name="tra" value="{{$c->def}}" disabled="">
+			</div>
+
+		    	
+		    </div>
+</div>
+  @endforeach
 
 
 
@@ -815,6 +886,72 @@
 
 
           </div>
+            <div class="row">
+			<label class="col-sm-12" for="">Funciones Vitales</label>
+			<div class="col-sm-2">F/C	
+				<input class="form-control" type="text" name="fc">
+			</div>
+			<div class="col-sm-2">F/R	
+				<input class="form-control" type="text" name="fr">
+			</div>
+			<div class="col-sm-2">1º	
+				<input class="form-control" type="text" name="pri">
+			</div>
+			<div class="col-sm-2">Peso	
+				<input class="form-control" type="text" name="peso">
+			</div>
+			<div class="col-sm-2">Talla	
+				<input class="form-control" type="text" name="talla">
+			</div>
+			<div class="col-sm-2">Peso.PGest	
+				<input class="form-control" type="text" name="pp">
+			</div>
+
+
+		    </div>
+          <div class="row">
+			<label class="col-sm-12" for="">Examen Fisico General y Regional</label>
+			<div class="col-sm-2">Piel/Mucosas	
+				<input class="form-control" type="text" name="piel">
+			</div>
+			<div class="col-sm-2">Mamas	
+				<input class="form-control" type="text" name="mamas">
+			</div>
+			<div class="col-sm-2">Abdomen	
+				<input class="form-control" type="text" name="abdomen">
+			</div>
+			<div class="col-sm-2">Genitales Externos	
+				<input class="form-control" type="text" name="genext">
+			</div>
+			<div class="col-sm-2">Genitales Internos	
+				<input class="form-control" type="text" name="genint">
+			</div>
+			<div class="col-sm-2">Miembros Inferiores	
+				<input class="form-control" type="text" name="miembros">
+			</div>
+
+
+		    </div>
+
+		    <div class="row">
+		    	<div class="col-sm-3">Diag.Pres	
+				<input class="form-control" type="text" name="pres">
+			    </div>
+
+			    <div class="col-sm-3">Exa.Auxiliares	
+				<input class="form-control" type="text" name="exa">
+			</div>
+
+			<div class="col-sm-3">Diag.Def	
+				<input class="form-control" type="text" name="def">
+			</div>
+
+			<div class="col-sm-3">PlanTratamiento	
+				<input class="form-control" type="text" name="tra">
+			</div>
+
+		    	
+		    </div>
 
         </div>
 
