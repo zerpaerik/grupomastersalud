@@ -639,7 +639,7 @@
   </tr>
 
  @foreach($control as $c)
-<div class="col-sm-6">
+<div class="col-sm-12">
    <strong>Fecha:</strong> {{$c->created_at}}
             <div class="row">
 			<label class="col-sm-12" for="">Funciones Vitales</label>
