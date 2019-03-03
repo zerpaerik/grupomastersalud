@@ -28,6 +28,17 @@
 					{{ csrf_field() }}
 
 					<div class="form-group">
+              <label class="col-sm-1 control-label">Pacientes</label>
+            <div class="col-sm-2">
+              <select id="el2" name="paciente">
+                @foreach($pacientes as $paciente)
+                  <option value="{{$paciente->id}}">
+                    {{$paciente->dni}} - 
+                    {{$paciente->nombres}} {{$paciente->apellidos}}
+                  </option>
+                @endforeach
+              </select>
+            </div>
 						
 						<label class="col-sm-1 control-label">Especialistas</label>
 						<div class="col-sm-3">
@@ -45,20 +56,8 @@
 							</select>
 						</div>
 
-					<label class="col-sm-1 control-label">Pacientes</label>
-						<div class="col-sm-3">
-							<select id="el2" name="paciente">
-								@foreach($pacientes as $paciente)
-									<option value="{{$paciente->id}}">
-										{{$paciente->dni}} - 
-										{{$paciente->nombres}} {{$paciente->apellidos}}
-									</option>
-								@endforeach
-							</select>
-						</div>
-
 						<label class="col-sm-1 control-label">TipoConsulta</label>
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 							<select id="el4" name="tipoc">
 								@foreach($tipo as $t) 
 									<option value="{{$t->id}}">
@@ -105,14 +104,7 @@
 								</select>
 							</div>
 
-							<label class="col-sm-1 control-label">Tipo</label>
-							<div class="col-sm-3">
-								<select id="el6" name="tipo">
-										<option value="CONSULTAS">CONSULTAS</option>
-										<option value="CONTROLES">CONTROLES</option>
-								</select>
-							</div>		
-
+							
 						<br>
 						<input type="button" onclick="form.submit()" style="margin-left:15px; margin-top: 20px;" class="col-sm-3 btn btn-primary" value="Agregar">
 

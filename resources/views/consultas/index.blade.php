@@ -90,17 +90,21 @@
 						@else
 						<td style="background: #FE642E;">No ha sido Atendido</td>
 						@endif
-						<td>{{$d->tipo}}</td>
+						<td>{{$d->tipocc}}</td>
 					<td>
 
 
 
-                        @if($d->tipo == 'CONSULTAS')
-
+                        @if($d->tipoc==7)
 						<a class="btn btn-danger" href="event-{{$d->EventId}}">Cargar Historia</a>
-						@else
-
+						@elseif ($d->tipoc==8)
+						<a class="btn btn-danger" href="event-{{$d->EventId}}">Cargar Historia</a>
+						@elseif ($d->tipoc==9)
+						<a class="btn btn-danger" href="event-{{$d->EventId}}">Cargar Historia</a>
+						@elseif ($d->tipoc==12)
 						<a class="btn btn-danger" href="prenatal-create-{{$d->paciente}}-{{$d->EventId}}">Cargar Control</a>
+						@else
+						<a class="btn btn-danger" href="">En Desarrollo</a>
 						@endif
 
 						<a target="_blank" class="btn btn-primary" href="consulta-ticket-ver-{{$d->EventId}}">Ticket</a>

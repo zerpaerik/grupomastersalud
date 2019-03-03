@@ -324,6 +324,7 @@ class AtencionesController extends Controller
         $evt->monto=0;
         $evt->sede=$request->session()->get('sede');
         $evt->tipo='CONSULTAS';
+        $evt->tipoc=7;
         $evt->save();
 
            $contador++;
@@ -365,6 +366,7 @@ class AtencionesController extends Controller
         $evt->monto=0;
         $evt->sede=$request->session()->get('sede');
         $evt->tipo='CONTROLES';
+        $evt->tipoc=12;
         $evt->save();
 
            $contador++;
@@ -700,6 +702,7 @@ class AtencionesController extends Controller
         $evt->monto=0;
         $evt->sede=$request->session()->get('sede');
         $evt->tipo='CONSULTAS';
+        $evt->tipoc=7;
         $evt->save();
 
            $contador++;
@@ -742,6 +745,7 @@ $paciente = DB::table('pacientes')
         $evt->monto=0;
         $evt->sede=$request->session()->get('sede');
         $evt->tipo='CONTROLES';
+        $evt->tipoc=12;
         $evt->save();
 
            $contador++;

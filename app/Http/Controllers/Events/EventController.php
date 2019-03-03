@@ -56,10 +56,11 @@ class EventController extends Controller
     $f2 = $request->fecha2;    
 
     $event = DB::table('events as e')
-    ->select('e.id as EventId','e.paciente','e.tipo','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
+    ->select('e.id as EventId','e.paciente','e.tipoc','e.tipo','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id','t.detalle as tipocc')
     ->join('pacientes as p','p.id','=','e.paciente')
     ->join('personals as per','per.id','=','e.profesional')
     ->join('rangoconsultas as rg','rg.id','=','e.time')
+    ->join('tipo_consultas as t','t.id','e.tipoc')
     ->whereBetween('e.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
     ->where('e.sede','=',$request->session()->get('sede'))
     ->get();
@@ -67,10 +68,11 @@ class EventController extends Controller
   } else {
 
      $event = DB::table('events as e')
-    ->select('e.id as EventId','e.paciente','e.tipo','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id')
+    ->select('e.id as EventId','e.paciente','e.tipo','e.tipoc','e.created_at','e.tipo','e.atendido','e.title','e.sede','e.monto','e.profesional','e.date','e.time','p.dni','p.direccion','p.telefono','p.fechanac','p.gradoinstruccion','p.ocupacion','p.nombres','p.apellidos','p.id as pacienteId','per.name as nombrePro','per.lastname as apellidoPro','per.id as profesionalId','rg.start_time','rg.end_time','rg.id','t.detalle as tipocc')
     ->join('pacientes as p','p.id','=','e.paciente')
     ->join('personals as per','per.id','=','e.profesional')
     ->join('rangoconsultas as rg','rg.id','=','e.time')
+    ->join('tipo_consultas as t','t.id','e.tipoc')
     ->whereDate('e.created_at', '=',Carbon::today()->toDateString())
     ->where('e.sede','=',$request->session()->get('sede'))
     ->get();
@@ -276,6 +278,12 @@ class EventController extends Controller
         $monto=$request->monto;
        }
 
+       if($request->tipoc==12){
+        $tipo='CONTROLES';
+       }else{
+        $tipo='CONSULTAS';
+       }
+
     
         $evt = new Event;
         $evt->paciente=$request->paciente;
@@ -285,7 +293,8 @@ class EventController extends Controller
         $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
         $evt->monto=$monto;
         $evt->sede=$request->session()->get('sede');
-        $evt->tipo=$request->tipo;
+        $evt->tipo=$tipo;
+        $evt->tipoc=$request->tipoc;
         $evt->save();
 
       $credito = Creditos::create([
