@@ -65,37 +65,37 @@ margin-top: -20px;
 </head>
 <body>
 
- <div class="" style="font-size: 40px; text-align: center;">
+ <div class="" style="font-size: 40px; text-align: center;margin-bottom:-70px;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
 	    <p><strong>TICKET:{{ $ticket->ticket}}</strong></p>
 	</div>
 
-    <div class="" style="font-size: 40px; text-align: left;">
+    <div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>FECHA:{{ $ticket->created_at}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>PACIENTE:{{ $ticket->nombres}},{{ $ticket->apellidos}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>DETALLE:{{ $ticket->detalle}}
 		</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>ORIGEN:{{ $ticket->nompac}},{{ $ticket->apepac}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>MONTO: {{ $ticket->monto}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>PAGADO:{{ $ticket->abono}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-70px;">
 		<p><strong>RESTA: {{ $ticket->pendiente}}</strong></p>
 	</div>
 
