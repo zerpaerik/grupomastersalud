@@ -67,12 +67,17 @@
 							</select>
 						</div>
 
-            @if(\Auth::user()->role_id == 6 && \Auth::user()->role_id == 7)              
+            @if(\Auth::user()->role_id == 6)             
 
 						<label class="col-sm-1 control-label">Monto</label>
 						<div class="col-sm-3">
 							<input type="number" class="form-control" placeholder="Monto" name="monto" required="required" disabled="">
 						</div>
+            @elseif(\Auth::user()->role_id == 7)
+            <label class="col-sm-1 control-label">Monto</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control" placeholder="Monto" name="monto" required="required" disabled="">
+            </div>
             @else
             <label class="col-sm-1 control-label">Monto</label>
             <div class="col-sm-3">
