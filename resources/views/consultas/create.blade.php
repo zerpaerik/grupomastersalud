@@ -29,7 +29,7 @@
 
 					<div class="form-group">
               <label class="col-sm-1 control-label">Pacientes</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <select id="el2" name="paciente">
                 @foreach($pacientes as $paciente)
                   <option value="{{$paciente->id}}">
@@ -56,7 +56,12 @@
 							</select>
 						</div>
 
-						<label class="col-sm-1 control-label">TipoConsulta</label>
+              <label class="col-sm-1 control-label">Fecha</label>
+            <div class="col-sm-3">
+              <input type="text" id="input_date" class="form-control" placeholder="Fecha" name="date" required="required">
+            </div>
+
+						<label class="col-sm-1 control-label">Tipo</label>
 						<div class="col-sm-4">
 							<select id="el4" name="tipoc">
 								@foreach($tipo as $t) 
@@ -70,26 +75,24 @@
             @if(\Auth::user()->role_id == 6)             
 
 						<label class="col-sm-1 control-label">Monto</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<input type="number" class="form-control" placeholder="Monto" name="monto" required="required" disabled="">
 						</div>
             @elseif(\Auth::user()->role_id == 7)
             <label class="col-sm-1 control-label">Monto</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="number" class="form-control" placeholder="Monto" name="monto" required="required" disabled="">
             </div>
             @else
             <label class="col-sm-1 control-label">Monto</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="number" class="form-control" placeholder="Monto" name="monto" required="required">
             </div>
             @endif
 
 
-						<label class="col-sm-1 control-label">Fecha</label>
-						<div class="col-sm-3">
-							<input type="text" id="input_date" class="form-control" placeholder="Fecha" name="date" required="required">
-						</div>
+					
+
 						<label class="col-sm-1 control-label">Hora</label>
 							<div class="col-sm-3">
 								<select id="el3" name="time">
