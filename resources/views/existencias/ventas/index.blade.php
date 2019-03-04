@@ -123,11 +123,6 @@
 
 
 
-<script src="{{url('/tema/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{url('/tema/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-
-
-
 
 <script type="text/javascript">
 // Run Datables plugin and create 3 variants of settings

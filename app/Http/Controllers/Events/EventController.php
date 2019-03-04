@@ -63,6 +63,7 @@ class EventController extends Controller
     ->join('tipo_consultas as t','t.id','e.tipoc')
     ->whereBetween('e.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
     ->where('e.sede','=',$request->session()->get('sede'))
+    ->orderBy('EventId','desc')
     ->get();
 
   } else {
@@ -75,6 +76,7 @@ class EventController extends Controller
     ->join('tipo_consultas as t','t.id','e.tipoc')
     ->whereDate('e.created_at', '=',Carbon::today()->toDateString())
     ->where('e.sede','=',$request->session()->get('sede'))
+    ->orderBy('EventId','desc')
     ->get();
 
 

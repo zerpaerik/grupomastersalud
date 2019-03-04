@@ -745,6 +745,9 @@
       <li>
         <a href="{{route('gastos.index')}}"><i class="fa fa-random"></i> Relación de Gastos</a>
       </li>
+       <li>
+        <a href="{{route('historialcobros.index')}}"><i class="fa fa-list-alt"></i> Historial de Cobros</a>
+      </li>
       <li>
         <a href="{{route('labporpagar.index')}}"><i class="fa fa-dollar"></i> Laboratorios por Pagar</a>
       </li>
