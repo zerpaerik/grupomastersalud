@@ -5,39 +5,38 @@
 
 </head>
 <body>
-     <div style="width: 100%;">
-        <fieldset style="border: 1px solid #000; border-radius: 5px;">
-            <p><center><strong>RECIBO Nº</strong>0000{{$recibo->id}}</center></p>
-            <p><center>FECHA {{$recibo->created_at}}</center></p>
-        </fieldset> 
-     </div>
- 
-
-    <div style="width: 100%;">
-        <fieldset style="border: 1px solid #000; border-radius: 5px;">
-            <center><p></p></center>
-            <center><p><strong>PACIENTE:</strong>{{$recibo->nombres}},{{$recibo->apellidos}}</p></center>
-            <center><p><strong>MONTO TOTAL:</strong>{{$recibo->monto}}</p></center>
-            <center><p><strong>MONTO ABONADO:</strong>{{$recibo->abono_parcial}}</p></center>
-            <center><p><strong>MONTO TOTAL ABONADO:</strong>{{$recibo->abono}}</p></center>s
-            <center><p><strong>MONTO PENDIENTE:</strong>{{$recibo->pendiente}}</p></center>
-        </fieldset> 
-     </div>
-
-
-	
-
-
-
-
-
-   
-  
-
      
 
+     <div class="" style="font-size: 30px; text-align: center;">
+        <p><strong>GRUPO MASTER SALUD</strong></p>
+    </div>
 
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>RECIBO PAGO A CUENTA Nº:0000{{$recibo->id}}</strong></p>
+    </div>
 
- 
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>FECHA:{{ $recibo->created_at}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>PACIENTE:{{ $recibo->nombres}},{{ $recibo->apellidos}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>MONTO TOTAL: {{ $recibo->monto}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>MONTO ABONADO:{{ $recibo->abono_parcial}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>MONTO TOTAL ABONADO:{{ $recibo->abono}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>RESTA: {{ $recibo->pendiente}}</strong></p>
+    </div>
 </body>
 </html>

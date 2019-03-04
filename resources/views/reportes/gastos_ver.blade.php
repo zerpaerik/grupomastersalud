@@ -5,23 +5,41 @@
 
 </head>
 <body>
-     <div style="width: 100%;">
-        <fieldset style="border: 1px solid #000; border-radius: 5px;">
-            <p><center><strong>RECIBO Nº</strong>0000{{$gastos->id}}</center></p>
-            <p><center>FECHA {{$gastos->created_at}}</center></p>
-        </fieldset> 
-     </div>
- 
+     
 
-    <div style="width: 100%;">
-        <fieldset style="border: 1px solid #000; border-radius: 5px;">
-            <center><p></p></center>
-            <center><p><strong>DESCRIPCIÒN:</strong>{{$gastos->descripcion}}</p></center>
-            <center><p><strong>MONTO:</strong>{{$gastos->monto}}</p></center>
-            <center><p><strong>RECIBIDO POR:</strong>{{$gastos->nombre}}</p></center>
-            <center><p><strong>ENTREGADO POR:</strong>________________________________</p></center>
-        </fieldset> 
-     </div>
+
+<div class="" style="font-size: 30px; text-align: center;">
+        <p><strong>GRUPO MASTER SALUD</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>RECIBO DE SALIDA DE EFECTIVO Nº:0000{{ $gastos->id}}</strong></p>
+    </div>
+
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>FECHA:{{ $gastos->created_at}}</strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>RECIBIDO POR:{{ $gastos->nombre}}</strong></p>
+    </div>
+
+    
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong>CONCEPTO:{{ $gastos->descripcion}}
+        </strong></p>
+    </div>
+
+    <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong> MONTO: {{ $gastos->monto}}</strong></p>
+    </div>
+
+     <div class="" style="font-size: 30px; text-align: left;">
+        <p><strong> ENTREGADO POR:_________________________</strong></p>
+    </div>
+
+   
 
 
 	

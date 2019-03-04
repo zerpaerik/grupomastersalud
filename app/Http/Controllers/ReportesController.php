@@ -675,7 +675,7 @@ class ReportesController extends Controller
       
        //$view = \View::make('reportes.cierre_caja_ver')->with('caja', $caja);
        $pdf = \App::make('dompdf.wrapper');
-       $pdf->setPaper('A5', 'landscape');
+       //$pdf->setPaper('A5', 'landscape');
        $pdf->loadHTML($view);
        return $pdf->stream('recibo_gastos_ver');
     /* }else{
@@ -928,7 +928,7 @@ class ReportesController extends Controller
       
        //$view = \View::make('reportes.cierre_caja_ver')->with('caja', $caja);
        $pdf = \App::make('dompdf.wrapper');
-       $pdf->setPaper('A5', 'landscape');
+       //$pdf->setPaper('A5', 'landscape');
        $pdf->loadHTML($view);
        return $pdf->stream('cobro');
 

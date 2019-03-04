@@ -62,23 +62,38 @@ margin-top: -20px;
 <body>
 
 
-<div class="paciente">
-		<p><strong>Paciente: {{$paciente->nombres}} {{$paciente->apellidos}}</strong></p>
+    <div class="" style="font-size: 30px; text-align: center;">
+		<p><strong>GRUPO MASTER SALUD</strong></p>
 	</div>
 
-	<div class="fecha">
-		<p><strong>Fecha de cita: {{ $paciente->date}}</strong></p>
-	</div>
-	<div class="servicios">
-		<p><strong>Especialista: {{ $paciente->nombrePro}} {{ $paciente->apellidoPro}}</strong></p>
+    <div class="" style="font-size: 30px; text-align: left;">
+		<p><strong>FECHA:{{ $paciente->date}}</strong></p>
 	</div>
 
-	<div class="servicios">
-		<p><strong>Hora de cita: {{ $paciente->start_time}} {{ $paciente->end_time}}</strong></p>
+	<div class="" style="font-size: 30px; text-align: left;">
+		<p><strong>PACIENTE:{{ $paciente->nombres}},{{ $paciente->apellidos}}</strong></p>
 	</div>
 
-	<div class="total">
-		<p><strong>Monto: {{ $paciente->monto}}</strong></p>
+	
+	<div class="" style="font-size: 30px; text-align: left;">
+		<p><strong>ESPECIALISTA:{{ $paciente->nombrePro}} {{ $paciente->apellidoPro}}
+		</strong></p>
 	</div>
+
+	<div class="" style="font-size: 30px; text-align: left;">
+		<p><strong>CONSULTA:{{ $paciente->consulta}} 
+		</strong></p>
+	</div>
+
+	<div class="" style="font-size: 30px; text-align: left;">
+		<p><strong> MONTO: {{ $paciente->monto}}</strong></p>
+	</div>
+
+
+
+	
+</body>
+</html>
+
 </body>
 </html>
