@@ -94,8 +94,9 @@
 						        <td>{{$atec->monto}}</td>
 								<td>{{$atec->name}},{{$atec->lastname}}</td>
 								<td>{{$atec->created_at}}</td>
-								@if(\Auth::user()->role_id <> 6)
 								<td>
+									<a target="_blank" href="ticket_ver_ventas-{{$atec->id}}" class="btn btn-success">Ver Ticket</a>
+								@if(\Auth::user()->role_id <> 6)
 									<a class="btn btn-danger" href="ventas-delete-{{$atec->id}}"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
 								</td>
 								@endif

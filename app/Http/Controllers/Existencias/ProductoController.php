@@ -149,8 +149,9 @@ class ProductoController extends Controller
     }
 
     public function getProduct($id){
-      $p = Producto::find($id);
-      return response()->json(["producto" => $p], 200);
+     
+      return Producto::findOrFail($id);
+
     }
 
     public function addCant(Request $request){
@@ -187,11 +188,20 @@ class ProductoController extends Controller
                     ->first();   
 
           $cantidadactual = $searchProduct->cantidad;
+          $precio = $searchProduct->precioventa;
+
+          if($request->monto_l['laboratorios'][$key]['monto'] == NULL){
+            $preciov= $precio;
+          } else {
+            $preciov=$request->monto_l['laboratorios'][$key]['monto']; 
+          }
+
+
 
 
           $lab = new VentasProductos();
           $lab->id_producto =  $laboratorio['laboratorio'];
-          $lab->monto =  $request->monto_l['laboratorios'][$key]['monto'];
+          $lab->monto =  $preciov * $request->monto_abol['laboratorios'][$key]['abono'];
           $lab->cantidad = $request->monto_abol['laboratorios'][$key]['abono'];
           $lab->id_venta = $ventas->id;
           $lab->save();
@@ -204,7 +214,7 @@ class ProductoController extends Controller
               $creditos = new Creditos();
               $creditos->origen = 'VENTA DE PRODUCTOS';
               $creditos->id_atencion = NULL;
-              $creditos->monto= $request->monto_l['laboratorios'][$key]['monto'];
+              $creditos->monto= $precio * $request->monto_abol['laboratorios'][$key]['abono'];
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = 'EF';
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
@@ -216,7 +226,7 @@ class ProductoController extends Controller
     }
  
        Toastr::success('Registrada Exitosamente', 'Venta!', ['progressBar' => true]);
-      return redirect()->action('Existencias\ProductoController@index2', ["created" => true]);
+      return redirect()->action('Existencias\ProductoController@indexv', ["created" => true]);
 		}
     
     }
@@ -423,6 +433,29 @@ class ProductoController extends Controller
 
         return view('existencias.ventas.index', ["atenciones" => $atenciones, "aten" => $aten,"cantidad" => $cantidad]);
   }
+
+
+   public function ticket_ver_ventas($id) 
+    {
+
+      
+          $ticket = DB::table('ventas_productos as a')
+            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
+            ->join('productos as b','b.id','a.id_producto')
+            ->join('ventas as v','v.id','a.id_venta')
+            ->join('users as e','e.id','v.id_usuario')
+            ->where('a.id_venta','=',$id)
+            ->first();
+
+
+        $view = \View::make('existencias.ventas.ticket')->with('ticket', $ticket);
+        $pdf = \App::make('dompdf.wrapper');
+        //$pdf->setPaper('A5', 'landscape');
+    //$pdf->setPaper(array(0,0,360.00,360.00));
+        $pdf->loadHTML($view);
+        return $pdf->stream('ticket_ver_ventas');
+    }
+
 
    public function delete_venta($id)
   {

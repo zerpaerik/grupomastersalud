@@ -48,14 +48,33 @@
                       </select>
                     </div>
 
-
-
+            
                  <label for="laboratorios_#index#_monto" class="col-sm-1 control-label">Monto</label>
+                  @if(\Auth::user()->role_id == 6)             
+                    <div class="col-sm-2">
+                      <input id="laboratorios_#index#_montoHidden" name="monto_h[laboratorios][#index#][montoHidden]" class="number" type="hidden" value="">
+
+                      <input id="laboratorios_#index#_monto" name="monto_l[laboratorios][#index#][monto] type="text" class="number form-control montol" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Monto" value="0.00" disabled="">
+                    </div>
+                    @elseif(\Auth::user()->role_id == 7) 
+
+
+                      <div class="col-sm-2">
+                      <input id="laboratorios_#index#_montoHidden" name="monto_h[laboratorios][#index#][montoHidden]" class="number" type="hidden" value="">
+
+                      <input id="laboratorios_#index#_monto" name="monto_l[laboratorios][#index#][monto] type="text" class="number form-control montol" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Monto" value="0.00" disabled="">
+                    </div>
+
+
+                    @else
+
                     <div class="col-sm-2">
                       <input id="laboratorios_#index#_montoHidden" name="monto_h[laboratorios][#index#][montoHidden]" class="number" type="hidden" value="">
 
                       <input id="laboratorios_#index#_monto" name="monto_l[laboratorios][#index#][monto] type="text" class="number form-control montol" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Monto" value="0.00">
                     </div>
+
+                    @endif
 
                     <label for="laboratorios_#index#_abonoL" class="col-sm-1 control-label">Cantidad</label>
                     <div class="col-sm-2">
@@ -85,10 +104,10 @@
 					</div>
           <hr>
 
-         <div class="form-group form-inline">
+             <div class="form-group form-inline">
             <div class="col-sm-8 col-sm-offset-7">
               <div class="col-sm-2 text-right" style="font-weight: 600; font-size: 12px">
-                Total Venta:
+                Total Ventas:
               </div> 
               <input type="text" name="total" class="number form-control" value="0.00" id="total" readonly="readonly" style="width: 150px">
             </div>
@@ -103,7 +122,8 @@
             </div>
           </div>
 
-         
+        
+
 					
 						<br>
 						<input type="button" onclick="form.submit()" style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-primary" value="Agregar">
@@ -150,7 +170,7 @@
       var selectArr = selectId.split('_');
       
       if(selectArr[0] == 'servicios'){
-          if(parseFloat($(this).val()) > parseFloat($("#servicios_"+selectArr[1]+"_monto").val())){
+          if(parseFloat($(this).val()) == parseFloat($("#servicios_"+selectArr[1]+"_monto").val())){
               alert('La cantidad insertada en abono es mayor al monto.');
               $(this).val('0.00');
               calculo_general();
@@ -158,7 +178,7 @@
               calculo_general();
           }
       } else {
-        if(parseFloat($(this).val()) > parseFloat($("#laboratorios_"+selectArr[1]+"_monto").val())){
+        if(parseFloat($(this).val()) == parseFloat($("#laboratorios_"+selectArr[1]+"_monto").val())){
               alert('Debe verificar la cantidad.');
               $(this).val('0.00');
               calculo_general();
@@ -188,7 +208,6 @@
         afterRemoveCurrent: function(source, event){
           calcular();
           calculo_general();
-          calculo_general1();
         }
     });
 
@@ -200,15 +219,14 @@
 
       $.ajax({
          type: "GET",
-         url:  "analisis/getAnalisi/"+$(this).val(),
+         url:  "product/getProduct/"+$(this).val(),
          success: function(a) {
-            $('#laboratorios_'+id+'_montoHidden').val(a.preciopublico);
-            $('#laboratorios_'+id+'_monto').val(a.preciopublico);
+            $('#laboratorios_'+id+'_montoHidden').val(a.precioventa);
+            $('#laboratorios_'+id+'_monto').val(a.precioventa);
             var total = parseFloat($('#total').val());
-            $("#total").val(total + parseFloat(a.preciopublico));
+            $("#total").val(total + parseFloat(a.precioventa));
             calcular();
             calculo_general();
-            calculo_general1();
          }
       });
     })
@@ -242,14 +260,7 @@ function calculo_general() {
   $("#total_g").val(parseFloat($("#total").val()) - parseFloat(total));
 }
 
-function calculo_general1() {
-  var total = 0;
-  $(".montoL").each(function(){
-    total += parseFloat($(this).val());
-  })
 
-  $("#total_b").val(total);
-}
 
 // Run Select2 on element
 function Select2Test(){
@@ -279,6 +290,39 @@ function DemoTimePicker(){
 		stepMinute: 10
 	});
 }
+</script>
+
+<script type="text/javascript">
+
+  window.onunload = clear;
+
+  function clear(){
+    window.sessionStorage.clear();
+  };
+
+  function getQuan(evt){
+    evt.preventDefault();
+    var prod = $("#prod").val();
+    if(prod < 1) return;
+
+    $.ajax({
+      url: "existencia/"+prod+"/"+$("#sede").val(),
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: "get",
+      success: function(res){
+        if(res.exists){
+          $("#cantidad").val(res.existencia.cantidad);
+          $("#medida").val(res.medida);
+        }else{
+          $("#medida").val(res.medida);
+          $("#cantidad").val(0);
+        }
+      }
+    });
+  }   
+
 </script>
 
 
