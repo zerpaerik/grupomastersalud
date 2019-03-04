@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Existencias\{Producto, Existencia, Transferencia,Salidas,SalidasProductos};
 use App\Models\Config\{Medida, Categoria, Sede, Proveedor};
 use DB;
-use App\Models\{Creditos, Ventas, Servicios,Pacientes};
+use App\Models\{Creditos, Ventas, Servicios,Pacientes,VentasProductos};
 use Toastr;
 use Carbon\Carbon;
 use Auth;
@@ -137,7 +137,7 @@ class ProductoController extends Controller
 
     public function productOutView(){
       return view('existencias.salida', [
-        "productos" => Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 2)->where("categoria",'<>',3)->get(['id', 'nombre','cantidad']),
+        "productos" => Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 2)->where("categoria",'<>',3)->orderby('nombre','asc')->get(['id', 'nombre','cantidad']),
         "sedes" => Sede::all(),
         "proveedores" => Proveedor::all()
       ]);    
@@ -158,7 +158,7 @@ class ProductoController extends Controller
        $searchProduct = DB::table('productos')
                     ->select('*')
                     ->where('almacen','=','2')
-                    ->where('id','=', $request->producto)
+                    ->where('id','=', $request->id_laboratorio['laboratorios'])
                     ->first();   
 
                     $nombre = $searchProduct->nombre;
@@ -168,30 +168,53 @@ class ProductoController extends Controller
 		 return redirect()->action('Existencias\ProductoController@index2', ["created" => true]);
 		} else {
 			
-		  Producto::where('id', $request->producto)
+		  
+
+              $ventas = new Ventas();
+              $ventas->id_usuario = Auth::user()->id;
+              $ventas->save();  
+
+
+            if (isset($request->id_laboratorio)) {
+      foreach ($request->id_laboratorio['laboratorios'] as $key => $laboratorio) {
+        if (!is_null($laboratorio['laboratorio'])) {
+
+
+           $searchProduct = DB::table('productos')
+                    ->select('*')
+                    ->where('almacen','=','2')
+                    ->where('id','=', $laboratorio['laboratorio'])
+                    ->first();   
+
+          $cantidadactual = $searchProduct->cantidad;
+
+
+          $lab = new VentasProductos();
+          $lab->id_producto =  $laboratorio['laboratorio'];
+          $lab->monto =  $request->monto_l['laboratorios'][$key]['monto'];
+          $lab->cantidad = $request->monto_abol['laboratorios'][$key]['abono'];
+          $lab->id_venta = $ventas->id;
+          $lab->save();
+
+          Producto::where('id', $laboratorio['laboratorio'])
                   ->update([
-                      'cantidad' => $cantidadactual - $request->cantidadplus,
+                      'cantidad' => $cantidadactual - $request->monto_abol['laboratorios'][$key]['abono'],
                   ]);
 
-               $ventas = new Ventas();
-              $ventas->id_producto = $request->producto;
-              $ventas->monto = $request->monto;
-              $ventas->cantidad= $request->cantidadplus;
-              $ventas->id_usuario = Auth::user()->id;
-              $ventas->save();        
-				  
-		      $creditos = new Creditos();
+              $creditos = new Creditos();
               $creditos->origen = 'VENTA DE PRODUCTOS';
               $creditos->id_atencion = NULL;
-              $creditos->monto= $request->monto;
+              $creditos->monto= $request->monto_l['laboratorios'][$key]['monto'];
               $creditos->id_sede = $request->session()->get('sede');
-              $creditos->tipo_ingreso = $request->tipopago;
+              $creditos->tipo_ingreso = 'EF';
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
               $creditos->id_venta= $ventas->id;
               $creditos->save();
 
-          
-			  
+        } 
+      }
+    }
+ 
        Toastr::success('Registrada Exitosamente', 'Venta!', ['progressBar' => true]);
       return redirect()->action('Existencias\ProductoController@index2', ["created" => true]);
 		}
@@ -337,22 +360,24 @@ class ProductoController extends Controller
     $f2 = $request->fecha2;    
 
 
-          $atenciones = DB::table('ventas as a')
-            ->select('a.id','a.id_producto','a.created_at','a.monto','a.id_usuario','a.cantidad','e.name','e.lastname','b.nombre','b.codigo')
-            ->join('users as e','e.id','a.id_usuario')
+               
+          $atenciones = DB::table('ventas_productos as a')
+            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
             ->join('productos as b','b.id','a.id_producto')
+            ->join('ventas as v','v.id','a.id_venta')
+            ->join('users as e','e.id','v.id_usuario')
             ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
             ->orderby('a.id','desc')
             ->get();
 
-           $aten = Ventas::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
+           $aten = VentasProductos::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
                                     ->select(DB::raw('SUM(monto) as monto'))
                                     ->first();
 
             if ($aten->monto == 0) {
         }
           
-           $cantidad = Ventas::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
+           $cantidad = VentasProductos::whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59',                        strtotime($f2))])
                         ->select(DB::raw('COUNT(*) as cantidad'))
                        ->first();
 
@@ -366,22 +391,23 @@ class ProductoController extends Controller
         } else {
 
 
-           $atenciones = DB::table('ventas as a')
-            ->select('a.id','a.id_producto','a.created_at','a.monto','a.id_usuario','a.cantidad','e.name','e.lastname','b.nombre','b.codigo')
-            ->join('users as e','e.id','a.id_usuario')
+          $atenciones = DB::table('ventas_productos as a')
+            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
             ->join('productos as b','b.id','a.id_producto')
+            ->join('ventas as v','v.id','a.id_venta')
+            ->join('users as e','e.id','v.id_usuario')
             ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
             ->orderby('a.id','desc')
             ->get();
            
 
-        $aten = Ventas::whereDate('created_at', '=',Carbon::today()->toDateString())
+        $aten = VentasProductos::whereDate('created_at', '=',Carbon::today()->toDateString())
                                     ->select(DB::raw('SUM(monto) as monto'))
                                     ->first();
         if ($aten->monto == 0) {
         }
 
-            $cantidad = Ventas::whereDate('created_at', '=',Carbon::today()->toDateString())
+            $cantidad = VentasProductos::whereDate('created_at', '=',Carbon::today()->toDateString())
                         ->select(DB::raw('COUNT(*) as cantidad'))
                        ->first();
 
@@ -401,7 +427,7 @@ class ProductoController extends Controller
    public function delete_venta($id)
   {
 
-     $venta = Ventas::where('id', '=',$id)->first();
+     $venta = VentasProductos::where('id', '=',$id)->first();
 
      $productoventa=$venta->id_producto;
      $cantidadventa=$venta->cantidad;
@@ -417,8 +443,8 @@ class ProductoController extends Controller
                   ]);
 
 
-    $venta = Ventas::find($id);
-    $venta->delete();
+    $venta = Ventas::where('id','=',$id)->delete();
+    $ventaP = VentasProductos::where('id_venta', '=',$id)->delete();
 
     $creditos = Creditos::where('id_venta','=',$id);
     $creditos->delete();
