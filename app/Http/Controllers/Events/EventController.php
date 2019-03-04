@@ -288,7 +288,7 @@ class EventController extends Controller
         $evt = new Event;
         $evt->paciente=$request->paciente;
         $evt->profesional=$request->especialista;
-        $evt->date=Carbon::createFromFormat('d/m/Y', $request->date);
+        $evt->date=date('Y-m-d');
         $evt->time=$request->time;
         $evt->title=$paciente->nombres . " " . $paciente->apellidos . " Paciente.";
         $evt->monto=$monto;

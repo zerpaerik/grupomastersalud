@@ -29,7 +29,7 @@
 
 					<div class="form-group">
               <label class="col-sm-1 control-label">Pacientes</label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <select id="el2" name="paciente">
                 @foreach($pacientes as $paciente)
                   <option value="{{$paciente->id}}">
@@ -41,7 +41,7 @@
             </div>
 						
 						<label class="col-sm-1 control-label">Especialistas</label>
-						<div class="col-sm-4">
+						<div class="col-sm-5">
 							<select id="el1" name="especialista">
 
 								@foreach($especialistas as $paciente)
@@ -56,10 +56,6 @@
 							</select>
 						</div>
 
-              <label class="col-sm-1 control-label">Fecha</label>
-            <div class="col-sm-1">
-              <input type="text" id="input_date" class="form-control" placeholder="Fecha" name="date" required="required">
-            </div>
 
 						<label class="col-sm-1 control-label">Tipo</label>
 						<div class="col-sm-4">
