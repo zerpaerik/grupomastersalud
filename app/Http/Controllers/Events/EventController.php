@@ -251,7 +251,6 @@ class EventController extends Controller
     $validator = \Validator::make($request->all(), [
       "paciente" => "required", 
       "especialista" => "required", 
-      "date" => "required", 
       "time" => "required",
       "title" => "required"
     ]);
@@ -263,12 +262,11 @@ class EventController extends Controller
       ]);
     }
 
+    $hoy=date('Y-m-d');
+
     $paciente = Paciente::find($request->paciente);
 
-    $exists = Event::where("date", "=", Carbon::createFromFormat('d/m/Y', $request->date))
-      ->where("time", "=", $request->time)
-      ->get()->first();
-    if(!$exists){
+   
        
        $searchtipo= TipoConsulta::where("id",'=',$request->tipoc)->first();
 
@@ -307,7 +305,7 @@ class EventController extends Controller
       ]);
     
   
-    }
+   
 
     $calendar = Calendar::addEvents($this->getEvents())
     ->setOptions([
