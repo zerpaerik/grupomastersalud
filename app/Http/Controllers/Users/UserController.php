@@ -49,6 +49,14 @@ class UserController extends Controller
     $user->delete();
     return redirect()->action('Users\UserController@index', ["deleted" => true, "users" => User::all()]);
   }
+  
+/*
+    public function delete($id){
+    $user = User::find($id);
+    $user->estatus=0;
+    $user->save();
+    return redirect()->action('Users\UserController@index', ["deleted" => true, "user" => User::all()]);
+  }*/
 
   public function loginView(){
     return view('auth.login', ["sedes" => Sede::all(),"data" => false]);

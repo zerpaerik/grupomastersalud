@@ -336,6 +336,8 @@ Route::get('user', 'Users\UserController@index')->name('users.index')->middlewar
 
 Route::post('user/create', 'Users\UserController@create')->middleware('auth');
 Route::get('user/{id}', 'Users\UserController@delete')->middleware('auth');
+Route::get('user-delete-{id}','Users\UserController@delete');
+
 
 Route::get('/ui', function () { return view('layouts.admin'); })->name('ui');
 Route::get('login', 'Users\UserController@loginView')->name('login');
