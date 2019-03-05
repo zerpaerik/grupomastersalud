@@ -14,11 +14,11 @@ class UserController extends Controller
 	public function index(){
 		//$users = User::all();
 		$users = DB::table('users as a')
-        ->select('a.id','a.name','a.lastname','a.dni','a.tipo','a.email','a.role_id','b.name as rol')
+    ->select('a.id','a.name','a.lastname','a.dni','a.tipo','a.email','a.role_id','b.name as rol')
 		->join('roles as b','b.id','a.role_id')
-        ->orderby('a.id','desc')
-		->where('a.tipo','=',NULL)
-        ->get();  
+    ->orderby('a.id','desc')
+		->where('a.role_id','<>',NULL)
+    ->get();  
 		return view('archivos.users.index', ["users" => $users]);
 	}
 
