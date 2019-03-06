@@ -28,6 +28,17 @@
 
 					<div class="row">
 
+              <label class="col-sm-1 control-label">Pacientes</label>
+            <div class="col-sm-5">
+              <select id="el1" name="paciente">
+                @foreach($pacientes as $pac)
+                  <option value="{{$pac->id}}">
+                    {{$pac->apellidos}} {{$pac->nombres}}-{{$pac->dni}}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+
 				
             <label class="col-sm-12 alert"><i class="fa fa-tasks" aria-hidden="true"></i> Productos seleccionados</label>
             <!-- sheepIt Form -->

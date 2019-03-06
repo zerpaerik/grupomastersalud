@@ -77,6 +77,7 @@
 						<tr>
 							<th>Nro</th>
 							<th>Producto</th>
+							<th>Paciente</th>
 							<th>Cantidad</th>
 							<th>Monto</th>
 							<th>Usuario</th>
@@ -90,6 +91,7 @@
 							<tr>
 								<td>{{$atec->id}}</td>
 								<td>{{$atec->nombre}}-<strong>Còdigo:</strong>{{$atec->codigo}}</td>
+						        <td>{{$atec->nombres}},{{$atec->apellidos}}</td>
 								<td>{{$atec->cantidad}}</td>
 						        <td>{{$atec->monto}}</td>
 								<td>{{$atec->name}},{{$atec->lastname}}</td>

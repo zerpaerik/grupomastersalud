@@ -8,6 +8,7 @@ use App\Models\Existencias\{Producto, Existencia, Transferencia,Salidas,SalidasP
 use App\Models\Config\{Medida, Categoria, Sede, Proveedor};
 use DB;
 use App\Models\{Creditos, Ventas, Servicios,Pacientes,VentasProductos};
+use App\Models\Pacientes\Paciente;
 use Toastr;
 use Carbon\Carbon;
 use Auth;
@@ -139,7 +140,7 @@ class ProductoController extends Controller
       return view('existencias.salida', [
         "productos" => Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 2)->where("categoria",'<>',3)->orderby('nombre','asc')->get(['id', 'nombre','cantidad']),
         "sedes" => Sede::all(),
-        "proveedores" => Proveedor::all()
+        "proveedores" => Proveedor::all(),"pacientes" => Paciente::where('estatus','=',1)->orderby('apellidos','asc')->get()
       ]);    
     }
 
@@ -155,6 +156,8 @@ class ProductoController extends Controller
     }
 
     public function addCant(Request $request){
+
+
 	
        $searchProduct = DB::table('productos')
                     ->select('*')
@@ -204,6 +207,7 @@ class ProductoController extends Controller
           $lab->monto =  $preciov * $request->monto_abol['laboratorios'][$key]['abono'];
           $lab->cantidad = $request->monto_abol['laboratorios'][$key]['abono'];
           $lab->id_venta = $ventas->id;
+          $lab->paciente =$request->paciente;
           $lab->save();
 
           Producto::where('id', $laboratorio['laboratorio'])
@@ -372,10 +376,11 @@ class ProductoController extends Controller
 
                
           $atenciones = DB::table('ventas_productos as a')
-            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
+            ->select('a.id','a.id_producto','a.id_venta','a.paciente','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario','p.nombres','p.apellidos')
             ->join('productos as b','b.id','a.id_producto')
             ->join('ventas as v','v.id','a.id_venta')
             ->join('users as e','e.id','v.id_usuario')
+            ->join('pacientes as p','p.id','a.paciente')
             ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
             ->orderby('a.id','desc')
             ->get();
@@ -402,10 +407,11 @@ class ProductoController extends Controller
 
 
           $atenciones = DB::table('ventas_productos as a')
-            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
+            ->select('a.id','a.id_producto','a.id_venta','a.paciente','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario','p.nombres','p.apellidos')
             ->join('productos as b','b.id','a.id_producto')
             ->join('ventas as v','v.id','a.id_venta')
             ->join('users as e','e.id','v.id_usuario')
+            ->join('pacientes as p','p.id','a.paciente')
             ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
             ->orderby('a.id','desc')
             ->get();
@@ -440,12 +446,15 @@ class ProductoController extends Controller
 
       
           $ticket = DB::table('ventas_productos as a')
-            ->select('a.id','a.id_producto','a.id_venta','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario')
+            ->select('a.id','a.id_producto','a.id_venta','a.paciente','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario','p.nombres','p.apellidos')
             ->join('productos as b','b.id','a.id_producto')
             ->join('ventas as v','v.id','a.id_venta')
             ->join('users as e','e.id','v.id_usuario')
-            ->where('a.id_venta','=',$id)
+            ->join('pacientes as p','p.id','a.paciente')
+            ->where('a.id','=',$id)
             ->first();
+
+         
 
 
         $view = \View::make('existencias.ventas.ticket')->with('ticket', $ticket);

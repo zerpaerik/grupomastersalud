@@ -9,7 +9,7 @@ class VentasProductos extends Model
 	protected $table="ventas_productos";
 
     protected $fillable = [
-    'id_venta','id_producto','cantidad','monto'
+    'id_venta','id_producto','cantidad','monto','paciente'
     ];
 
    

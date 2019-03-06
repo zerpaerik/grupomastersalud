@@ -73,6 +73,10 @@ margin-top: -20px;
 		<p><strong>FECHA:{{ $ticket->created_at}}</strong></p>
 	</div>
 
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-10px;">
+		<p><strong>PACIENTE:{{ $ticket->nombres}},{{ $ticket->apellidos}}</strong></p>
+	</div>
+
 	
 	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-10px;">
 		<p><strong>PRODUCTO:{{ $ticket->nombre}}
