@@ -267,7 +267,7 @@ class ProductoController extends Controller
       $p->nombre = $request->nombre;
       $p->categoria = $request->categoria;
       $p->medida = $request->medida;
-      $p->cantidad = $request->cantidad;
+      //$p->cantidad = $request->cantidad;
 	  $p->preciounidad = $request->preciounidad;
       $p->precioventa = $request->precioventa;
       $p->codigo = $request->codigo;
