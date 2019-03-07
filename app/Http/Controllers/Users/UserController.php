@@ -8,6 +8,9 @@ use App\User;
 use App\Models\Role;
 use App\Models\Config\Sede;
 use DB;
+use Auth;
+use Toastr;
+
 
 class UserController extends Controller
 {
@@ -65,5 +68,29 @@ class UserController extends Controller
   public function createView() {
     return view('archivos.users.create', ["roles" => Role::all()]);
   }
+
+   public function updatepasswd()
+    {
+        $id= Auth::user()->id;
+        $usuario = User::where('id', '=', $id)->first();
+        return view('archivos.users.updatepasswd', ["usuario" => $usuario]);
+    }
+
+    public static function updatepass(Request $request){
+    
+
+        $id= Auth::user()->id;
+        $usuario = User::where('id', '=', $id)->get()[0];
+        $usuario->password = \Hash::make($request->password);
+        $usuario = $usuario->update();
+
+     Toastr::success('Modificado Exitosamente.', 'Contraseña!', ['progressBar' => true]);
+
+         return redirect()->route('users.password');
+
+     
+
+
+    }
 
 }

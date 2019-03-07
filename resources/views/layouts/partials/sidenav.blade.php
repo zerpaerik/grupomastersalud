@@ -308,6 +308,9 @@
       <span class="hidden-xs">Administración</span>
     </a>
     <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('users.password')}}"><i class="fa fa-users"></i> Modificar Contraseña</a>
+      </li> 
        <li>
         <a href="{{route('tipo.index')}}"><i class="fa fa-hospital-o"></i> Tipos de Consulta</a>
       </li> 
@@ -1044,6 +1047,18 @@
 @else
 
 @endif
+
+ <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-cog"></i>
+      <span class="hidden-xs">Modificar Contraseña</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="{{route('users.password')}}"><i class="fa fa-users"></i> Modificar Contraseña</a>
+      </li>   
+    </ul>
+  </li>
   
   
 

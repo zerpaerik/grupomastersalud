@@ -338,6 +338,9 @@ Route::post('user/create', 'Users\UserController@create')->middleware('auth');
 Route::get('user/{id}', 'Users\UserController@delete')->middleware('auth');
 Route::get('user-delete-{id}','Users\UserController@delete');
 
+Route::get('users-password-edit', 'Users\UserController@updatepasswd')->name('users.password');
+Route::post('users/updatepassw', 'Users\UserController@updatepass');
+
 
 Route::get('/ui', function () { return view('layouts.admin'); })->name('ui');
 Route::get('login', 'Users\UserController@loginView')->name('login');
