@@ -246,15 +246,27 @@
 
 function calcular() {
   var total = 0;
+    var abono = 0;
+
+     $(".abonoL").each(function(){
+        abono += parseFloat($(this).val());
+      })
+
+
       $(".monto").each(function(){
-        total += parseFloat($(this).val());
+        total += parseFloat($(this).val() * parseFloat(abono) );
       })
 
       $(".montol").each(function(){
-        total += parseFloat($(this).val());
+        total += parseFloat($(this).val() * parseFloat(abono));
       })
 
+      
+      
       $("#total").val(total);
+
+      //$("#total").val(parseFloat($("#total").val()) );
+
 }
 
 function calculo_general() {

@@ -220,9 +220,9 @@ class ProductoController extends Controller
               $creditos->id_atencion = NULL;
               $creditos->monto= $precio * $request->monto_abol['laboratorios'][$key]['abono'];
               $creditos->id_sede = $request->session()->get('sede');
-              $creditos->tipo_ingreso = 'EF';
+              $creditos->tipo_ingreso ='EF';
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
-              $creditos->id_venta= $ventas->id;
+              $creditos->id_venta= $lab->id;
               $creditos->save();
 
         } 
@@ -471,13 +471,19 @@ class ProductoController extends Controller
 
      $venta = VentasProductos::where('id', '=',$id)->first();
 
+
+
      $productoventa=$venta->id_producto;
      $cantidadventa=$venta->cantidad;
+
+
 
     $producto = Producto::where('id', '=',$productoventa)
       ->get()->first();
 
     $cantactual=$producto->cantidad;
+
+
 
      Producto::where('id', $productoventa)
                   ->update([
@@ -486,11 +492,14 @@ class ProductoController extends Controller
 
 
     $venta = Ventas::where('id','=',$id)->delete();
-    $ventaP = VentasProductos::where('id_venta', '=',$id)->delete();
+
+    $ventaP = VentasProductos::where('id', '=',$id)->delete();
 
     $creditos = Creditos::where('id_venta','=',$id);
     $creditos->delete();
-    return back();
+
+    Toastr::success('Eliminada Exitosamente', 'VENTA!', ['progressBar' => true]);
+    return redirect()->action('Existencias\ProductoController@indexv', ["created" => false]);
   } 
 
 
