@@ -64,27 +64,28 @@ margin-top: -20px;
 
 <div class="" style="font-size: 40px; text-align: center;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
+	    <p><strong>TICKET:0000{{ $metodos->id}}</strong></p>
 	</div>
 
-    <div class="" style="font-size: 40px; text-align: left;">
+    <div class="" style="font-size: 40px; text-align: left;margin-bottom:-15px;">
 		<p><strong>FECHA:{{ $metodos->created_at}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-15px;">
 		<p><strong>PACIENTE:{{ $metodos->nombres}},{{ $metodos->apellidos}}</strong></p>
 	</div>
 
 	
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-15px;">
 		<p><strong>MÈTODOS ANTICONCEPTIVOS:{{ $metodos->producto}}
 		</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-15px;">
 		<p><strong> MONTO TOTAL: {{ $metodos->monto}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;">
+	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-15px;">
 		<p><strong> MONTO PAGADO: {{ $metodos->monto}}</strong></p>
 	</div>
 

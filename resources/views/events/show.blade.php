@@ -137,7 +137,7 @@
 				<p class="col-sm-6"><strong>Frecuencia Micciones:</strong> {{ $consulta->orina }}c 24/hrs</p>
 				<p class="col-sm-6"><strong>Frecuencia Deposiciones:</strong> {{ $consulta->deposiciones }}c 24/hrs</p>
 				<p class="col-sm-6"><strong>Frecuencia Cardìaca:</strong> {{ $consulta->card }}x min</p>
-				<p class="col-sm-6"><strong>Pulso:</strong> {{ $consulta->pulso }}</p>
+				<p class="col-sm-6"><strong>Andria:</strong> {{ $consulta->pulso }}</p>
 				<p class="col-sm-6"><strong>Temperatura:</strong> {{ $consulta->temperatura }}ºC</p>
 				<p class="col-sm-6"><strong>Peso:</strong> {{ $consulta->peso }} kG</p>
 				<p class="col-sm-6"><strong>FUR:</strong> {{ $consulta->fur }}</p>
@@ -254,7 +254,7 @@
 			<div class="col-sm-4">	
 				<input  class="form-control" placeholder="Frecuencia Deposiciones" type="text" name="deposiciones" placeholder="c 24/hrs">
 			</div>
-			<label for="" class="col-sm-2 control-label">Pulso:</label>
+			<label for="" class="col-sm-2 control-label">Andria:</label>
 			<div class="col-sm-4">	
 				<input   class="form-control" type="text" name="pulso">
 			</div>
