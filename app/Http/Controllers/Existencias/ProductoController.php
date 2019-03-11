@@ -436,8 +436,9 @@ class ProductoController extends Controller
 
         }
 
-
-        return view('existencias.ventas.index', ["atenciones" => $atenciones, "aten" => $aten,"cantidad" => $cantidad]);
+        $ventasp = new VentasProductos();
+        $ventas = new Ventas();
+        return view('existencias.ventas.index', ["atenciones" => $atenciones, "aten" => $aten,"cantidad" => $cantidad,"ventasp" => $ventasp,"ventas" => $ventas]);
   }
 
 

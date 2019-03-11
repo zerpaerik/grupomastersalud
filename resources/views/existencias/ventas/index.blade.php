@@ -77,6 +77,8 @@
 						<tr>
 							<th>Nro</th>
 							<th>Paciente</th>
+							<th>Productos</th>
+							<th>Monto Total</th>
 							<th>Usuario</th>
 						    <th>Fecha</th>
 						    <th>Acciones</th>
@@ -88,6 +90,8 @@
 							<tr>
 								<td>{{$atec->id}}</td>
 						        <td>{{$atec->nombres}},{{$atec->apellidos}}</td>
+						        <td>{{$ventas->selectProductos($atec->id)}}</td>
+						        <td>{{$ventasp->montoVenta($atec->id)}}</td>
 								<td>{{$atec->name}},{{$atec->lastname}}</td>
 								<td>{{$atec->created_at}}</td>
 								<td>
