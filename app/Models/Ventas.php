@@ -33,7 +33,7 @@ class Ventas extends Model
           ->where('id', $value->id_producto)
           ->get();
           foreach ($dataproductos as $key => $valueproducto) {
-            $descripcion.= $valueproducto->nombre.',';
+            $descripcion.= $valueproducto->nombre.'-CANT-'.$value->cantidad.',';
                           # code...
         }
     }
