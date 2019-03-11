@@ -778,9 +778,9 @@ class ReportesController extends Controller
                                     ->first();						
        
          $consultas = DB::table('events as a')
-        ->select('a.id','a.profesional','a.paciente','a.sede','a.monto','a.created_at','b.nombres','b.apellidos','c.name','c.apellidos as apepro')
+        ->select('a.id','a.profesional','a.paciente','a.sede','a.monto','a.created_at','b.nombres','b.apellidos','c.name','c.lastname as apepro')
         ->join('pacientes as b','b.id','a.paciente')
-        ->join('profesionales as c','c.id','a.profesional')
+        ->join('personals as c','c.id','a.profesional')
         ->where('a.sede','=', $request->session()->get('sede'))
         ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('Y-m-d 23:59:59', strtotime($request->fecha))])
         ->orderby('a.id','desc')

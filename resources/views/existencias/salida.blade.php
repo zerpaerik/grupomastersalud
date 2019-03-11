@@ -189,7 +189,7 @@
               calculo_general();
           }
       } else {
-        if(parseFloat($(this).val()) == parseFloat($("#laboratorios_"+selectArr[1]+"_monto").val())){
+        if(parseFloat($(this).val()) == 999999){
               alert('Debe verificar la cantidad.');
               $(this).val('0.00');
               calculo_general();
