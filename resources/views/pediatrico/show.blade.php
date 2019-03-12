@@ -141,7 +141,7 @@
 				<p class="col-sm-6"><strong>Hospitalizaciòn:</strong> {{ $consulta->hosp }}</p>
 				<p class="col-sm-6"><strong>Cirugias:</strong> {{ $consulta->cir }}</p>
 				<p class="col-sm-6"><strong>Vacunas:</strong> {{ $consulta->vac }}</p>
-				<p class="col-sm-6"><strong>Antecedentes Patològicos:</strong> {{ $consulta->ape }}</p>
+				<p class="col-sm-6"><strong>Antecedentes Patològicos:</strong> {{ $consulta->ap }}</p>
 			    <p class="col-sm-6"><strong>Edad:</strong> {{ $consulta->edad }}</p>
 				<p class="col-sm-6"><strong>Peso:</strong> {{ $consulta->peso }}</p>
 				<p class="col-sm-6"><strong>Talla:</strong> {{ $consulta->talla }}</p>
