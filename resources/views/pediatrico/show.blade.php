@@ -135,7 +135,7 @@
 				<p class="col-sm-6"><strong>Tiempo Enfermedad:</strong> {{ $consulta->tenf }}</p>
 				<p class="col-sm-6"><strong>Apetito:</strong> {{ $consulta->ape }}</p>
 				<p class="col-sm-6"><strong>Frecuencia Micciones:</strong> {{ $consulta->orin }}</p>
-				<p class="col-sm-6"><strong>Frecuencia Deposiciones:</strong> {{ $consulta->deposiciones }}</p>
+				<p class="col-sm-6"><strong>Frecuencia Deposiciones:</strong> {{ $consulta->hec }}</p>
 				<p class="col-sm-6"><strong>Sed:</strong> {{ $consulta->sed }}</p>
 				<p class="col-sm-6"><strong>RAM:</strong> {{ $consulta->ram }}</p>
 				<p class="col-sm-6"><strong>Hospitalizaciòn:</strong> {{ $consulta->hosp }}</p>
@@ -254,9 +254,15 @@
 				<div class="col-sm-3">
 					<select id="el21" name="ram">
 							<option value="0">Seleccione</option>
-							<option value="1">No</option>
-							<option value="2">Si</option>
+							<option value="No">No</option>
+							<option value="Si">Si</option>
 						</select>
+				</div>
+
+				<div class="col-sm-3">
+
+					<input type="text" name="ram">
+					
 				</div>
 
 		</div>
@@ -268,9 +274,15 @@
 				<div class="col-sm-3">
 					<select id="el22" name="hosp">
 							<option value="0">Seleccione</option>
-							<option value="1">No</option>
-							<option value="2">Si</option>
+							<option value="No">No</option>
+							<option value="Si">Si</option>
 						</select>
+				</div>
+
+				<div class="col-sm-3">
+
+					<input type="text" name="hosp">
+					
 				</div>
 
 			</div>
@@ -282,10 +294,19 @@
 				<div class="col-sm-3">
 					<select id="el23" name="cir">
 							<option value="0">Seleccione</option>
-							<option value="1">No</option>
-							<option value="2">Si</option>
+							<option value="No">No</option>
+							<option value="Si">Si</option>
 						</select>
 				</div>
+
+				<div class="col-sm-3">
+
+					<input type="text" name="cir">
+					
+				</div>
+
+				
+
 
 			</div>
 
@@ -300,6 +321,15 @@
 							<option value="Incompletas">Incompletas</option>
 						</select>
 				</div>
+
+					<div class="col-sm-3">
+
+					<input type="text" name="vac">
+					
+				</div>
+
+
+
 			</div>
 
 					  <div class="row">
@@ -331,7 +361,7 @@
 			<div class="col-md-2">Talla	
 				<input class="form-control" type="text" name="talla">
 			</div>
-			<div class="col-md-2">1	
+			<div class="col-md-2">T	
 				<input class="form-control" type="text" name="pri">
 			</div>
 			<div class="col-md-2">PA	

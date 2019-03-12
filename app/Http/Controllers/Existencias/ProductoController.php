@@ -473,7 +473,7 @@ class ProductoController extends Controller
 
         $view = \View::make('existencias.ventas.ticket')->with('ticket', $ticket)->with('productos', $productos)->with('monto', $monto);
         $pdf = \App::make('dompdf.wrapper');
-       // $pdf->setPaper('A6');
+       //$pdf->setPaper('A6');
         $pdf->setPaper(array(0,0,250.00,600.00));
         $pdf->loadHTML($view);
         return $pdf->stream('ticket_ver_ventas');
