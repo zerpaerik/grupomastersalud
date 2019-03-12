@@ -457,6 +457,10 @@ Route::get('historiasp', 'ConsultaController@indexp')->name('historias.indexp')-
 Route::get('historiasp-edit-{id}','ConsultaController@editview')->name('historiasp.edit')->middleware('auth');
 
 
+Route::get('pediatrico-create-{paciente}-{evento}','PediatricoController@show');
+Route::post('pediatrico/create','PediatricoController@create')->name('pediatrico.create');
+
+
 
 //Servicios
 Route::match(['get', 'post'],'services','ServiceController@index')->name('service.index')->middleware('auth');

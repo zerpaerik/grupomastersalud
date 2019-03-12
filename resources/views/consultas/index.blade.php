@@ -103,6 +103,8 @@
 						<a class="btn btn-danger" href="event-{{$d->EventId}}">Cargar Historia</a>
 						@elseif ($d->tipoc==12)
 						<a class="btn btn-danger" href="prenatal-create-{{$d->paciente}}-{{$d->EventId}}">Cargar Control</a>
+						@elseif ($d->tipoc==6)
+						<a class="btn btn-danger" href="pediatrico-create-{{$d->paciente}}-{{$d->EventId}}">Cargar Pediatrica</a>
 						@else
 						<a class="btn btn-danger" href="">En Desarrollo</a>
 						@endif
