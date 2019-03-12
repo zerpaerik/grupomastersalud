@@ -183,22 +183,29 @@
 		    <input type="hidden" name="evento" value="{{$evento->id}}">
            <div class="row">
             <label for="" class="col-sm-2 control-label">Motivo de Consulta</label>
-			<div class="col-sm-4 control-label">	
+			<div class="col-sm-10 control-label">	
 				<input  required class="form-control" type="text" name="mot">		
 			</div>
-			<label for="" class="col-sm-2 control-label">Nombre de Madre/Padre</label>
-			<div class="col-sm-4 control-label">	
-				<input  required class="form-control" type="text" name="mp">		
+		  </div>
+
+		  <div class="row">
+			<label for="" class="col-sm-2 control-label">Tiempo de Enfermedad</label>
+			<div class="col-sm-10 control-label">	
+				<input  required class="form-control" type="text" name="tenf">		
 			</div>
 		  </div>
 		   <div class="row">
-            <label for="" class="col-sm-2 control-label">Tiempo de Enfermedad</label>
-			<div class="col-sm-4 control-label">	
-				<input  required class="form-control" type="text" name="tenf">		
-			</div>
+            
 			<label for="" class="col-sm-2 control-label">Relato</label>
-			<div class="col-sm-4 control-label">	
+			<div class="col-sm-10 control-label">	
 				<input  required class="form-control" type="textarea" name="rel">		
+			</div>
+		  </div>
+
+		    <div class="row">
+			<label for="" class="col-sm-2 control-label">Madre/Padre</label>
+			<div class="col-sm-4 control-label">	
+				<input  required class="form-control" type="text" name="mp">		
 			</div>
 		  </div>
 
