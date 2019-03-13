@@ -681,6 +681,41 @@
 {{$c->def}}			</div>
 
 			</div>
+			  <div class="row">
+
+
+
+             <label class="col-sm-1 control-label">Serologia</label>
+            <div class="col-sm-2">
+            <strong>Resultado:</strong>:{{$c->sero}}
+             <strong>Fecha:</strong>:{{$c->serod}}
+
+
+            </div>
+
+
+             <label class="col-sm-1 control-label">Glucosa</label>
+            <div class="col-sm-2">
+                 <strong>Resultado:</strong>:{{$c->glu}}
+             <strong>Fecha:</strong>:{{$c->glud}}
+
+            </div>
+
+             <label class="col-sm-1 control-label">VIH</label>
+            <div class="col-sm-2">
+                  <strong>Resultado:</strong>:{{$c->vih}}
+             <strong>Fecha:</strong>:{{$c->vihd}}
+
+            </div>
+
+            <label class="col-sm-1 control-label">Hemoglobina</label>
+            <div class="col-sm-2">
+                  <strong>Resultado:</strong>:{{$c->hemo}}
+             <strong>Fecha:</strong>:{{$c->hemod}}
+
+            </div>
+
+        </div>
 
 		    	
 </div>

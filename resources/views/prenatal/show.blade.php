@@ -399,7 +399,7 @@
             </div>
 
 
-             <label class="col-sm-1 control-label">Sulfato.</label>
+             <label class="col-sm-1 control-label">Vitaminas.</label>
             <div class="col-sm-3">
               {{$c->sulfato}}
             </div>
