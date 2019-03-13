@@ -90,7 +90,7 @@
                     <label for="laboratorios_#index#_abonoL" class="col-sm-1 control-label">Cantidad</label>
                     <div class="col-sm-2">
 
-                      <input id="laboratorios_#index#_abonoL" name="monto_abol[laboratorios][#index#][abono] type="text" class="number form-control abonoL" placeholder="Abono" data-toggle="tooltip" data-placement="bottom" title="Abono" value="0.00">
+                      <input id="laboratorios_#index#_abonoL" name="monto_abol[laboratorios][#index#][abono] type="text" class="number form-control abonoL" placeholder="Abono" data-toggle="tooltip" data-placement="bottom" onkeyup="calcular()" title="Abono" value="0.00">
                     </div>
 
                     <a id="laboratorios_remove_current" style="cursor: pointer;"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
@@ -244,29 +244,22 @@
 });
 
 
+
 function calcular() {
   var total = 0;
-    var abono = 0;
-
-     $(".abonoL").each(function(){
-        abono += parseFloat($(this).val());
-      })
-
-
       $(".monto").each(function(){
-        total += parseFloat($(this).val() * parseFloat(abono) );
+        total += parseFloat($(this).val());
       })
 
-      $(".montol").each(function(){
-        total += parseFloat($(this).val() * parseFloat(abono));
+      $(".montol").each(function(i){
+        total += parseFloat($(this).val() * $("#laboratorios_"+i+"_abonoL").val());
       })
 
-      
-      
+      $(".montop").each(function(){
+        total += parseFloat($(this).val());
+      })
+
       $("#total").val(total);
-
-      //$("#total").val(parseFloat($("#total").val()) );
-
 }
 
 function calculo_general() {
