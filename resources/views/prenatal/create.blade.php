@@ -641,21 +641,7 @@
  @foreach($control as $c)
 <div class="col-sm-12">
    <h2>Fecha de Control: {{$c->created_at}}</h2>
-            <div class="row">
-			<label class="col-sm-12" for="">Funciones Vitales</label>
-			<div class="col-sm-2"><strong>F/C:</strong>	
-{{$c->fc}}			</div>
-			<div class="col-sm-2"><strong>F/R:</strong>	
-{{$c->fr}}			</div>
-			<div class="col-sm-2"><strong>1º:</strong>	
-{{$c->pri}}			</div>
-			<div class="col-sm-2"><strong>Peso:</strong>
-{{$c->peso}}			</div>
-			<div class="col-sm-2"><strong>Talla:</strong>
-{{$c->talla}}			</div>
-			<div class="col-sm-2"><strong>Peso.PGest:</strong>	
-{{$c->pp}}			</div>
-			</div>
+      
 
 
 
@@ -876,29 +862,7 @@
 
 
           </div>
-            <div class="row">
-			<label class="col-sm-12" for="">Funciones Vitales</label>
-			<div class="col-sm-2">F/C	
-				<input class="form-control" type="text" name="fc">
-			</div>
-			<div class="col-sm-2">F/R	
-				<input class="form-control" type="text" name="fr">
-			</div>
-			<div class="col-sm-2">1º	
-				<input class="form-control" type="text" name="pri">
-			</div>
-			<div class="col-sm-2">Peso	
-				<input class="form-control" type="text" name="peso">
-			</div>
-			<div class="col-sm-2">Talla	
-				<input class="form-control" type="text" name="talla">
-			</div>
-			<div class="col-sm-2">Peso.PGest	
-				<input class="form-control" type="text" name="pp">
-			</div>
-
-
-		    </div>
+     
           <div class="row">
 			<label class="col-sm-12" for="">Examen Fisico General y Regional</label>
 			<div class="col-sm-2">Piel/Mucosas	
