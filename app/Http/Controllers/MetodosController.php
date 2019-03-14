@@ -100,11 +100,20 @@ class MetodosController extends Controller
 
          $proximo=date("Y-m-d",strtotime($request->created_at."+ 30 days"));
 
+
+          $producto= Producto::where("id",'=',$request->producto)->first();
+
+       if($request->monto == NULL){
+        $monto= $producto->precioventa;
+       } else {
+        $monto=$request->monto;
+       }
+
  
          $metodos = new Metodos();
          $metodos->id_paciente =$request->paciente;
          $metodos->id_producto =$request->producto;
-         $metodos->monto =$request->monto;
+         $metodos->monto =$monto;
          $metodos->proximo = $proximo;
          $metodos->estatus ='No Llamado';
          $metodos->id_usuario = \Auth::user()->id;
@@ -115,7 +124,7 @@ class MetodosController extends Controller
           $credito = Creditos::create([
 		        "origen" => 'METODOS ANTICONCEPTIVOS',
 		        "descripcion" => 'METODOS ANTICONCEPTIVOS',
-		        "monto" => $request->monto,
+		        "monto" => $monto,
 		        "tipo_ingreso" => $request->tipopago,
 		        "id_sede" => $request->session()->get('sede'),
 		        "id_metodo" => $metodos->id

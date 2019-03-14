@@ -44,7 +44,7 @@
 							<select id="el2" name="producto">
 								@foreach($productos as $paciente)
 									<option value="{{$paciente->id}}">
-										{{$paciente->nombre}}
+										{{$paciente->nombre}}-Precio:{{$paciente->precioventa}}
 									</option>
 								@endforeach
 							</select>
@@ -57,11 +57,27 @@
 										<option value="EF">TJ</option>
 								</select>
 							</div>
+					  @if(\Auth::user()->role_id == 6)             
 
 						<label class="col-sm-1 control-label">Monto</label>
 						<div class="col-sm-3">
+							<input type="text" class="form-control" name="monto" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Precio" disabled="">
+						</div>
+
+					 @elseif(\Auth::user()->role_id == 7)
+
+					 <label class="col-sm-1 control-label">Monto</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="monto" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Precio" disabled="">
+						</div>
+
+					@else
+					<label class="col-sm-1 control-label">Monto</label>
+						<div class="col-sm-3">
 							<input type="text" class="form-control" name="monto" placeholder="Monto" data-toggle="tooltip" data-placement="bottom" title="Precio">
 						</div>
+				     @endif
+
 
 
 
