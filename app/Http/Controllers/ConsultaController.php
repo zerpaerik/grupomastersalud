@@ -23,37 +23,15 @@ class ConsultaController extends Controller
 
 
 
-             if(! is_null($request->fecha)) {
-
-    $f1 = $request->fecha;
-    $f2 = $request->fecha2;  
-
-
           $atenciones = DB::table('consultas as a')
         ->select('a.id','a.paciente_id','a.created_at','a.profesional_id','a.prox','b.nombres','b.apellidos','c.name as nompro','c.apellidos as apepro')
         ->join('pacientes as b','b.id','a.paciente_id')
         ->join('profesionales as c','c.id','a.profesional_id')
-        ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
-        ->orderby('a.id','desc')
-        ->get();
-
-      } else {
-
-
-          $atenciones = DB::table('consultas as a')
-        ->select('a.id','a.paciente_id','a.created_at','a.profesional_id','a.prox','b.nombres','b.apellidos','c.name as nompro','c.apellidos as apepro')
-        ->join('pacientes as b','b.id','a.paciente_id')
-        ->join('profesionales as c','c.id','a.profesional_id')
-    
         ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
         ->orderby('a.id','desc')
         ->get();
 
-
-
-
-      }
-      
+          
        
         return view('consultas.proxima.index', ["atenciones" => $atenciones]);
     }

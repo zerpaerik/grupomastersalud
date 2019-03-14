@@ -175,7 +175,7 @@
         <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes</a>
       </li>  
        <li>
-        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Pròximas Citas</a>
+        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Citas para HOY</a>
       </li>              
     </ul>
   </li>
@@ -507,7 +507,7 @@
         <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes</a>
       </li>  
        <li>
-        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Pròximas Citas</a>
+        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Citas para HOY</a>
       </li>              
     </ul>
   </li>
@@ -780,7 +780,7 @@
         <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes</a>
       </li>  
        <li>
-        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Pròximas Citas</a>
+        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Citas para HOY</a>
       </li>              
     </ul>
   </li>
@@ -932,7 +932,7 @@
         <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes</a>
       </li>  
        <li>
-        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Pròximas Citas</a>
+        <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Citas para HOY</a>
       </li>              
     </ul>
   </li>

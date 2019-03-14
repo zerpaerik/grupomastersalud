@@ -85,19 +85,45 @@ class ServiceController extends Controller
       'data' => $services,
     ]);
   }  
-  public function inicio()
+  public function inicio(Request $request)
   {
+
+    if(! is_null($request->fecha)) {
+
+    $f1=$request->fecha;
+    $f2=$request->fecha2;
+
     $services = DB::table('services as s')
     ->select('s.id as SerId','s.especialista_id','s.title','s.paciente_id','s.servicio_id','s.date','s.hora_id','pro.name as nombrePro','pro.lastname as apellidoPro','pro.id as profesionalId','rg.start_time','rg.end_time','rg.id','sr.detalle as srDetalle','sr.id as srId','pc.nombres as nompac','pc.apellidos as apepac')
     ->join('personals as pro','pro.id','=','s.especialista_id')
     ->join('rangoconsultas as rg','rg.id','=','s.hora_id')
     ->join('servicios as sr','sr.id','=','s.servicio_id')
     ->join('pacientes as pc','pc.id','=','s.paciente_id')
+     ->whereBetween('s.date', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
     ->get(); 
+  } else {
+
+     $services = DB::table('services as s')
+    ->select('s.id as SerId','s.especialista_id','s.title','s.paciente_id','s.servicio_id','s.date','s.hora_id','pro.name as nombrePro','pro.lastname as apellidoPro','pro.id as profesionalId','rg.start_time','rg.end_time','rg.id','sr.detalle as srDetalle','sr.id as srId','pc.nombres as nompac','pc.apellidos as apepac')
+    ->join('personals as pro','pro.id','=','s.especialista_id')
+    ->join('rangoconsultas as rg','rg.id','=','s.hora_id')
+    ->join('servicios as sr','sr.id','=','s.servicio_id')
+    ->join('pacientes as pc','pc.id','=','s.paciente_id')
+    ->get(); 
+
+    $f1=Carbon::today()->toDateString();
+    $f2=Carbon::today()->toDateString();
+
+  }
+
+   
     
 
     return view('service.inicio',[
-      'data' => $services
+      'data' => $services,
+      'f1' => $f1,
+      'f2' => $f2
+
     ]);           
   }
 

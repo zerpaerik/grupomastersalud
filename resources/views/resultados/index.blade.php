@@ -30,24 +30,12 @@
 
 			<div class="row">
 				<div class="col-md-2">
-					{!! Form::label('fecha', 'Fecha Inicio', ['class' => 'control-label']) !!}
-					{!! Form::date('fecha', old('fechanac'), ['id'=>'fecha','class' => 'form-control', 'placeholder' => '']) !!}
-					<p class="help-block"></p>
-					@if($errors->has('fecha'))
-					<p class="help-block">
-						{{ $errors->first('fecha') }}
-					</p>
-					@endif
+					<label>Fecha Inicio</label>
+					<input type="date" value="" name="fecha" style="line-height: 20px">
 				</div>
 				<div class="col-md-2">
-					{!! Form::label('fecha2', 'Fecha Fin', ['class' => 'control-label']) !!}
-					{!! Form::date('fecha2', old('fecha2'), ['id'=>'fecha2','class' => 'form-control', 'placeholder' => '']) !!}
-					<p class="help-block"></p>
-					@if($errors->has('fecha2'))
-					<p class="help-block">
-						{{ $errors->first('fecha2') }}
-					</p>
-					@endif
+					<label>Fecha Fin</label>
+					<input type="date" value="" name="fecha2" style="line-height: 20px">
 				</div>
                         <div class="col-md-3">
                               {!! Form::label('name', '*', ['class' => 'control-label']) !!}
@@ -104,103 +92,35 @@
 							@else
 								<td>
 								<form action="{{$model . '-asoc-' .$p->id}}" method="get">
-								<select name="informe" id="informe">
-									<option value="">Seleccione</option>
-                                    <option value="ABDOMEN COLECISTITIS CRONICA FASE AGUDA.docx">ABDOMEN COLECISTITIS CRONICA FASE AGUDA</option>
-                                    <option value="ABDOMEN COLECISTITIS CRONICA.docx">ABDOMEN COLECISTITIS CRONICA</option>
-                                    <option value="ABDOMEN ESTEATOSIS LEVE, CCC.docx">ABDOMEN ESTEATOSIS LEVE, CCC</option>
-                                    <option value="ABDOMEN ESTEATOSIS LEVE, SVB.docx">ABDOMEN ESTEATOSIS LEVE, SVB</option>
-                                    <option value="ABDOMEN ESTEATOSIS LEVE.docx">ABDOMEN ESTEATOSIS LEVE</option>
-                                    <option value="ABDOMEN ESTEATOSIS MODERADA, SVB.docx">ABDOMEN ESTEATOSIS MODERADA, SVB</option>
-                                    <option value="ABDOMEN ESTEATOSIS MODERADA,PANCREAS INUSUAL.docx">ABDOMEN ESTEATOSIS MODERADA,PANCREAS INUSUAL</option>
-                                    <option value="ABDOMEN ESTEATOSIS MODERADA.docx">ABDOMEN ESTEATOSIS MODERADA</option>
-                                    <option value="ABDOMEN NRML.docx">ABDOMEN NRML</option>
-                                    <option value="ABDOMEN POLIPO VB.docx">ABDOMEN POLIPO VB</option>
-                                    <option value="ABDOMEN POLIPOSIS VB.docx">ABDOMEN POLIPOSIS VB</option>
-                                    <option value="ABDOMEN STATUS POST COLECISTECTOMIA.docx">ABDOMEN STATUS POST COLECISTECTOMIA</option>
-                                    <option value="GIN EPI.docx">GIN EPI</option>
-                                    <option value="GIN NRML.docx">GIN NRML</option>
-                                    <option value="GIN POLIFOL, EPI.docx">GIN POLIFOL, EPI</option>
-                                    <option value="GIN POLIFOL.docx">GIN POLIFOL</option>
-                                    <option value="GIN TV AMNRR.docx">GIN TV AMNRR</option>s
-                                    <option value="GIN TV CONSIDERAR AB EN CURSO.docx">GIN TV CONSIDERAR AB EN CURSO</option>
-                                    <option value="GIN TV DIU NRML.docx">GIN TV DIU NRML</option>
-                                    <option value="GIN TV DIU SITUACION BAJA.docx">GIN TV DIU SITUACION BAJA</option>
-                                    <option value="GIN TV INVOLUTIVO.docx">GIN TV INVOLUTIVO</option>
-                                    <option value="GIN TV DIU SITUACION BAJA.docx">GIN TV DIU SITUACION BAJA</option>
-                                    <option value="GIN TV MIOMATOSIS.docx">GIN TV MIOMATOSIS</option>
-                                    <option value="GIN TV NRML.docx">GIN TV NRML</option>
-                                    <option value="GIN TV OV MORFOLOGIA POLIQUISTICA.docx">GIN TV OV MORFOLOGIA POLIQUISTICA</option>
-                                    <option value="GIN TV POLIFOL, EPI.docx">GIN TV POLIFOL, EPI</option>
-                                    <option value="GIN TV POLIFOL.docx">GIN TV POLIFOL</option>
-                                    <option value="GIN TV PRODUCTOS RETENIDOS DE LA CONCEPCION.docx">GIN TV PRODUCTOS RETENIDOS DE LA CONCEPCION</option>
-                                    <option value="GIN TV SEGUIMIENTO OVULATORIO NRML.docx">GIN TV SEGUIMIENTO OVULATORIO NRML</option>
-                                    <option value="GIN TV SITUACION INDETERMIDA BETA +.docx">GIN TV SITUACION INDETERMIDA BETA +</option>
-                                    <option value="MAMAS FIBROADENOMA MAMA DER.docx">MAMAS FIBROADENOMA MAMA DER</option>
-                                    <option value="MAMAS FIBROADENOMA MAMA IZQ.docx">MAMAS FIBROADENOMA MAMA IZQ</option>
-                                    <option value="MAMAS.docx">MAMAS</option>
-                                    <option value="OBST 4D II TRIMESTRE-2p.docx">OBST 4D II TRIMESTRE-2p</option>
-                                    <option value="OBST 4D II TRIMESTRE-3p.docx">OBST 4D II TRIMESTRE-3p</option>
-                                    <option value="OBST 4D III TRIMESTRE CC-2p.docx">OBST 4D III TRIMESTRE CC-2p</option>
-                                    <option value="OBST 4D III TRIMESTRE CC-3p.docx">OBST 4D III TRIMESTRE CC-3p</option>
-                                    <option value="OBST 4D III TRIMESTRE-2p.docx">OBST 4D III TRIMESTRE-2p</option>
-                                    <option value="OBST 4D III TRIMESTRE-3p.docx">OBST 4D III TRIMESTRE-3p</option>
-                                    <option value="OBST 5D II TRIMESTRE-2p.docx">OBST 5D II TRIMESTRE-2p</option>
-                                    <option value="OBST 5D III TRIMESTRE-2p.docx">OBST 5D III TRIMESTRE-2p</option>
-                                    <option value="OBST DOPPLER TAMIZAJE II TRIMESTRE NRML-3p.docx">OBST DOPPLER TAMIZAJE II TRIMESTRE NRML-3p</option>
-                                    <option value="OBST GEMELAR II, III TRIMESTRE BICO, BIAMN.docx">OBST GEMELAR II, III TRIMESTRE BICO, BIAMN</option>
-                                    <option value="OBST I EMBRION 6 - 8 SEMANAS.docx">OBST I EMBRION 6 - 8 SEMANAS</option>
-                                    <option value="OBST I EMBRION 9 SEMANAS.docx">OBST I EMBRION 9 SEMANAS</option>
-                                    <option value="OBST I FETO 10 - 11SS.docx">OBST I FETO 10 - 11SS</option>
-                                    <option value="OBST I FETO 12 - 14SS.docx">OBST I FETO 12 - 14SS</option>
-                                    <option value="OBST I TV DOPPLER TAMIZAJE PATOLOGICO.docx">OBST I TV DOPPLER TAMIZAJE PATOLOGICO</option>
-                                    <option value="OBST I TV DOPPLER TAMIZAJE.docx">OBST I TV DOPPLER TAMIZAJE</option>
-                                    <option value="OBST I TV FETO 10 - 11SS DOBLE BIAMN BICOR.docx">OBST I TV FETO 10 - 11SS DOBLE BIAMN BICOR</option>
-                                    <option value="OBST I TV FETO 10 - 11SS DOBLE BIAMN MONOCOR.docx">OBST I TV FETO 10 - 11SS DOBLE BIAMN MONOCOR</option>
-                                    <option value="OBST I TV FETO 10 - 11SS.docx">OBST I TV FETO 10 - 11SS</option>
-                                    <option value="OBST I TV FETO 12 - 14SS.docx">OBST I TV FETO 12 - 14SS</option>
-                                    <option value="OBST I TV NO EVOLUTIVO LCN.docx">OBST I TV NO EVOLUTIVO LCN</option>
-                                    <option value="OBST I TV NO EVOLUTIVO SG.docx">OBST I TV NO EVOLUTIVO SG</option>
-                                    <option value="OBST I TV NO EVOLUTIVO vs VIABILIDAD SG.docx">OBST I TV NO EVOLUTIVO vs VIABILIDAD SG</option>
-                                    <option value="OBST I TV UTERO BICORNE.docx">OBST I TV UTERO BICORNE</option>
-                                    <option value="OBST I TV, GEST TEMPR, EPI.docx">OBST I TV, GEST TEMPR, EPI</option>
-                                    <option value="OBST II.docx">OBST II</option>
-                                    <option value="OBST III DISCORDANTE DC CIR TIPO II, CC.docx">OBST III DISCORDANTE DC CIR TIPO II, CC</option>
-                                    <option value="OBST III DISCORDANTE DC CIR TIPO II.docx">OBST III DISCORDANTE DC CIR TIPO II</option>
-                                    <option value="OBST III DOPPLER NIVEL II CC-2p.docx">OBST III DOPPLER NIVEL II CC-2p</option>
-                                    <option value="OBST III DOPPLER NIVEL II CC-3p.docx">OBST III DOPPLER NIVEL II CC-3p</option>
-                                    <option value="OBST III DOPPLER NIVEL II-2p.docx">OBST III DOPPLER NIVEL II-2p</option>
-                                    <option value="OBST III DOPPLER NIVEL II-3p.docx">OBST III DOPPLER NIVEL II-3p</option>
-                                    <option value="OBST III PB CIRCULAR DE CORDON.docx">OBST III PB CIRCULAR DE CORDON</option>
-                                    <option value="OBST III PB.docx">OBST III PB</option>
-                                    <option value="OBST III TRIMESTRE CIRCULAR DE CORDON.docx">OBST III TRIMESTRE CIRCULAR DE CORDON</option>
-                                    <option value="OBST III.docx">OBST III</option>
-                                    <option value="OBST MORFOLOGICA II TRIMESTRE-2p.docx">OBST MORFOLOGICA II TRIMESTRE-2p</option>
-                                    <option value="PB CADERAS NRML.docx">PB CADERAS NRML</option>
-                                    <option value="PB CICATRIZ FID NRML.docx">PB CICATRIZ FID NRML</option>
-                                    <option value="PB INGLE NRML, HERNIA NEGATIVO.docx">PB INGLE NRML, HERNIA NEGATIVO</option>
-                                    <option value="PB INGLE NRML, HERNIA POSITIVO.docx">PB INGLE NRML, HERNIA POSITIVO</option>
-                                    <option value="PB TESTICULAR NRML.docx">PB TESTICULAR NRML</option>
-                                    <option value="PB TIROIDES NRML.docx">PB TIROIDES NRML</option>
-                                    <option value="PB TRANSFONTANELAR NRML.docx">PB TRANSFONTANELAR NRML</option>
-                                    <option value="PROSTATA HPB G I.docx">PROSTATA HPB G I</option>
-                                    <option value="PROSTATA HPB G II ADENOMA.docx">PROSTATA HPB G II ADENOMA</option>
-                                    <option value="PROSTATA NRML.docx">PROSTATA NRML</option>
-                                    <option value="PROSTATA QT LINEA MEDIA.docx">PROSTATA QT LINEA MEDIA</option>
-                                    <option value="PROSTATA REMANENTE.docx">PROSTATA REMANENTE</option>
-                                    <option value="PROSTATA SEC DE PROSTATITIS.docx">PROSTATA SEC DE PROSTATITIS</option>
-                                    <option value="RENAL DOBLE SISTEMA.docx">RENAL DOBLE SISTEMA</option>
-                                    <option value="RENAL HIDROURETERONEFROSIS.docx">RENAL HIDROURETERONEFROSIS</option>
-                                    <option value="RENAL LITIASIS BILATERAL.docx">RENAL LITIASIS BILATERAL</option>
-                                    <option value="RENAL LITIASIS UNILATERAL.docx">RENAL LITIASIS UNILATERAL</option>
-                                    <option value="RENAL NRML.docx">RENAL NRML</option>
-                                    <option value="RENAL QT SIMPLE.docx">RENAL QT SIMPLEL</option>
-                                    <option value="RENAL Y VIAS URINARIAS.docx">RENAL Y VIAS URINARIAS</option>
-
-
-                            
-
-
+						<select name="informe" id="informe">
+							<option value="">Seleccione</option>
+							<option value="11 PELVICA NANCY MAYTAN TAQUIA.docx">11 PELVICA NANCY MAYTAN TAQUIA</option>
+							<option value="32 LCI C SIMPLE NOEMI MEDINA HUACAL.docx">32 LCI C SIMPLE NOEMI MEDINA HUACAL</option>
+							<option value="38.6 LCD C DOBLE ISABEL RAMOS QUISPE.docx">38.6 LCD C DOBLE ISABEL RAMOS QUISPE</option>
+							<option value="40 LCI C SIMPLE MACROSOMIA FIORELLA PUMAYAULI HUAMAYAURI.docx">40 LCI C SIMPLE MACROSOMIA FIORELLA PUMAYAULI HUAMAYAURI</option>
+							<option value="COLECISTOPATIA CRONICA CALCULOSA ROCIO YANAC ORENCIO.docx">COLECISTOPATIA CRONICA CALCULOSA ROCIO YANAC ORENCIO</option>
+							<option value="ESTEATOSIS HEPATICA METEO POLIPO MIRIAN LAUREANO TORIBIO.docx">ESTEATOSIS HEPATICA METEO POLIPO MIRIAN LAUREANO TORIBIO</option>
+							<option value="FORMATO  GEMELAR.docx">FORMATO  GEMELAR</option>
+							<option value="FORMATO ECO DOPPLER Dario Cardenas Mauricio.docx">FORMATO ECO DOPPLER Dario Cardenas Mauricio</option>
+							<option value="FORMATO ECO GENETICA Dario Cardenas Mauricio.docx">FORMATO ECO GENETICA Dario Cardenas Mauricio</option>
+							<option value="FORMATO ECO OBSTETRICA 2DO TRIMESTRE Dario Cárdenas Mauricio.docx">FORMATO ECO OBSTETRICA 2DO TRIMESTRE Dario Cárdenas Mauricio</option>
+							<option value="FORMATO ECO OBSTETRICA INICIAL.docx">FORMATO ECO OBSTETRICA INICIAL</option>
+							<option value="FORMATO ECOGRAFIA MORFOLOGICA O 4D Dario Cárdenas Mauricio.docx">FORMATO ECOGRAFIA MORFOLOGICA O 4D Dario Cárdenas Mauricio</option>
+							<option value="FORMATO ECOGRAFIA TRANSVAGINAL Dario Cárdenas Mauricio.docx">FORMATO ECOGRAFIA TRANSVAGINAL Dario Cárdenas Mauricio</option>
+							<option value="HERIDA OPERATORIA CESAREA SAE JENY MENDEZ FELIPE.docx">HERIDA OPERATORIA CESAREA SAE JENY MENDEZ FELIPE</option>
+							<option value="LCD 29 SS JESICA CAMPOS CACERES.docx">LCD 29 SS JESICA CAMPOS CACERES</option>
+							<option value="LPD 16 SS YOSY CUTIPA LLANTOY.docx">LPD 16 SS YOSY CUTIPA LLANTOY</option>
+							<option value="MAMA LACTANCIA VARICES DER MARÍA ORTIZ PAREDES.docx">MAMA LACTANCIA VARICES DER MARÍA ORTIZ PAREDES</option>
+							<option value="MAMA SAE ROSMERY RICSE RODRIGUEZ.docx">MAMA SAE ROSMERY RICSE RODRIGUEZ</option>
+							<option value="METEO PERISTALTISMO INCREMENTADO RUBY CAJAS HERRERA.docx">METEO PERISTALTISMO INCREMENTADO RUBY CAJAS HERRERA</option>
+							<option value="MOLA PARCIAL MARIBEL CORTEZ TACSA.docx">MOLA PARCIAL MARIBEL CORTEZ TACSA</option>
+							<option value="OBST 17 MAYRA CRISTOBAL REYES.docx">OBSTÈTRICA</option>
+							<option value="PELVICA SAE PARAMETRIO CONSERVADO, TROMPA NO VISUALIZABLE, OVARIO NO SE APRECIA POR INTERFERENCIA DE GASES.docx">PELVICA</option>
+							<option value="PIG METEO CAO SHUZHEN.docx">PIG METEO CAO SHUZHEN</option>
+							<option value="PROSTATA III.docx">PROSTATA III</option>
+							<option value="RENAL SAE MIRIAN LAUREANO TORIBIO.docx">RENAL</option>
+							<option value="TV  MIOMA ELENA GOMEZ QUEZADA.docx">TRANSVAGINAL</option>
+				
 								</select>
 							</td>
 							<td><input type="submit" class="btn btn-success" value="Asociar"></td>
