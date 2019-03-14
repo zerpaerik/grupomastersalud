@@ -25,7 +25,7 @@ class ProductoController extends Controller
 				"icon" => "fa-list-alt",
 				"model" => "existencias",
         "model1" => "Productos en Almacen Central",
-				"headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento", "Editar", "Eliminar"],
+				"headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento", "Eliminar"],
 				"data" => $producto,
 				"fields" => ["id", "nombre","medida", "categoria","cantidad","preciounidad","precioventa","vence"],
           "actions" => [
@@ -42,7 +42,7 @@ class ProductoController extends Controller
         "icon" => "fa-list-alt",
         "model" => "existencias",
         "model1" => "Productos en Almacen Local",
-        "headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento", "Editar", "Eliminar"],
+        "headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento", "Eliminar"],
         "data" => $producto,
         "fields" => ["id", "nombre","medida", "categoria","cantidad","preciounidad","precioventa","vence"],
           "actions" => [
