@@ -95,11 +95,7 @@
 			<td>{{ $ventas->cantidad }}</td>
 			<td>{{ $ventas->monto }}</td>
 		</tr>
-		<tr>
-			<td>Ventas Punziones</td>
-			<td>{{ $punziones->cantidad }}</td>
-			<td>{{ $punziones->monto }}</td>
-		</tr>
+		
 		<tr>
 			<td>Mètodos Anticonceptivos</td>
 			<td>{{ $metodos->cantidad }}</td>
