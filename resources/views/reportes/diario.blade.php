@@ -101,6 +101,11 @@
 			<td>{{ $punziones->monto }}</td>
 		</tr>
 		<tr>
+			<td>Mètodos Anticonceptivos</td>
+			<td>{{ $metodos->cantidad }}</td>
+			<td>{{ $metodos->monto }}</td>
+		</tr>
+		<tr>
 			<td>TOTAL</td>
 			<td></td>
 			<td></td>

@@ -290,7 +290,7 @@ class ReportesController extends Controller
             $metodos->monto = 0;
         }
 
-        $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $ventas->monto + $punziones->monto;
+        $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $ventas->monto + $punziones->monto + $metodos->monto;
 
         $totalEgresos = 0;
 
@@ -466,6 +466,15 @@ class ReportesController extends Controller
             $metodos->monto = 0;
         }
 
+          $ventas = Creditos::where('origen', 'VENTA DE PRODUCTOS')
+                                   ->whereRaw("created_at >= ? AND created_at <= ?", 
+                                     array($fechainic, $fecha))
+                                    ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
+                                    ->first();
+        if ($ventas->cantidad == 0) {
+            $ventas->monto = 0;
+        }
+
         $egresos = Debitos::whereRaw("created_at >= ? AND created_at <= ?", 
                                      array($fechainic, $fecha))
                             ->where('id_sede','=', $request->session()->get('sede'))
@@ -501,14 +510,14 @@ class ReportesController extends Controller
             $totalEgresos += $egreso->monto;
         }
     
-         $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $metodos->monto;
+         $totalIngresos = $atenciones->monto + $consultas->monto + $otros_servicios->monto + $cuentasXcobrar->monto + $metodos->monto + $ventas->monto;
 
         
  
 
 
        
-       $view = \View::make('reportes.cierre_caja_ver', compact('atenciones', 'consultas','otros_servicios', 'cuentasXcobrar','metodos','caja','egresos','efectivo','tarjeta','totalEgresos','totalIngresos'));
+       $view = \View::make('reportes.cierre_caja_ver', compact('atenciones', 'consultas','otros_servicios', 'cuentasXcobrar','metodos','ventas','caja','egresos','efectivo','tarjeta','totalEgresos','totalIngresos'));
       
        //$view = \View::make('reportes.cierre_caja_ver')->with('caja', $caja);
        $pdf = \App::make('dompdf.wrapper');
@@ -837,12 +846,27 @@ class ReportesController extends Controller
                                     ->first();
 
 
+       $ventas = DB::table('ventas_productos as a')
+        ->select('a.id','a.id_producto','a.cantidad','a.paciente','a.monto','b.nombre','c.nombres','c.apellidos','a.created_at')
+        ->join('productos as b','b.id','a.id_producto')
+        ->join('pacientes as c','c.id','a.paciente')
+        ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('Y-m-d 23:59:59', strtotime($request->fecha))])
+        ->orderby('a.id','desc')
+        ->get();
+
+        $totalventas = Creditos::where('origen','VENTA DE PRODUCTOS')
+                                    ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($request->fecha)), date('                 Y-m-d 23:59:59', strtotime($request->fecha))])
+                                    ->where('id_sede','=', $request->session()->get('sede'))
+                                    ->select(DB::raw('SUM(monto) as monto'))
+                                    ->first();
+
+
     
     
      
         $hoy=date('d-m-Y');
        
-        $view = \View::make('reportes.detallado', compact('servicios', 'totalServicios','laboratorios', 'totalLaboratorios', 'consultas', 'totalconsultas','otrosingresos','totalotrosingresos','cuentasporcobrar','totalcuentasporcobrar','paquetes','totalPaquetes','metodos','totalmetodos','hoy'));
+        $view = \View::make('reportes.detallado', compact('servicios', 'totalServicios','laboratorios', 'totalLaboratorios', 'consultas', 'totalconsultas','otrosingresos','totalotrosingresos','cuentasporcobrar','totalcuentasporcobrar','paquetes','totalPaquetes','metodos','totalmetodos','ventas','totalventas','hoy'));
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);

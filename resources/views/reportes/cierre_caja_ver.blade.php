@@ -125,6 +125,12 @@
 			<td>{{ $metodos->cantidad }}</td>
 			<td>{{ $metodos->monto }}</td>
 		</tr>
+
+		<tr>
+			<td>Ventas</td>
+			<td>{{ $ventas->cantidad }}</td>
+			<td>{{ $ventas->monto }}</td>
+		</tr>
 		
 	</table>
 </div>

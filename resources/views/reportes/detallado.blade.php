@@ -277,6 +277,36 @@
 	</table>
 </div>
 
+<div style="font-weight: bold; font-size: 14px">
+		VENTAS DE PRODUCTOS
+</div>
+<div style="margin-top:10px; background: #eaeaea;">
+	<table style="">
+		<tr>
+			<th>Paciente</th>
+			<th>Producto</th>
+		    <th>Cantidad</th>
+			<th>Monto</th>
+		</tr>
+		@foreach ($ventas as $con)
+			<tr>
+				<td>{{ $con->nombres }},{{ $con->apellidos }}</td>
+				<td>{{ $con->nombre }}</td>
+				<td>{{ $con->cantidad }}</td>
+				<td>{{ $con->monto }}</td>
+				<td>EF</td>
+			</tr>
+		@endforeach
+		<tr>
+			<td>Total</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td width="80">{{ $totalventas->monto }}</td>
+		</tr>
+	</table>
+</div>
+
 
 
 
