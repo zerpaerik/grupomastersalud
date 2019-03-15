@@ -64,7 +64,7 @@ margin-top: -20px;
 
     <div class="" style="font-size: 40px; text-align: center; margin-bottom: -15px;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
-	    <p><strong>TICKET:0000{{ $paciente->id}}</strong></p>
+	    <p><strong>TICKET:0000{{ $paciente->EventId}}</strong></p>
 	</div>
 
     <div class="" style="font-size: 40px; text-align: left; margin-bottom:-15px;">
