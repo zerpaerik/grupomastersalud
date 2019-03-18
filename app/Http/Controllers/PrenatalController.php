@@ -303,7 +303,7 @@ class PrenatalController extends Controller
 			"vihd" => $request->vihd,
 			"hemo" => $request->hemo,
 			"hemod" => $request->hemod,
-			"fc" => $request->fc,
+			//"fc" => $request->fc,
 			"fr" => $request->fr,
 			"pri" => $request->pri,
 			"peso" => $request->peso,

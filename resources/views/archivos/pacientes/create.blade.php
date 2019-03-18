@@ -98,7 +98,10 @@
 							<option value="{{$edo->id}}">{{$edo->nombre}}</option>
 							@endforeach
 						</select>
-						</div>									
+						</div>	
+
+						<label class="col-sm-4 control-label">Si el Paciente no tiene DNI, colocar PED-DNI DE MADRE/PADRE-Ejem: PED-123456</label>
+								
 
 						<br>
 						<input type="button" onclick="form.submit()" style="margin-left:20px; margin-top: 20px;" class="col-sm-3 btn btn-primary" value="Agregar">

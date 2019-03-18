@@ -460,6 +460,9 @@ Route::get('historiasp-edit-{id}','ConsultaController@editview')->name('historia
 Route::get('pediatrico-create-{paciente}-{evento}','PediatricoController@show');
 Route::post('pediatrico/create','PediatricoController@create')->name('pediatrico.create');
 
+Route::get('cred-{id}','CredController@show');
+Route::post('cred/create', 'CredController@create')->middleware('auth');
+
 
 
 //Servicios
