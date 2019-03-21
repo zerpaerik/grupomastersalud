@@ -119,7 +119,7 @@
 							<option value="PIG METEO CAO SHUZHEN.docx">PIG METEO CAO SHUZHEN</option>
 							<option value="PROSTATA III.docx">PROSTATA III</option>
 							<option value="RENAL SAE MIRIAN LAUREANO TORIBIO.docx">RENAL</option>
-							<option value="TV  MIOMA ELENA GOMEZ QUEZADA.docx">TRANSVAGINAL</option>
+							<option value="TV  MIOMA ELENA GOMEZ QUEZADA.doc">TRANSVAGINAL</option>
 				
 								</select>
 							</td>
