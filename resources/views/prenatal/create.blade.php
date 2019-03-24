@@ -451,7 +451,11 @@
 					<h3>Urea</h3>	
 					<p>
 							
-						<input type="text" name="urea" style="line-height: 20px">	
+						<select id="el12" name="urea">
+							<option value="Normal">Normal</option>
+							<option value="Anormal">Anormal</option>
+						     <option value="No">No se hizO</option>
+						</select>	
 
 						<input type="date" name="uread" style="line-height: 20px">	
 						</p>
@@ -463,7 +467,11 @@
 					<h3>Creati.</h3>	
 					<p>
 							
-						<input type="text" placeholder="creatinina" name="creatinina" style="line-height: 20px">	
+						<select id="el12" name="creatinina">
+							<option value="Normal">Normal</option>
+							<option value="Anormal">Anormal</option>
+						     <option value="No">No se hizO</option>
+						</select>	
 
 						<input type="date" name="creatininad" style="line-height: 20px">	
 						</p>
