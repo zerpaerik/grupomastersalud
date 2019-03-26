@@ -376,7 +376,7 @@ class ProductoController extends Controller
 
                
              $atenciones = DB::table('ventas as a')
-            ->select('a.id','a.id_usuario','v.id_producto','v.id_venta','v.paciente','v.created_at','v.monto','v.cantidad','e.name','e.lastname','p.nombres','p.apellidos')
+            ->select('a.id','a.id_usuario','v.id_producto','v.id_venta as id2','v.paciente','v.created_at','v.id as id3','v.monto','v.cantidad','e.name','e.lastname','p.nombres','p.apellidos')
             ->join('ventas_productos as v','v.id_venta','a.id')
             ->join('users as e','e.id','a.id_usuario')
             ->join('pacientes as p','p.id','v.paciente')
@@ -407,7 +407,7 @@ class ProductoController extends Controller
 
 
             $atenciones = DB::table('ventas as a')
-            ->select(DB::raw('SUM(v.monto) as monto'),'a.id','a.id_usuario','v.id_producto','v.id_venta','v.paciente','v.created_at','v.monto','v.cantidad','e.name','e.lastname','p.nombres','p.apellidos')
+            ->select(DB::raw('SUM(v.monto) as monto'),'a.id','a.id_usuario','v.id_producto','v.id_venta as id2','v.id as id3','v.paciente','v.created_at','v.monto','v.cantidad','e.name','e.lastname','p.nombres','p.apellidos')
             ->join('ventas_productos as v','v.id_venta','a.id')
             ->join('users as e','e.id','a.id_usuario')
             ->join('pacientes as p','p.id','v.paciente')
@@ -415,6 +415,8 @@ class ProductoController extends Controller
             ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
             ->orderby('a.id','desc')
             ->get();
+
+       
            
 
         $aten = VentasProductos::whereDate('created_at', '=',Carbon::today()->toDateString())

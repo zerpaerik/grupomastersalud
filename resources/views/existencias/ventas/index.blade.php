@@ -97,7 +97,7 @@
 								<td>
 									<a target="_blank" href="ticket_ver_ventas-{{$atec->id}}" class="btn btn-success">Ver Ticket</a>
 								@if(\Auth::user()->role_id <> 6)
-									<a class="btn btn-danger" href="ventas-delete-{{$atec->id}}"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
+									<a class="btn btn-danger" href="ventas-delete-{{$atec->id3}}"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>	
 								</td>
 								@endif
 							</tr>
