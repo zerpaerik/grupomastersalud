@@ -182,7 +182,7 @@ class EventController extends Controller
     $historial = Historial::where('paciente_id','=',$event->pacienteId)->first();
     $consultas = Consulta::where('paciente_id','=',$event->pacienteId)->get();
     $personal = Personal::where('estatus','=',1)->get();
-  $productos = Producto::where('almacen','=',2)->where("sede_id", "=", $request->session()->get('sede'))->get();
+  $productos = Producto::where('almacen','=',2)->where('categoria','=',1)->where("sede_id", "=", $request->session()->get('sede'))->get();
     $ciex = Ciex::all();
     return view('events.show',[
       'data' => $event,
