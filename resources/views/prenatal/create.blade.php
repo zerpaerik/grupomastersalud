@@ -115,6 +115,7 @@
 	<div class="col-md-3">
 
 	<strong>ECO EG</strong>: {{ $prenatal->eco_eg }}
+	<strong>ECO EG Texto</strong>: {{ $prenatal->eco_eg_text }}
 		
 	</div>
 
