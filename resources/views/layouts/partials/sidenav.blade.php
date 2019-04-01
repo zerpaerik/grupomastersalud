@@ -143,15 +143,7 @@
       <li>
         <a href="{{route('historialcobros.index')}}"><i class="fa fa-list-alt"></i> Historial de Cobros</a>
       </li>
-      <li>
-        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Pers y Prof.</a>
-      </li>
-      <li>
-        <a href="{{route('comporpagartec.index')}}"><i class="fa fa-list-alt"></i> Comis. Tecnólogos</a>
-      </li>
-      <li>
-        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comisiones Pagadas</a>
-      </li>
+   
 
     </ul>
   </li>
@@ -164,7 +156,7 @@
     <ul class="dropdown-menu">
      
       <li>
-        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Botica</a>
       </li>
 
 
@@ -185,7 +177,7 @@
     <ul class="dropdown-menu">
      
       <li>
-        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Botica</a>
       </li>
 
 
@@ -531,7 +523,7 @@
     <ul class="dropdown-menu">
      
       <li>
-        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Botica</a>
       </li>
 
 
@@ -552,7 +544,7 @@
     <ul class="dropdown-menu">
      
       <li>
-        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Botica</a>
       </li>
 
 
