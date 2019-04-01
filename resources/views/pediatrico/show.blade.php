@@ -180,7 +180,15 @@
 		<div class="form-group">
 			<input type="hidden" name="paciente" value="{{$data->pacienteId}}">
 			<input type="hidden" name="profesional_id" value="{{$data->profesionalId}}">
-		    <input type="hidden" name="evento" value="{{$evento->id}}">
+			<div class="row">
+			  <label class="col-sm-3">DEJAR PENDIENTE?:</label>
+			<div class="col-sm-2">
+				<select id="el3" name="pendiente" required="true">
+					<option value="0">No</option>
+					<option value="1">Si</option>
+				</select>
+			</div> 
+		</div>
            <div class="row">
             <label for="" class="col-sm-2 control-label">Motivo de Consulta</label>
 			<div class="col-sm-10 control-label">	

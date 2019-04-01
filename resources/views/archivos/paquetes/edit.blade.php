@@ -8,7 +8,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-users"></i>
-					<span><strong>Agregar Paquete</strong></span>
+					<span><strong>Modificar Paquete</strong></span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -111,6 +111,21 @@
 				            <!-- /sheepIt Form --> 
 						</div>
 					</div>
+					<div class="form-group">
+						<div class="row">
+							<label class="col-sm-12 alert"><i class="fa fa-tasks" aria-hidden="true"></i> Cantidad de Consultas</label>
+							<input type="text"  name="consultas" placeholder="Cantidad de Consultas" value="{{$consultasP->cantidad}}"vtitle="Nombres">
+						
+					  </div>
+				      </div>
+
+				      <div class="form-group">
+						<div class="row">
+							<label class="col-sm-12 alert"><i class="fa fa-tasks" aria-hidden="true"></i> Cantidad de Controles</label>
+							<input type="text"  name="controles" placeholder="Cantidad de Controles" value="{{$controlesP->cantidad}}" title="Nombres">
+						
+					  </div>
+				      </div>
 
 					<div class="form-group">
 						<input type="submit" style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-primary" value="Agregar">

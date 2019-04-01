@@ -26,6 +26,26 @@ use Toastr;
 class PediatricoController extends Controller
 {
 
+	public function index(){
+
+
+
+		$pediatricosp = DB::table('pediatricos as a')
+    ->select('a.id','a.paciente','a.created_at','a.pendiente','p.nombres','p.apellidos','p.dni')
+    ->join('pacientes as p','p.id','=','a.paciente')
+    ->where('a.pendiente','=',1)
+    ->get();
+
+     return view('pediatrico.index',[
+      'pediatricosp' => $pediatricosp,
+        ]);
+
+
+
+	}
+
+
+
  
  
   public function show(Request $request,$id,$id2)
@@ -102,7 +122,8 @@ class PediatricoController extends Controller
 				'exa' =>$request->exa,
 				'trat' =>$request->trat,
 				'prox' =>$request->prox,
-				'paciente' =>$request->paciente
+				'paciente' =>$request->paciente,
+				'pendiente' =>$request->pendiente
 					
 			]);
 
@@ -113,6 +134,68 @@ class PediatricoController extends Controller
        return back();
 
 		
+    }
+
+    public function editView($id){
+
+    	$pediatrico=Pediatrico::where('id','=',$id)->first();
+
+    	 return view('pediatrico.edit',[
+      'pediatrico' => $pediatrico,
+        ]);
+
+
+
+
+    }
+
+      public function update(Request $request)
+    {
+
+
+      
+    $pediatrico = Pediatrico::find($request->id);
+    $pediatrico->mp =$request->mp;
+    $pediatrico->tenf =$request->tenf;
+    $pediatrico->mot =$request->mot;
+    $pediatrico->rel =$request->rel;
+    $pediatrico->ape =$request->ape;
+    $pediatrico->sed =$request->sed;
+    $pediatrico->orin =$request->orin;
+    $pediatrico->hec =$request->hec;
+    $pediatrico->ram =$request->ram;
+    $pediatrico->hosp =$request->hosp;
+    $pediatrico->cir =$request->cir;
+    $pediatrico->vac =$request->vac;
+    $pediatrico->ap =$request->ap;
+    $pediatrico->edad=$request->edad;
+    $pediatrico->peso=$request->peso;
+    $pediatrico->talla =$request->talla;
+    $pediatrico->pri =$request->pri;
+    $pediatrico->pa =$request->pa;
+    $pediatrico->sat =$request->sat;
+    $pediatrico->ag =$request->ag;
+    $pediatrico->cab =$request->cab;
+    $pediatrico->ad =$request->ad;
+    $pediatrico->sn =$request->sn;
+    $pediatrico->piel =$request->piel;
+    $pediatrico->tor =$request->tor;
+    $pediatrico->sc =$request->sc;
+    $pediatrico->sg =$request->sg;
+    $pediatrico->al =$request->al;
+    $pediatrico->hall =$request->hall;
+    $pediatrico->diag =$request->diag;
+    $pediatrico->plan =$request->plan;
+    $pediatrico->exa =$request->exa;
+    $pediatrico->trat =$request->trat;
+    $pediatrico->prox =$request->prox;
+    $pediatrico->pendiente =$request->pendiente;
+    $pediatrico->save();
+
+  
+    Toastr::success('Editado Exitosamente.', 'Historia Pediatrica!', ['progressBar' => true]);
+      return redirect()->action('PediatricoController@index', ["edited" => $pediatrico]);
+     
     }
 
 

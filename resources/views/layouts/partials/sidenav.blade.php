@@ -156,6 +156,47 @@
     </ul>
   </li>
 
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-unsorted"></i>
+      <span class="hidden-xs">Comisiones por Pagar</span>
+    </a>
+    <ul class="dropdown-menu">
+     
+      <li>
+        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+      </li>
+
+
+      <li>
+        <a href="{{route('comporpagar.index2')}}"><i class="fa fa-list-alt"></i> Comis. Profesional</a>
+      </li>
+    
+
+    </ul>
+  </li>
+
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-unsorted"></i>
+      <span class="hidden-xs">Comisiones Pagadas</span>
+    </a>
+    <ul class="dropdown-menu">
+     
+      <li>
+        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
+      </li>
+
+
+      <li>
+        <a href="{{route('compagadas.index1')}}"><i class="fa fa-list-alt"></i> Comis. Profesional</a>
+      </li>
+    
+
+    </ul>
+  </li>
+
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-unsorted"></i>
@@ -172,8 +213,11 @@
         <a href="{{route('prenatal.index')}}"><i class="fa fa-plus-circle"></i> Ver Controles</a>
       </li> 
       <li>
-        <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes</a>
-      </li>  
+        <a href="{{route('historias.indexp')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes Ginecologia</a>
+      </li> 
+       <li>
+        <a href="{{route('pediatrico.index')}}"><i class="fa fa-plus-circle"></i> Historias Pendientes Pediatria</a>
+      </li> 
        <li>
         <a href="{{route('proximacita.index')}}"><i class="fa fa-plus-circle"></i> Citas para HOY</a>
       </li>              
@@ -475,15 +519,47 @@
       <li>
         <a href="{{route('cuentasporcobrar.index')}}"><i class="fa fa-list-alt"></i> Cuentas por Cobrar</a>
       </li>
+    
+    </ul>
+  </li>
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-unsorted"></i>
+      <span class="hidden-xs">Comisiones por Pagar</span>
+    </a>
+    <ul class="dropdown-menu">
+     
       <li>
-        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Pers y Prof.</a>
+        <a href="{{route('comporpagar.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
       </li>
+
+
       <li>
-        <a href="{{route('comporpagartec.index')}}"><i class="fa fa-list-alt"></i> Comis. Tecnólogos</a>
+        <a href="{{route('comporpagar.index2')}}"><i class="fa fa-list-alt"></i> Comis. Profesional</a>
       </li>
+    
+
+    </ul>
+  </li>
+
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-unsorted"></i>
+      <span class="hidden-xs">Comisiones Pagadas</span>
+    </a>
+    <ul class="dropdown-menu">
+     
       <li>
-        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comisiones Pagadas</a>
+        <a href="{{route('compagadas.index')}}"><i class="fa fa-list-alt"></i> Comis. Personal</a>
       </li>
+
+
+      <li>
+        <a href="{{route('compagadas.index1')}}"><i class="fa fa-list-alt"></i> Comis. Profesional</a>
+      </li>
+    
 
     </ul>
   </li>

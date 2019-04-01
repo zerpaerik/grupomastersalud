@@ -241,6 +241,7 @@
 			<label for="" class="col-sm-2 control-label">Animo</label>
 			<div class="col-sm-4">	
 				<select id="el9" name="animo">
+					<option value="Normal">Normal</option>
 					<option value="Deprimido">Deprimido</option>
 					<option value="Eufòrico">Eufòrico</option>
 					<option value="Tendencia al llanto">Tendencia al llanto</option>

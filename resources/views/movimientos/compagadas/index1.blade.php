@@ -9,7 +9,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-linux"></i>
-					<span>Comisiones/ Pagadas a Personal</span>
+					<span>Comisiones/ Pagadas a Profesional</span>
 
 				</div>
 
@@ -29,7 +29,7 @@
 				<div class="no-move"></div>
 				
 			</div>
-			{!! Form::open(['method' => 'get', 'route' => ['compagadas.index']]) !!}
+			{!! Form::open(['method' => 'get', 'route' => ['compagadas.index1']]) !!}
 
 			<div class="row">
 				<div class="col-md-2">

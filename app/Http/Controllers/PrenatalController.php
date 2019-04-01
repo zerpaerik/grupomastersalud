@@ -224,6 +224,7 @@ class PrenatalController extends Controller
 				'ultima_menstruacion' =>$request->ultima_menstruacion,
 				'parto_probable' =>$request->parto_probable,
 				'eco_eg' =>$request->eco_eg,
+				'eco_eg_text' => $request->eco_eg_text,
 				'orina' =>$request->orina,
 				'orinad' =>$request->orinad,
 				'urea' =>$request->urea,
@@ -319,6 +320,8 @@ class PrenatalController extends Controller
 			"exa" => $request->exa,
 			"def" => $request->def,
 			"tra" => $request->tra,
+			"prox" => $request->prox,
+			"orina" => $request->orina
 
     	]);
 

@@ -419,6 +419,8 @@
 					      <div class="col-md-2">
                         <label for="">Eco: EG</label>
 						<input type="date" name="eco_eg" style="line-height: 20px">	
+						<input type="text" name="eco_eg_text">
+
 					     </div>
 
 
@@ -517,6 +519,7 @@
 
 
 
+
 						
 							<input type="button" onclick="form.submit()" class="btn btn-primary" value="Guardar">														
 					</div>
@@ -558,7 +561,7 @@
 
    <tr>
 
-    <th style="background: #81BEF7;border: 1px solid black;">Edad Gest(Semanas)</th>
+    <th style="background: #81BEF7;border: 1px solid black;">Ecografia</th>
  @foreach($control as $c)
     <td style="border: 1px solid black;">{{$c->gesta_semanas}}</td>
   @endforeach
@@ -628,7 +631,7 @@
   @endforeach
   </tr>
 
-   <th style="background: #81BEF7;border: 1px solid black;">Sulfato Ferroso</th>
+   <th style="background: #81BEF7;border: 1px solid black;">Vitaminas</th>
  @foreach($control as $c)
     <td style="border: 1px solid black;">{{$c->sulfato}}</td>
   @endforeach
@@ -667,7 +670,13 @@
 			<div class="col-sm-2"><strong>Gen.Int:</strong>		
 {{$c->genint}}			</div>
 			<div class="col-sm-2"><strong>MiembrosInf.:</strong>		
-{{$c->miembros}}			</div>
+{{$c->miembros}}
+			</div>
+			<div class="row">
+				<div class="col-sm-2"><strong>Orina:</strong>		
+{{$c->orina}}			</div>
+				
+			</div>
 
 
 		    </div>
@@ -756,7 +765,7 @@
             <br>  
             <div class="row">
 
-            <label class="col-sm-1 control-label">Gestaciòn</label>
+            <label class="col-sm-1 control-label">Ecografia</label>
             <div class="col-sm-3">
               <input type="text" class="form-control" name="gesta_semanas" placeholder="Semanas de gestacion" data-toggle="tooltip" data-placement="bottom" title="gesta_semanas">
             </div>
@@ -825,7 +834,7 @@
             </div>
 
 
-             <label class="col-sm-1 control-label">Sulfato.</label>
+             <label class="col-sm-1 control-label">Vitaminas.</label>
             <div class="col-sm-3">
               <input type="text" class="form-control" name="sulfato" placeholder="Sulfato Ferroso" data-toggle="tooltip" data-placement="bottom" title="sulfato">
             </div>
@@ -926,6 +935,18 @@
 			<div class="col-sm-2">Miembros Inferiores	
 				<input class="form-control" type="text" name="miembros">
 			</div>
+			<div class="row">
+				
+		
+			<div class="col-sm-2 control-label">Orina
+				<select  name="orina">
+							<option value="Normal">Normal</option>
+							<option value="Anormal">Anormal</option>
+						     <option value="No">No se hizO</option>
+						</select>
+				
+			</div>
+				</div>
 
 
 		    </div>
@@ -949,6 +970,12 @@
 
 		    	
 		    </div>
+
+
+	   <label for="" class="col-sm-2 ">Pròxima Cita</label>
+			<div class="col-sm-3">
+				<input type="date" name="prox" class="form-control" >
+			</div>
 
         </div>
 

@@ -211,6 +211,10 @@ Route::get('labpagados', 'LaboratoriosPagadosController@index')->name('labpagado
 
 Route::get('comporpagar1', 'ComporPagarController@index1')->name('comporpagar.index1')->middleware('auth');
 Route::get('comporpagar', 'ComporPagarController@index')->name('comporpagar.index')->middleware('auth');
+
+Route::get('comporpagar2', 'ComporPagarController@index2')->name('comporpagar.index2')->middleware('auth');
+Route::get('comporpagar3', 'ComporPagarController@index3')->name('comporpagar.index3')->middleware('auth');
+
 Route::get('comporpagar-search', 'ComporPagarController@search')->name('comporpagar.search')->middleware('auth');
 Route::get('comporpagar-create', 'ComporPagarController@createView')->name('comporpagar.create')->middleware('auth');
 Route::post('comporpagar/create', 'ComporPagarController@create')->middleware('auth');
@@ -232,6 +236,7 @@ Route::get('pagarcomtec/{id}', 'ComisionesPorPagarTecController@pagarcom')->midd
 
 
 Route::get('compagadas', 'ComisionesPagadasController@index')->name('compagadas.index')->middleware('auth');
+Route::get('compagadas1', 'ComisionesPagadasController@index1')->name('compagadas.index1')->middleware('auth');
 Route::get('compagadas-search', 'ComisionesPagadasController@search')->name('compagadas.search')->middleware('auth');
 Route::get('reversar/{id}', 'ComisionesPagadasController@reversar')->middleware('auth');
 
@@ -456,9 +461,11 @@ Route::get('historias-{id}','ConsultaController@show');
 Route::get('historiasp', 'ConsultaController@indexp')->name('historias.indexp')->middleware('auth');
 Route::get('historiasp-edit-{id}','ConsultaController@editview')->name('historiasp.edit')->middleware('auth');
 
-
+Route::get('pediatrico', 'PediatricoController@index')->name('pediatrico.index')->middleware('auth');
 Route::get('pediatrico-create-{paciente}-{evento}','PediatricoController@show');
 Route::post('pediatrico/create','PediatricoController@create')->name('pediatrico.create');
+Route::post('pediatrico/update','PediatricoController@update');
+Route::get('pediatrico-edit-{id}','PediatricoController@editview')->name('pediatrico.edit')->middleware('auth');
 
 Route::get('cred-{id}','CredController@show');
 Route::post('cred/create', 'CredController@create')->middleware('auth');

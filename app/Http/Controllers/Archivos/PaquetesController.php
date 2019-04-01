@@ -146,16 +146,21 @@ class PaquetesController extends Controller
       $servicios = Servicios::all();
       $laboratorios = Analisis::all();
 
-      $consultasP = PaqueteCons::where('paquete_id',$id)->get();
-      $controlesP = PaqueteCont::where('paquete_id',$id)->get();
-     
+      $consultasP = PaqueteCons::where('paquete_id',$id)->first();
+      $controlesP = PaqueteCont::where('paquete_id',$id)->first();
+
+    
       return view('archivos.paquetes.edit', compact('paquete','serviciosP','laboratoriosP','servicios','laboratorios','consultasP','controlesP'));  
     }
 
     public function update(Request $request, $id)
     {
+       
+
+
       $paquete = Paquetes::where('id',$id)
                           ->update([
+                              'detalle' => $request->detalle,
                               'precio' => $request->precio,
                               'porcentaje' => $request->porcentaje
                           ]);
@@ -177,7 +182,9 @@ class PaquetesController extends Controller
                           ]);
           }
         }
-        if (isset($request->consultas)) {
+      }
+
+       if (isset($request->consultas)) {
             PaqueteCons::where('paquete_id', $id)
                           ->update([
                               'cantidad' => $request->consultas
@@ -192,7 +199,6 @@ class PaquetesController extends Controller
                           ]);
          
         }
-      }
 
       return redirect()->route('paquetes.index');
     }
