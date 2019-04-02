@@ -33,7 +33,7 @@ class MetodosController extends Controller
 		->join('productos as d','d.id','a.id_producto')
 		->whereBetween('a.created_at', [date('Y-m-d', strtotime($f1)), date('Y-m-d', strtotime($f2))])
     ->where('a.sede','=',$request->session()->get('sede'))
-        ->orderBy('a.created_at','asc')
+        ->orderBy('a.id','desc')
         ->get(); 
 
       } else {
@@ -45,7 +45,7 @@ class MetodosController extends Controller
 		->join('productos as d','d.id','a.id_producto')
        ->whereDate('a.created_at', '=',Carbon::today()->toDateString())
         ->where('a.sede','=',$request->session()->get('sede'))
-        ->orderBy('a.created_at','asc')
+        ->orderBy('a.id','desc')
         ->get(); 
 
 
