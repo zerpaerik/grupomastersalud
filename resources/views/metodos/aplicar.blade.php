@@ -24,6 +24,24 @@
 				<h4 class="page-header"></h4>
 				<form class="form-horizontal" role="form" method="post" action="metodos/aplicar">
 					{{ csrf_field() }}
+				<h2>Aplicaciones anteriores de {{$pacientee->nombres}} {{$pacientee->apellidos}}</h2>
+	@foreach($metodos as $m)
+	<div class="rows">
+		<div class="col-sm-12">
+			<div class="rows">
+				<h3 class="col-sm-12"><strong>Aplicacion del {{$m->created_at}}</strong></h3>
+				<p class="col-sm-6"><strong>Peso:</strong> {{ $m->peso }}</p>
+		     	<p class="col-sm-6"><strong>Talla:</strong> {{ $m->talla }}</p>
+				<p class="col-sm-6"><strong>Observacion:</strong> {{ $m->observacion }}</p>
+				<p class="col-sm-6"><strong>Registrado Por:</strong> {{ $m->name }} {{ $m->lastname }}</p>
+
+				
+			
+				<br>
+			</div>
+		</div>
+	
+	@endforeach
 					<div class="form-group">
 
 						<label class="col-sm-1 control-label">Peso</label>
@@ -43,6 +61,8 @@
 			
 
 						<input type="hidden" name="id" value="{{$id}}">
+						<input type="hidden" name="paciente" value="{{$paciente}}">
+
 
 						<div class="col-sm-8">
 							<input type="button" onclick="form.submit()" class="col-sm-2 btn btn-primary" value="Aplicar">

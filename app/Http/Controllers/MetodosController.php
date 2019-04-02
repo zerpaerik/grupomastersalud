@@ -211,8 +211,20 @@ class MetodosController extends Controller
             $pacientee=Pacientes::where('id','=',$p->id_paciente)->first();
             $metodo = Producto::where('id','=',$p->id_producto)->first();
 
+          //  $metodos= AplicaMetodo::where('paciente','=',$p->id_paciente)->get();
+
+             $metodos = DB::table('aplica_metodos as a')
+        ->select('a.id','a.peso','a.talla','a.created_at','a.usuario','a.observacion','a.paciente','u.name','u.lastname')
+        ->join('users as u','u.id','a.usuario')
+                   // ->where('estatus','=','1')
+        ->where('a.paciente','=', $p->id_paciente)
+        ->get();
+
+
+           
+
      
-      return view('metodos.aplicar', ["paciente" => $p->id_paciente, "producto" => $p->id_producto, "monto" => $p->monto, "id" => $p->id,"pacientes" =>Pacientes::where("estatus", '=', 1)->orderby('nombres','asc')->get(),"productos" => Producto::where("almacen",'=',2)->orderby('nombre','asc')->get(),"pacientee" => $pacientee,"metodo" => $metodo]);
+      return view('metodos.aplicar', ["paciente" => $p->id_paciente, "producto" => $p->id_producto, "monto" => $p->monto, "id" => $p->id,"pacientes" =>Pacientes::where("estatus", '=', 1)->orderby('nombres','asc')->get(),"productos" => Producto::where("almacen",'=',2)->orderby('nombre','asc')->get(),"pacientee" => $pacientee,"metodo" => $metodo,"metodos" => $metodos]);
       
     }    
 
@@ -251,12 +263,15 @@ class MetodosController extends Controller
               'aplicado' => 1
             ]);
 
+         $metodos=Metodos::where('id','=',$request->id)->first(); 
+
         $metodos = new AplicaMetodo();
          $metodos->id_metodo =$request->id;
          $metodos->peso =$request->peso;
          $metodos->talla =$request->talla;
          $metodos->observacion = $request->observacion;
-         $metodos->usuario = \Auth::user()->id;
+         $metodos->usuario = \Auth::user()->id; 
+         $metodos->paciente= $request->paciente;
          $metodos->save();
 
     Toastr::success('Aplicado Exitosamente.', 'Mètodo!', ['progressBar' => true]);

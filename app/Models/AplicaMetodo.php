@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AplicaMetodo extends Model
 {
     protected $fillable = [
-    	'id_metodo','peso','talla','usuario'
+    	'id_metodo','peso','talla','usuario','paciente'
     ];
 
    
