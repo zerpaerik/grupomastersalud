@@ -73,6 +73,7 @@
 							<th>Teléfono</th>
 							<th>Método</th>
 							<th>Monto</th>
+						    <th>Aplicado</th>
 							<th>Próxima Aplicación</th>
 						    <th>Registrado Por:</th>
 							<th>Acciones</th>
@@ -88,6 +89,11 @@
 								<td>{{$atec->telefono}}</td>
 								<td>{{$atec->producto}}</td>
 								<td>{{$atec->monto}}</td>
+								@if($atec->aplicado == 0)
+								<td>No</td>
+								@else
+								<td>Si</td>
+								@endif
 								<td style="background: #00FFFF;">{{$atec->proximo}}</td>
 								<td>{{$atec->name}},{{$atec->lastname}}</td>
 								<td>
@@ -95,6 +101,9 @@
 							    								@if(\Auth::user()->role_id <> 6)
 							    <a href="metodos-edit-{{$atec->id}}" class="btn btn-primary">Editar</a>
 							    <a href="metodos-delete-{{$atec->id}}" class="btn btn-danger"  onclick="return confirm('¿Desea Eliminar este registro?')">Eliminar</a>
+                                @if($atec->aplicado == 0)
+							    <a href="aplimetodo-{{$atec->id}}" class="btn btn-danger">Aplicar</a>
+							    @endif
 							    @endif
 								</td>
 							</tr>

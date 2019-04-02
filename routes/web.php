@@ -164,10 +164,21 @@ Route::get('metodos-create', 'MetodosController@createView')->name('metodos.crea
 Route::post('metodos/create', 'MetodosController@create')->middleware('auth');
 Route::get('metodos/{id}', 'MetodosController@delete')->middleware('auth');
 Route::get('metodos-edit-{id}', 'MetodosController@editView')->name('metodos.edit');
+Route::get('aplimetodo-{id}', 'MetodosController@aplimetodo')->name('aplimetodo.edit');
 Route::post('metodos/edit', 'MetodosController@edit');
+Route::post('metodos/aplicar', 'MetodosController@aplicar');
+
 Route::get('metodos-delete-{id}','MetodosController@delete');
 Route::get('metodos-llamar-{id}','MetodosController@llamar');
 Route::get('metodos-ticket-ver-{id}','MetodosController@ticket_ver');
+
+Route::get('aplicametodo', 'AplicaMetodoController@index')->name('aplicametodo.index')->middleware('auth');
+Route::get('aplicametodo-create', 'AplicaMetodoController@createView')->name('aplicametodo.create')->middleware('auth');
+Route::get('metodos-edit-{id}', 'MetodosController@editView')->name('metodos.edit');
+
+
+
+
 
 
 /**
