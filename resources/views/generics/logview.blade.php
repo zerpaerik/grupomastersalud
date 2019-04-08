@@ -1,4 +1,4 @@
-logview.blade.php<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -112,10 +112,10 @@ logview.blade.php<!DOCTYPE html>
       </ul>
     </div>
     <!--Start Content-->
-    <div id="content" class="col-xs-12 col-sm-10">
-		<div class="preloader">
-			<img src="{{url('img/devoops_getdata.gif')}}" class="devoops-getdata" alt="preloader"/>
-		</div>
+   <div id="content" class="col-xs-12 col-sm-10">
+    <div class="preloader">
+      <img src="{{url('img/devoops_getdata.gif')}}" class="devoops-getdata" alt="preloader"/>
+    </div> 
 		<div class="container-fluid">
 	      <div class="row">
 	        <div class="col-xs-12 col-md-5 col-md-offset-4">  

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	 <p><strong>MASTER SALUD -</strong> {{Session::get('sedeName')}}</p>
+	<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 20%;"/>
 	<br>
 	<CENTER><p><strong>HISTORIA CLÍNICA</strong></p></CENTER>
 <br>
@@ -17,10 +17,10 @@
             <p style="margin-bottom: 8px;">Nombre: {{$data->nombres}}, {{$data->apellidos}}</p>
             <p style="margin-left:380px;margin-top: -30px;">DNI paciente: {{$data->dni}}</p>
             <p style="margin-bottom: 8px;">Dirección del paciente: {{$data->direccion}}</p>
-            <p style="margin-left:380px;margin-top: -30px;">Teléfono del paciente: {{$data->telefono}}</p>
             <p style="margin-bottom: 8px;">Fecha de nacimiento: {{$data->fechanac}}</p>
             <p style="margin-left:380px;margin-top: -30px;">Grado de isntruccion del paciente: {{$data->gradoinstruccion}}</p>
             <p style="margin-bottom: 8px;">Ocupacion del paciente: {{$data->ocupacion}}</p>
+            <p style="margin-left:380px;margin-top: -30px;">Teléfono del paciente: {{$data->telefono}}</p>
 
         </fieldset> 
      </div> 
@@ -80,10 +80,10 @@
             <p style="margin-bottom: 8px;"><strong>CIEX:</strong> {{ $consulta->CIEX }}</p>
             <p style="margin-bottom: 8px;"><strong>CIEX: </strong>{{ $consulta->CIEX2 }}</p>
             <p style="margin-bottom: 8px;"><strong>Examen Auxiliar: </strong>{{ $consulta->examen_auxiliar }}</p>
-            <p style="margin-left:380px;margin-top: -30px;"><strong>Plan de Tratamiento: </strong>{{ $consulta->plan_tratamiento }}</p>
+            <p style="margin-bottom: 8px;"><strong>Plan de Tratamiento: </strong>{{ $consulta->plan_tratamiento }}</p>
             <p style="margin-bottom: 8px;"><strong>Proxima CITA </strong>{{ $consulta->prox }}</p>
             <p style="margin-left:380px;margin-top: -30px;"><strong>Atendido Por: </strong> {{ $consulta->personal }}</p>
-            <p style="margin-bottom: 8px"><strong>Observaciones: </strong> {{ $consulta->observaciones }}</p>
+            <p style="margin-bottom: 8px;"><strong>Observaciones: </strong> {{ $consulta->observaciones }}</p>
 
 
  
