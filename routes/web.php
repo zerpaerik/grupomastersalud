@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('generics.logview');
 })->middleware('auth');
 
 
@@ -471,6 +471,7 @@ Route::get('historias-search', 'ConsultaController@searchh')->name('historias.se
 Route::get('historias-{id}','ConsultaController@show');
 Route::get('historiasp', 'ConsultaController@indexp')->name('historias.indexp')->middleware('auth');
 Route::get('historiasp-edit-{id}','ConsultaController@editview')->name('historiasp.edit')->middleware('auth');
+Route::get('historiasr-{id}', 'ConsultaController@report');
 
 Route::get('pediatrico', 'PediatricoController@index')->name('pediatrico.index')->middleware('auth');
 Route::get('pediatrico-create-{paciente}-{evento}','PediatricoController@show');
