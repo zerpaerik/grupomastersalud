@@ -59,6 +59,10 @@
         </div>
       </div>  
 
+            <input type="hidden" name="f1" value="{{$fecha1}}">
+            <input type="hidden" name="f2" value="{{$fecha2}}">
+
+
       
 
       <div class="row">
@@ -67,6 +71,11 @@
         <input type="hidden" value="{{$total->monto}}" name="total">
         <input type="submit" class="btn btn-danger" value="Cerrar Turno">
       </form>
+      <a href="#" class="btn btn-primary view" onclick="view(this)" data-id="{{$hoy}}">VistaPrevia</a>
+
+    </div>
+
+    <div class="row">
     </div>
 
 
@@ -78,7 +87,8 @@
               <th>Fecha</th>
               <th>Cierre</th>
               <th>Registrado Por:</th>
-              <th>Recibo:</th>
+              <th>Recibos:</th>
+              <th>Acciòn</th>
            
             </tr>
           </thead>
@@ -94,15 +104,25 @@
                 @endif
                 <td>{{$c->name}},{{$c->lastname}}</td>
                 <td>
+                  <a href="#" class="btn btn-primary view" onclick="view(this)" data-id="2">ver</a>
                   @if($c->cierre_matutino > 0)
-                  <a  href="{{asset('recibo_caja_ver')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerM</a>
+                  <a target="_blank" href="{{asset('recibo_caja_ver')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerM Consolidado</a>
+                  <a target="_blank" href="{{asset('recibo_caja_verd')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerM Detallado</a>
                   @else
-                  <a  href="{{asset('recibo_caja_ver2')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerT</a>
+                  <a target="_blank"  href="{{asset('recibo_caja_ver2')}}/{{$c->id}}/{{$fecha1}}/{{$fecha2}}" class="btn btn-xs btn-primary">VerT Consolidado</a>
+
+                   <a target="_blank"  href="{{asset('recibo_caja_ver2d')}}/{{$c->id}}/{{$fecha1}}/{{$fecha2}}" class="btn btn-xs btn-primary">VerT Detallado</a>
+
                   @endif
-                                    @if(\Auth::user()->role_id <> 6)               
+                </td>
+                <td>
+                  @if(\Auth::user()->role_id <> 6)               
                   <a class="btn btn-danger" href="caja-delete-{{$c->id}}"  onclick="return confirm('¿Desea Reversar este Cierre de Caja?')">Reversar</a> 
                   @endif
                 </td>
+                
+
+            
 
             </tr>
             
@@ -116,6 +136,18 @@
   </div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resumen del Turno</h4>
+              </div>
+              <div class="modal-body"></div>
+            </div>
+          </div>
+        </div>
+
 </body>
 
 
@@ -124,9 +156,38 @@
 <script src="{{url('/tema/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
 
+<style type="text/css">
+    .modal-backdrop.in {
+        filter: alpha(opacity=50);
+        opacity: 0;
+        z-index: 0;
+    }
 
+    .modal {
+      top:35px;
+    }
+</style>
 
 <script type="text/javascript">
+
+
+
+function view(e){
+        var id = $(e).attr('data-id');
+        
+        $.ajax({
+            type: "GET",
+            url: "/saldo/view/"+id,
+            success: function (data) {
+                $(".modal-body").html(data);
+                $('#myModal').modal('show');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    };
+
 // Run Datables plugin and create 3 variants of settings
 function AllTables(){
   TestTable1();
