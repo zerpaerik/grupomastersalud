@@ -32,13 +32,13 @@ class CajaController extends Controller
       $caja = DB::table('cajas as  a')
         ->select('a.id','a.cierre_matutino','a.cierre_vespertino','a.fecha','a.balance','a.sede','a.usuario','b.name','b.lastname','a.created_at')
         ->join('users as b','b.id','a.usuario')
-        ->whereBetween('a.fecha', [date('Y-m-d', strtotime($f1)), date('Y-m-d', strtotime($f2))])
+        ->whereBetween('a.fecha', [date('Y-m-d', strtotime($fecha1)), date('Y-m-d', strtotime($fecha2))])
         ->where('a.sede','=',$request->session()->get('sede'))
         ->get();
 
         $aten = Creditos::where('id_sede','=', $request->session()->get('sede'))
                        ->whereNotIn('monto',[0,0.00])
-                       ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($f1)), date('Y-m-d 23:59:59', strtotime($f2))])
+                       ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($fecha1)), date('Y-m-d 23:59:59', strtotime($fecha2))])
                        ->select(DB::raw('SUM(monto) as monto'))
                        ->first();
       
@@ -101,8 +101,8 @@ class CajaController extends Controller
 	    	'mensaje' => $mensaje,
 	    	'caja' => $caja,
 	    	'fecha' => Carbon::now()->toDateString(),
-            'fecha1' => Carbon::now()->toDateString(),
-            'fecha2' => Carbon::now()->toDateString(),
+            'fecha1' => $fecha1,
+            'fecha2' => $fecha2,
             'hoy' => $hoy
 
 	    ]);    	
