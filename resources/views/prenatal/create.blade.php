@@ -72,12 +72,22 @@
     		    		<strong>Talla:</strong>{{ $prenatal->talla_pregestacional }} Cms
 
     	</div>
-    	<div class="col-md-3">
-    		   <strong>Conclusiòn:</strong>{{ $prenatal->conclusion }}
-    	</div>
 
     	<div class="col-md-3">
     		   <strong>IMC:</strong>{{ $prenatal->imc }}
+    	</div>
+
+    	<div class="col-md-3">
+    		<strong>Conclusión:</strong>
+	    	@if($prenatal->imc <= 24)
+	    	<strong>Normal</strong>
+	    	@elseif($prenatal->imc <=29)
+	    	<strong>Sobrepeso</strong>
+	    	@elseif($prenatal->imc <=34)
+	    	<strong>Obesidad I</strong>
+	    	@elseif($prenatal->imc >= 35)
+	    	<strong>Obesidad II</strong>
+	    	@endif
     	</div>
     	
     </div>
@@ -441,7 +451,7 @@
 							<select id="el12" name="orina">
 							<option value="Normal">Normal</option>
 							<option value="Anormal">Anormal</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 						</select>
 
 						<input type="date" name="orinad" style="line-height: 20px">	
@@ -457,7 +467,7 @@
 						<select id="el12" name="urea">
 							<option value="Normal">Normal</option>
 							<option value="Anormal">Anormal</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 						</select>	
 
 						<input type="date" name="uread" style="line-height: 20px">	
@@ -473,7 +483,7 @@
 						<select id="el12" name="creatinina">
 							<option value="Normal">Normal</option>
 							<option value="Anormal">Anormal</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 						</select>	
 
 						<input type="date" name="creatininad" style="line-height: 20px">	
@@ -506,7 +516,7 @@
 							<select id="el12" name="torch">
 							<option value="Normal">Normal</option>
 							<option value="Anormal">Anormal</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 						</select>
 
 						<input type="date" name="torchd" style="line-height: 20px">	
@@ -871,7 +881,7 @@
              <select id="el12" name="sero">
 							<option value="Negativo">Negativo</option>
 							<option value="Positivo">Positivo</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 			</select>
 				<input type="date" name="serod" style="line-height: 20px">	
 
@@ -894,7 +904,7 @@
                <select id="el12" name="vih">
 							<option value="Positivo">Positivo</option>
 							<option value="Negativo">Negativo</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 			</select>
 							<input type="date" name="vihd" style="line-height: 20px">	
 
@@ -943,7 +953,7 @@
 				<select  name="orina">
 							<option value="Normal">Normal</option>
 							<option value="Anormal">Anormal</option>
-						     <option value="No">No se hizO</option>
+						     <option value="No">No se hizo</option>
 						</select>
 				
 			</div>

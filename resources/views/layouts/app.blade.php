@@ -53,7 +53,7 @@
   <div class="container-fluid expanded-panel">
     <div class="row">
       <div id="logo" class="col-xs-12 col-sm-2">
-        <a href="">Grupo Master Salud</a>
+        <a href="">Grupo M. Salud</a>
       </div>
       <div id="top-panel" class="col-xs-12 col-sm-10">
         <div class="row">
