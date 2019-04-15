@@ -178,6 +178,9 @@ Route::get('aplicametodo', 'AplicaMetodoController@index')->name('aplicametodo.i
 Route::get('aplicametodo-create', 'AplicaMetodoController@createView')->name('aplicametodo.create')->middleware('auth');
 Route::get('metodos-edit-{id}', 'MetodosController@editView')->name('metodos.edit');
 
+Route::get('antf/otro','PrenatalController@atf');
+Route::get('antp/otro','PrenatalController@atp');
+
 
 
 
