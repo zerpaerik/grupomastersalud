@@ -20,6 +20,7 @@
 
 	<br>
 	<h2>Resultados anteriores de {{$data->nombres}} {{$data->apellidos}}</h2>
+  <br>
 	@foreach($cred as $consulta)
 	<div class="rows">
 		<div class="col-sm-6">
@@ -33,7 +34,162 @@
 				<br>
 			</div>
 		</div>
+
+    <div class="row">
+      <h3 class="col-sm-12">VACUNAS</h3>  
+        <div class="col-sm-6"><strong>BCG (TUBERCULOSIS) (RN):</strong>  
+          <input class="form-control" type="date" value="{{$consulta->bcg}}" disabled="">
+        </div>
+        <div class="col-sm-6"><strong>HVB (ANTI-HEPATITIS) (RN):</strong> 
+          <input class="form-control" type="date" value="{{$consulta->hvb}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">ANTIPOLIO:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses) INY-IPV</strong>
+          <input class="form-control" type="date" value="{{$consulta->atp1}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses) INY-IPV</strong>  
+          <input class="form-control" type="date" value="{{$consulta->atp2}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (6 meses) ORAL-APO</strong>  
+          <input class="form-control" type="date" value="{{$consulta->atp3}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">PENTAVALENTE (DPT + HIB HVB):</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->pent1}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->pent2}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (6 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->pent3}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">NEUMOCOCO:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->neu1}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->neu2}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (12 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->neu3}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">ROTAVIRUS:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->rot1}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->rot2}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">ROTAVIRUS:</label>
+        <div class="col-sm-3"><strong>1º dosis (7 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->rot3}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (8 meses)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->rot4}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3"><strong>1 año</strong>
+          <input class="form-control" type="date" value="{{$consulta->ano1}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>2 años</strong>  
+          <input class="form-control" type="date" value="{{$consulta->ano2}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>3 años</strong>
+          <input class="form-control" type="date" value="{{$consulta->ano3}}" disabled="">
+        </div>
+
+        <div class="col-sm-3"><strong>4 años</strong>  
+          <input class="form-control" type="date" value="{{$consulta->ano4}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6" for=""><label>SPR (SARAMPIÓN, PAPERA, RUBEÓLA):</label>
+          <div class="col-sm-6"><strong>1º dosis (12 meses)</strong>  
+            <input class="form-control" type="date" value="{{$consulta->spr1}}" disabled="">
+          </div>
+          <div class="col-sm-6"><strong>2º dosis (18 meses)</strong>  
+            <input class="form-control" type="date" value="{{$consulta->spr2}}" disabled="">
+          </div>
+        </div>
+
+        <div class="col-sm-3"><label>VARICELA:</label>
+          <div class="col-sm-12"><strong>1º dosis (12 meses)</strong> 
+            <input class="form-control" type="date" value="{{$consulta->vari}}" disabled="">
+          </div>
+        </div>
+
+
+        <div class="col-sm-3"><label>ANTIAMARÍLICA:</label> 
+          <div class="col-sm-12"><strong>(15 meses)</strong> 
+          <input class="form-control" type="date" value="{{$consulta->antia}}" disabled="">
+        </div>
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">REFUERZOS:</label>
+        <div class="col-sm-6"><strong>1º REF. DPT (18 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->ref1}}" disabled="">
+        </div>
+
+        <div class="col-sm-6"><strong>2º REF. DPT (4 años)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->ref2}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6"><strong>1º REF Antipolio (Oral 18 meses)</strong>
+          <input class="form-control" type="date" value="{{$consulta->ref3}}" disabled="">
+        </div>
+
+        <div class="col-sm-6"><strong>2º REF Antipolio (Oral 4 años)</strong>  
+          <input class="form-control" type="date" value="{{$consulta->ref4}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">OTRAS VACUNAS:</label>
+        <div class="col-sm-4">
+          <input type="text" value="{{$consulta->otra1}}" disabled="" style="width: 100%">
+          <input class="form-control" type="date" value="{{$consulta->ot1}}" disabled="">
+        </div>
+
+        <div class="col-sm-4">
+          <input type="text" value="{{$consulta->otra2}}" disabled="" style="width: 100%">  
+          <input class="form-control" type="date" value="{{$consulta->ot2}}" disabled="">
+        </div>
+
+        <div class="col-sm-4">
+          <input type="text" value="{{$consulta->otra3}}" disabled="" style="width: 100%">  
+          <input class="form-control" type="date" value="{{$consulta->ot3}}" disabled="">
+        </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-12" for="">OBSERVACIONES:</label>
+        <div class="col-sm-12">
+          <input type="text" value="{{$consulta->observs}}" disabled="" style="width: 100%">
+        </div>
+    </div>
 	@endforeach
+  <br>
 	<div class="col-sm-12">
 	<h3>Registrar nueva Historia CRED</h3>
 	<form action="cred/create" method="post" class="form-horizontal">
@@ -76,10 +232,6 @@
 					<option value="2 años">2 años</option>
 					<option value="2 a 1m">2 a 1m</option>
 					<option value="2 a 2m">2 a 2m</option>
-			
-
-
-
 				</select>
 			</div> 
             
@@ -100,11 +252,193 @@
 				<input  class="form-control" type="text" name="perim" placeholder="Perim Cefàlico">
 			</div>
 			
-			
+     <br>
+      <div class="row">
+        <h3 class="col-sm-12">VACUNAS</h3>  
+        <div class="col-sm-6"><strong>BCG (TUBERCULOSIS) (RN):</strong>  
+          <input class="form-control" type="date" name="bcg">
+        </div>
+        <div class="col-sm-6"><strong>HVB (ANTI-HEPATITIS) (RN):</strong> 
+          <input class="form-control" type="date" name="hvb">
+        </div>
 
-			
-	
-		</div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">ANTIPOLIO:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses) INY-IPV</strong>
+          <input class="form-control" type="date" name="atp1">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses) INY-IPV</strong>  
+          <input class="form-control" type="date" name="atp2">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (6 meses) ORAL-APO</strong>  
+          <input class="form-control" type="date" name="atp3">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">PENTAVALENTE (DPT + HIB HVB):</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" name="pent1">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" name="pent2">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (6 meses)</strong>  
+          <input class="form-control" type="date" name="pent3">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">NEUMOCOCO:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" name="neu1">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" name="neu2">
+        </div>
+
+        <div class="col-sm-3"><strong>3º dosis (12 meses)</strong>  
+          <input class="form-control" type="date" name="neu3">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">ROTAVIRUS:</label>
+        <div class="col-sm-3"><strong>1º dosis (2 meses)</strong>
+          <input class="form-control" type="date" name="rot1">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (4 meses)</strong>  
+          <input class="form-control" type="date" name="rot2">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">ROTAVIRUS:</label>
+        <div class="col-sm-3"><strong>1º dosis (7 meses)</strong>
+          <input class="form-control" type="date" name="rot3">
+        </div>
+
+        <div class="col-sm-3"><strong>2º dosis (8 meses)</strong>  
+          <input class="form-control" type="date" name="rot4">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3"><strong>1 año</strong>
+          <input class="form-control" type="date" name="ano1">
+        </div>
+
+        <div class="col-sm-3"><strong>2 años</strong>  
+          <input class="form-control" type="date" name="ano2">
+        </div>
+
+        <div class="col-sm-3"><strong>3 años</strong>
+          <input class="form-control" type="date" name="ano3">
+        </div>
+
+        <div class="col-sm-3"><strong>4 años</strong>  
+          <input class="form-control" type="date" name="ano4">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" for=""><label>SPR (SARAMPIÓN, PAPERA, RUBEÓLA):</label>
+          <div class="col-sm-6"><strong>1º dosis (12 meses)</strong>  
+            <input class="form-control" type="date" name="spr1">
+          </div>
+          <div class="col-sm-6"><strong>2º dosis (18 meses)</strong>  
+            <input class="form-control" type="date" name="spr2">
+          </div>
+        </div>
+
+        <div class="col-sm-3"><label>VARICELA:</label>
+          <div class="col-sm-12"><strong>1º dosis (12 meses)</strong> 
+            <input class="form-control" type="date" name="vari">
+          </div>
+        </div>
+
+
+        <div class="col-sm-3"><label>ANTIAMARÍLICA:</label> 
+          <div class="col-sm-12"><strong>(15 meses)</strong> 
+          <input class="form-control" type="date" name="antia">
+        </div>
+        </div>
+		  </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">REFUERZOS:</label>
+        <div class="col-sm-6"><strong>1º REF. DPT (18 meses)</strong>
+          <input class="form-control" type="date" name="ref1">
+        </div>
+
+        <div class="col-sm-6"><strong>2º REF. DPT (4 años)</strong>  
+          <input class="form-control" type="date" name="ref2">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-6"><strong>1º REF Antipolio (Oral 18 meses)</strong>
+          <input class="form-control" type="date" name="ref3">
+        </div>
+
+        <div class="col-sm-6"><strong>2º REF Antipolio (Oral 4 años)</strong>  
+          <input class="form-control" type="date" name="ref4">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <label class="col-sm-12" for="">OTRAS VACUNAS:</label>
+        <div class="col-sm-4">
+          <input type="text" name="" placeholder="Otras vacunas" style="width: 100%">
+          <input class="form-control" type="date" name="ot1">
+        </div>
+
+        <div class="col-sm-4">
+          <input type="text" name="" placeholder="Otras vacunas" style="width: 100%">  
+          <input class="form-control" type="date" name="ot2">
+        </div>
+
+        <div class="col-sm-4">
+          <input type="text" name="" placeholder="Otras vacunas" style="width: 100%">  
+          <input class="form-control" type="date" name="ot3">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <label class="col-sm-12" for="">OBSERVACIONES:</label>
+        <div class="col-sm-12">
+          <input type="text" name="observs" placeholder="Observaciones" style="width: 100%">
+        </div>
+      </div>
+
+
 
 		
 		

@@ -67,11 +67,45 @@ class CredController extends Controller
 
           
     		Cred::create([
-		    	'paciente' =>$request->paciente,
+		    'paciente' =>$request->paciente,
 				'peso' =>$request->peso,
 				'talla' =>$request->talla,
 				'edad' =>$request->edad,
-				'perim' =>$request->perim
+				'perim' =>$request->perim,
+        'bcg' =>$request->bcg,
+        'hvb' =>$request->hvb,
+        'atp1' =>$request->atp1,
+        'atp2' =>$request->atp2,
+        'atp3' =>$request->atp3,
+        'pent1' =>$request->pent1,
+        'pent2' =>$request->pent2,
+        'pent3' =>$request->pent3,
+        'neu1' =>$request->neu1,
+        'neu2' =>$request->neu2,
+        'neu3' =>$request->neu3,
+        'rot1' =>$request->rot1,
+        'rot2' =>$request->rot2,
+        'rot3' =>$request->rot3,
+        'rot4' =>$request->rot4,
+        'ano1' =>$request->ano1,
+        'ano2' =>$request->ano2,
+        'ano3' =>$request->ano3,
+        'ano4' =>$request->ano4,
+        'spr1' =>$request->spr1,
+        'spr2' =>$request->spr2,
+        'vari' =>$request->vari,
+        'antia' =>$request->antia,
+        'ref1' =>$request->ref1,
+        'ref2' =>$request->ref2,
+        'ref3' =>$request->ref3,
+        'ref4' =>$request->ref4,
+        'otra1' =>$request->ot1,
+        'otra2' =>$request->ot2,
+        'otra3' =>$request->ot3,
+        'ot1' =>$request->ot1,
+        'ot2' =>$request->ot2,
+        'ot3' =>$request->ot3,
+        'observs' =>$request->observs
 				
 			]);
 
