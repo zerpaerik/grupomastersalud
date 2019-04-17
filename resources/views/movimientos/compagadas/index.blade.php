@@ -9,7 +9,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-linux"></i>
-					<span>Comisiones/ Pagadas a Personal</span>
+					<span>Comisiones/ Pagadas a Boticas</span>
 
 				</div>
 

@@ -34,7 +34,7 @@
 							<th>Detalle</th>
 							<th>Precio</th>
 							<th>Porcentaje Prof.</th>
-							<th>Porcentaje Pers.</th>
+							<th>Porcentaje Botica.</th>
 							<th>Porcentaje Tecn.</th>
 							<th>Registrado Por:</th>
 							<th>Acciones:</th>
