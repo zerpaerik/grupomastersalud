@@ -97,7 +97,7 @@
         </div>
     </div>
     <div class="row">
-      <label class="col-sm-12" for="">ROTAVIRUS:</label>
+      <label class="col-sm-12" for="">INFLUENZA:</label>
         <div class="col-sm-3"><strong>1º dosis (7 meses)</strong>
           <input class="form-control" type="date" value="{{$consulta->rot3}}" disabled="">
         </div>
@@ -331,7 +331,7 @@
 
       <div class="row">
 
-        <label class="col-sm-12" for="">ROTAVIRUS:</label>
+        <label class="col-sm-12" for="">INFLUENZA:</label>
         <div class="col-sm-3"><strong>1º dosis (7 meses)</strong>
           <input class="form-control" type="date" name="rot3">
         </div>
