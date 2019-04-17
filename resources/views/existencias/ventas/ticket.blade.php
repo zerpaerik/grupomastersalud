@@ -63,29 +63,33 @@ margin-top: -20px;
 </head>
 <body>
 
+	<div class="" style="font-size: 35px; text-align: center; margin-bottom: -15px;">
+		<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 30%;"/>
+	</div>
 
    <div class="" style="font-size: 40px; text-align: center;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
-	    <p><strong>TICKET:0000{{$ticket->id}}</strong></p>
+	    <p><strong>TICKET: 0000{{$ticket->id}}</strong></p>
 	</div>
 
     <div class="" style="font-size: 40px;">
-		<p><strong>FECHA:{{ $ticket->created_at}}</strong></p>
+		<p><strong>FECHA: {{ $ticket->created_at}}</strong></p>
 	</div>
 
 	<div class="" style="font-size: 40px;">
-		<p><strong>PACIENTE:{{ $ticket->nombres}},{{ $ticket->apellidos}}</strong></p>
+		<p><strong>PACIENTE: {{ $ticket->nombres}},{{ $ticket->apellidos}}</strong></p>
+		<p><strong>DNI: {{ $ticket->dni }}</strong></p>
 	</div>
 
 	@foreach($productos as $p)
 	<div class="" style="font-size: 40px;">
-		<p><strong>PRODUCTO:{{ $p->nombre}}- CANTIDAD {{ $p->cantidad}}
+		<p><strong>PRODUCTO: {{ $p->nombre}}- CANTIDAD {{ $p->cantidad}}
 		</strong></p>
 	</div>
 	@endforeach
 
 	<div class="" style="font-size: 40px;">
-		<p><strong>MONTO TOTAL:{{ $monto->monto}}</strong></p>
+		<p><strong>MONTO TOTAL: {{ $monto->monto}}</strong></p>
 	</div>
 
 

@@ -39,7 +39,7 @@ class ReportesController extends Controller
                 if (!is_null($es_servicio)) {
 
                 $resultado = DB::table('atenciones as a')
-                ->select('a.id','a.id_paciente','a.origen_usuario','a.resultado','a.id_servicio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','d.descripcion','e.detalle','a.created_at')
+                ->select('a.id','a.id_paciente','a.origen_usuario','a.resultado','a.id_servicio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','c.dni','d.descripcion','e.detalle','a.created_at')
                 ->join('users as b','b.id','a.origen_usuario')
                 ->join('pacientes as c','c.id','a.id_paciente')
                 ->join('resultados_servicios as d','d.id_atencion','a.id')
@@ -51,7 +51,7 @@ class ReportesController extends Controller
                 } else {
 
                 $resultado = DB::table('atenciones as a')
-                ->select('a.id','a.id_paciente','a.origen_usuario','a.resultado','a.id_laboratorio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','d.descripcion','e.name as detalle','a.created_at')
+                ->select('a.id','a.id_paciente','a.origen_usuario','a.resultado','a.id_laboratorio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','c.dni','d.descripcion','e.name as detalle','a.created_at')
                 ->join('users as b','b.id','a.origen_usuario')
                 ->join('pacientes as c','c.id','a.id_paciente')
                 ->join('resultados_laboratorios as d','d.id_atencion','a.id')
@@ -132,7 +132,7 @@ class ReportesController extends Controller
                 if (!is_null($es_servicio)) {
 
                 $ticket = DB::table('atenciones as a')
-                ->select('a.id','a.id_paciente','a.origen_usuario','a.ticket','a.id_servicio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','e.detalle','a.created_at','a.abono','a.pendiente','a.monto')
+                ->select('a.id','a.id_paciente','a.origen_usuario','a.ticket','a.id_servicio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','c.dni','e.detalle','a.created_at','a.abono','a.pendiente','a.monto')
                 ->join('users as b','b.id','a.origen_usuario')
                 ->join('pacientes as c','c.id','a.id_paciente')
                 ->join('servicios as e','e.id','a.id_servicio')
@@ -144,7 +144,7 @@ class ReportesController extends Controller
                 } else {
 
                 $ticket = DB::table('atenciones as a')
-                ->select('a.id','a.id_paciente','a.origen_usuario','a.ticket','a.id_laboratorio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','e.name as detalle','a.created_at','a.abono','a.pendiente','a.monto')
+                ->select('a.id','a.id_paciente','a.origen_usuario','a.ticket','a.id_laboratorio','b.name as nompac','b.lastname as apepac','c.nombres','c.apellidos','c.dni','e.name as detalle','a.created_at','a.abono','a.pendiente','a.monto')
                 ->join('users as b','b.id','a.origen_usuario')
                 ->join('pacientes as c','c.id','a.id_paciente')
                 ->join('analises as e','e.id','a.id_laboratorio')
@@ -169,6 +169,7 @@ class ReportesController extends Controller
         $pdf = \App::make('dompdf.wrapper');
         //$pdf->setPaper('A5', 'landscape');
 		//$pdf->setPaper(array(0,0,360.00,360.00));
+        $pdf->setPaper(array(0,0,800.00,3000.00));
         $pdf->loadHTML($view);
         return $pdf->stream('ticket_ver');
     }
@@ -318,7 +319,7 @@ class ReportesController extends Controller
     public function verReciboProfesional($id){
        
          $reciboprofesional = DB::table('atenciones as a')
-        ->select('a.id','a.id_paciente','a.created_at','a.origen_usuario','a.origen','a.porcentaje','a.id_servicio','es_laboratorio','a.pagado_com','a.id_laboratorio','a.es_servicio','a.es_laboratorio','a.recibo','a.monto','a.porcentaje','a.abono','b.nombres','b.apellidos','c.detalle as servicio','d.name as laboratorio','e.name','e.lastname','d.name as laboratorio')
+        ->select('a.id','a.id_paciente','a.created_at','a.origen_usuario','a.origen','a.porcentaje','a.id_servicio','es_laboratorio','a.pagado_com','a.id_laboratorio','a.es_servicio','a.es_laboratorio','a.recibo','a.monto','a.porcentaje','a.abono','b.nombres','b.apellidos','b.dni','c.detalle as servicio','d.name as laboratorio','e.name','e.lastname','d.name as laboratorio')
         ->join('pacientes as b','b.id','a.id_paciente')
         ->join('servicios as c','c.id','a.id_servicio')
         ->join('analises as d','d.id','a.id_laboratorio')
@@ -666,6 +667,7 @@ class ReportesController extends Controller
        $pdf = \App::make('dompdf.wrapper');
        //$pdf->setPaper('A4', 'landscape');
        $pdf->loadHTML($view);
+       $pdf->setPaper(array(0,0,800.00,3000.00));
        return $pdf->stream('recibo_cierre_caja_ver');
     /* }else{
      }*/
@@ -685,6 +687,7 @@ class ReportesController extends Controller
        //$view = \View::make('reportes.cierre_caja_ver')->with('caja', $caja);
        $pdf = \App::make('dompdf.wrapper');
        //$pdf->setPaper('A5', 'landscape');
+       $pdf->setPaper(array(0,0,800.00,3000.00));
        $pdf->loadHTML($view);
        return $pdf->stream('recibo_gastos_ver');
     /* }else{
@@ -940,7 +943,7 @@ class ReportesController extends Controller
       public function recibo_cobro_ver($id)
   { 
         $recibo = DB::table('historialcobros as a')
-        ->select('a.id','a.id_atencion','a.id_paciente','a.monto','a.abono_parcial','a.abono','a.pendiente','b.nombres','b.apellidos','a.created_at','a.updated_at')
+        ->select('a.id','a.id_atencion','a.id_paciente','a.monto','a.abono_parcial','a.abono','a.pendiente','b.nombres','b.apellidos','b.dni','a.created_at','a.updated_at')
         ->join('pacientes as b','b.id','a.id_paciente')
         ->where('a.id','=',$id)
         ->first();
@@ -953,6 +956,7 @@ class ReportesController extends Controller
        //$view = \View::make('reportes.cierre_caja_ver')->with('caja', $caja);
        $pdf = \App::make('dompdf.wrapper');
        //$pdf->setPaper('A5', 'landscape');
+       $pdf->setPaper(array(0,0,800.00,3000.00));
        $pdf->loadHTML($view);
        return $pdf->stream('cobro');
 

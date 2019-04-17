@@ -449,7 +449,7 @@ class ProductoController extends Controller
 
       
           $ticket = DB::table('ventas as v')
-            ->select('v.id','a.id_producto','a.id_venta','a.paciente','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario','p.nombres','p.apellidos')
+            ->select('v.id','a.id_producto','a.id_venta','a.paciente','a.created_at','a.monto','a.cantidad','e.name','e.lastname','b.nombre','b.codigo','v.id_usuario','p.nombres','p.apellidos','p.dni')
             ->join('ventas_productos as a','a.id_venta','v.id')
             ->join('productos as b','b.id','a.id_producto')
             ->join('users as e','e.id','v.id_usuario')

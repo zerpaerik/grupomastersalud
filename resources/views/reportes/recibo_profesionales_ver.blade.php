@@ -53,7 +53,7 @@
 </head>
 <body>
 
-		 <img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 20%;"/>
+	<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 20%;"/>
 
 
 	<p style="margin-left: 550px;margin-top: -100px;"><strong>SEDE:</strong>{{ Session::get('sedeName') }}</p>
@@ -68,6 +68,7 @@
   <thead>
   <tr>
     <th style="width: 40%;" scope="col">PACIENTE</th>
+    <th style="width: 15%;">DNI</th>
     <th style="width: 15%;" scope="col">FECHA</th>
     <th  style="width: 35%;" scope="col">DETALLE</th>
     <th style="width: 10%;" scope="col">MONTO</th>
@@ -77,7 +78,8 @@
   <tbody>
     @foreach($reciboprofesional as $recibo)
     <tr >
-    	<td style="padding: 0;">{{ $recibo->nombres.' '.$recibo->apellidos}}</td>
+    <td style="padding: 0;">{{ $recibo->nombres.' '.$recibo->apellidos}}</td>
+    <td style="padding: 0;">{{ $recibo->dni}}</td>
     <td style="padding: 0;">{{date('d-m-Y', strtotime($recibo->created_at))}}</td>
     @if($recibo->es_servicio == '1')
     <td style="padding: 0;">{{$recibo->servicio}}</td>

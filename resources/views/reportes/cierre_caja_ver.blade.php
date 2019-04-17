@@ -48,9 +48,9 @@
 <head>
 	<title>Cierre de Caja</title>
 </head>
-
+<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 20%;"/>
 <div>
-	<div class="text-center title-header col-12">
+	<div class="text-center title-header col-12" style="margin-top: -85px">
 		<center><strong>REPORTE DE CIERRE DE CAJA</strong> </center>
 		<strong>SEDE:</strong> {{ Session::get('sedeName') }}
 	</div>

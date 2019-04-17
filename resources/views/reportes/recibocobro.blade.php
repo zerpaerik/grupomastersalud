@@ -5,22 +5,26 @@
 
 </head>
 <body>
-     
+    
+    <div class="" style="font-size: 35px; text-align: center; margin-bottom: -15px;">
+        <img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 30%;"/>
+    </div>
 
-     <div class="" style="font-size: 40px; text-align: center;margin-bottom: 60px;">
+    <div class="" style="font-size: 40px; text-align: center;margin-bottom: 60px;">
         <p><strong>GRUPO MASTER SALUD</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 60px;">
-        <p><strong>RECIBO PAGO A CUENTA Nº:0000{{$recibo->id}}</strong></p>
+        <p><strong>RECIBO PAGO A CUENTA Nº: 0000{{$recibo->id}}</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 60px;">
-        <p><strong>FECHA:{{ $recibo->created_at}}</strong></p>
+        <p><strong>FECHA: {{ $recibo->created_at}}</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 60px;">
-        <p><strong>PACIENTE:{{ $recibo->nombres}},{{ $recibo->apellidos}}</strong></p>
+        <p><strong>PACIENTE: {{ $recibo->nombres}},{{ $recibo->apellidos}}</strong></p>
+        <p><strong>DNI: {{ $recibo->dni}}</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 60px;">
@@ -28,11 +32,11 @@
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 60px;">
-        <p><strong>MONTO ABONADO:{{ $recibo->abono_parcial}}</strong></p>
+        <p><strong>MONTO ABONADO: {{ $recibo->abono_parcial}}</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;margin-bottom: 40px;">
-        <p><strong>MONTO TOTAL ABONADO:{{ $recibo->abono}}</strong></p>
+        <p><strong>MONTO TOTAL ABONADO: {{ $recibo->abono}}</strong></p>
     </div>
 
     <div class="" style="font-size: 40px; text-align: left;">
