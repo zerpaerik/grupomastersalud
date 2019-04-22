@@ -20,6 +20,9 @@
     <li>
       <a href="{{route('analisis.index')}}"><i class="fa fa-renren"></i> Analisis de laboratorios</a>
     </li>
+      <li>
+      <a href="{{route('botica.index')}}"><i class="fa fa-users"></i> Botica</a>
+    </li>
     <li>
       <a href="{{route('servicios.index')}}"><i class="fa fa-dropbox"></i> Servicios</a>
     </li>
@@ -387,6 +390,10 @@
     <li>
       <a href="{{route('analisis.index')}}"><i class="fa fa-renren"></i> Analisis de laboratorios</a>
     </li>
+    <li>
+      <a href="{{route('botica.index')}}"><i class="fa fa-dropbox"></i> Botica</a>
+    </li>
+
     <li>
       <a href="{{route('servicios.index')}}"><i class="fa fa-dropbox"></i> Servicios</a>
     </li>

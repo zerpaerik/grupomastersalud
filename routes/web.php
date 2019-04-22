@@ -50,6 +50,14 @@ Route::get('centros-edit-{id}', 'Archivos\CentrosController@editView')->name('ce
 Route::post('centros/edit', 'Archivos\CentrosController@edit');
 Route::get('centros-delete-{id}','Archivos\CentrosController@delete');
 
+Route::get('botica', 'Archivos\BoticaController@index')->name('botica.index')->middleware('auth');
+Route::get('botica-create', 'Archivos\BoticaController@createView')->name('botica.create')->middleware('auth');
+Route::post('botica/create', 'Archivos\BoticaController@create')->middleware('auth');
+Route::get('botica/{id}', 'Archivos\BoticaController@delete')->middleware('auth');
+Route::get('botica-edit-{id}', 'Archivos\BoticaController@editView')->name('botica.edit');
+Route::post('botica/edit', 'Archivos\BoticaController@edit');
+Route::get('botica-delete-{id}','Archivos\BoticaController@delete');
+
 
 Route::get('profesionales', 'Archivos\ProfesionalesController@index')->name('profesionales.index')->middleware('auth');
 Route::get('profesionales-search', 'Archivos\ProfesionalesController@search')->name('profesionales.search')->middleware('auth');
@@ -299,6 +307,7 @@ Route::get('recibo_cobro_ver/{id}','ReportesController@recibo_cobro_ver');
 
 
 Route::get('movimientos/atencion/personal','AtencionesController@personal');
+Route::get('movimientos/atencion/botica','AtencionesController@botica');
 Route::get('movimientos/atencion/profesional','AtencionesController@profesional');
 Route::get('movimientos/atencion/particular','AtencionesController@particular');
 

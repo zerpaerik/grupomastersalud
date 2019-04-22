@@ -926,6 +926,18 @@ $paciente = DB::table('pacientes')
     return view('movimientos.atenciones.personal', compact('personal'));
   }
 
+    public function botica(){
+     
+       $botica = DB::table('users')
+                    ->select('*')
+                   // ->where('estatus','=','1')
+                    ->where('tipo','=','4')
+                    ->orderBy('lastname','asc')
+                    ->get();  
+
+    return view('movimientos.atenciones.botica', compact('botica'));
+  }
+
    public function profesional(){
      
         $profesional = DB::table('users')

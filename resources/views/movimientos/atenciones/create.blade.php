@@ -48,9 +48,9 @@
 						<div class="col-sm-3">
 							<select id="el2" name="origen">
 								    <option value="0">Seleccione el Origen</option>
-									<option value="1">Personal</option>
+									<option value="1">Boticas</option>
 									<option value="2">Profesional</option>
-					                <option value="3">Particular</option>
+					       <option value="3">Particular</option>
 							</select>
 						</div>
 
@@ -580,7 +580,7 @@ function createPac(e){
         $('#el2').on('change',function(){
           var link;
           if ($(this).val() ==  1) {
-            link = '/movimientos/atencion/personal/';
+            link = '/movimientos/atencion/botica/';
           }else if ($(this).val() ==  2){
             link = '/movimientos/atencion/profesional/';
           } else {
