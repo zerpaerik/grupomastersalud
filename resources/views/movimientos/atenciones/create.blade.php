@@ -51,6 +51,7 @@
 									<option value="1">Boticas</option>
 									<option value="2">Profesional</option>
 					       <option value="3">Particular</option>
+                  <option value="4">Personal</option>
 							</select>
 						</div>
 
@@ -583,6 +584,8 @@ function createPac(e){
             link = '/movimientos/atencion/botica/';
           }else if ($(this).val() ==  2){
             link = '/movimientos/atencion/profesional/';
+          }else if ($(this).val() ==  4){
+            link = '/movimientos/atencion/personal/';
           } else {
 		    link = '/movimientos/atencion/particular/';
 		  }
