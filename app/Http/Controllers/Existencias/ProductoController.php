@@ -21,11 +21,11 @@ class ProductoController extends Controller
     public function index(){
 		//	$producto = Producto::all();
       $producto =Producto::where("sede_id", '=', \Session::get("sede"))->where("almacen",'=', 1)->orderBy('nombre','ASC')->get();
-			return view('generics.index5', [
+			return view('generics.index6', [
 				"icon" => "fa-list-alt",
 				"model" => "existencias",
         "model1" => "Productos en Almacen Central",
-				"headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento", "Eliminar"],
+				"headers" => ["id", "Nombre","Medida", "Categoria","Cantidad","Precio Unidad","Precio Venta","Vencimiento","Editar","Eliminar"],
 				"data" => $producto,
 				"fields" => ["id", "nombre","medida", "categoria","cantidad","preciounidad","precioventa","vence"],
           "actions" => [
@@ -277,6 +277,18 @@ class ProductoController extends Controller
       $p->codigo = $request->codigo;
       $p->vence = $request->vence;
       $res = $p->save();
+
+       $pl = Producto::where('padre','=',$request->id)->first();
+      $pl->nombre = $request->nombre;
+      $pl->categoria = $request->categoria;
+      $pl->medida = $request->medida;
+    $pl->preciounidad = $request->preciounidad;
+      $pl->precioventa = $request->precioventa;
+      $pl->codigo = $request->codigo;
+      $pl->vence = $request->vence;
+      $res = $pl->save();
+
+
       return redirect()->action('Existencias\ProductoController@index', ["edited" => $res]);
     }
 
