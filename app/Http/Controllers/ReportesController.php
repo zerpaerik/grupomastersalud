@@ -720,14 +720,24 @@ class ReportesController extends Controller
      public function recibo_caja_ver2(Request $request,$id,$fecha1=NULL,$fecha2=NULL) 
     {
 
-     $cajamañana=DB::table('cajas as  a')
+    $caja1 = DB::table('cajas as  a')
         ->select('a.id','a.cierre_matutino','a.cierre_vespertino','a.created_at','a.fecha','a.balance','a.sede','a.usuario','b.name','b.lastname')
         ->join('users as b','b.id','a.usuario')
-        ->whereDate('fecha','=',Carbon::today()->toDateString())
-        ->first();  
+        ->where('a.id','=',$id)
+        ->first();
+
+
+
+     $cajamañana=DB::table('cajas as  a')
+        ->select('a.id','a.cierre_matutino','a.created_at','a.cierre_vespertino','a.created_at','a.fecha','a.balance','a.sede','a.usuario','b.name','b.lastname')
+        ->join('users as b','b.id','a.usuario')
+        ->where('fecha','=',[date('Y-m-d', strtotime($caja1->created_at))])
+        ->first();
 
       $fechamañana=$cajamañana->created_at;   
-    
+
+         
+
       
       $caja = DB::table('cajas as  a')
         ->select('a.id','a.cierre_matutino','a.cierre_vespertino','a.created_at','a.fecha','a.balance','a.sede','a.usuario','b.name','b.lastname')
@@ -874,7 +884,7 @@ class ReportesController extends Controller
     {
       
 
-  if(!is_null($request->fecha1)){
+   if(!is_null($request->fecha1)){
 
 
 
