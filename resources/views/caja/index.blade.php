@@ -92,7 +92,7 @@
                 @endif
                 <td>{{$c->name}},{{$c->lastname}}</td>
                 <td>
-                  <a href="#" class="btn btn-primary view" onclick="view(this)" data-id="2">ver</a>
+                 
                   @if($c->cierre_matutino > 0)
                   <a target="_blank" href="{{asset('recibo_caja_ver')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerM Consolidado</a>
                   <a target="_blank" href="{{asset('recibo_caja_verd')}}/{{$c->id}}" class="btn btn-xs btn-primary">VerM Detallado</a>
