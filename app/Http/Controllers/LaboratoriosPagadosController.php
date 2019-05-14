@@ -40,6 +40,17 @@ class LaboratoriosPagadosController extends Controller
     ->orderby('a.id','desc')
     ->get(); 
 
+
+    $total = LaboratoriosPagados::where('sede','=', $request->session()->get('sede'))
+                                     ->whereBetween('created_at',[$f1,$f2])
+                                     ->select(DB::raw('COUNT(*) as total'))
+                                     ->first();
+
+    $monto = LaboratoriosPagados::where('sede','=', $request->session()->get('sede'))
+                                     ->whereBetween('created_at',[$f1,$f2])
+                                     ->select(DB::raw('SUM(monto) as monto'))
+                                     ->first();
+
 } else {
 
 	  $pagados = DB::table('laboratorios_pagados as a')
@@ -49,14 +60,25 @@ class LaboratoriosPagadosController extends Controller
     ->join('users as e','e.id','a.usuario')
     ->join('pacientes as p','p.id','a.paciente')
     ->where('a.sede','=', $request->session()->get('sede'))
+    ->whereDate('a.created_at','=',Carbon::today()->toDateString())
     ->orderby('a.id','desc')
     ->get(); 
+
+    $total = LaboratoriosPagados::where('sede','=',$request->session()->get('sede'))
+                                    ->whereDate('created_at','=',Carbon::today()->toDateString())
+                                     ->select(DB::raw('COUNT(*) as total'))
+                                     ->first();
+
+    $monto = LaboratoriosPagados::where('sede','=',$request->session()->get('sede'))
+                                     ->whereDate('created_at','=',Carbon::today()->toDateString())
+                                     ->select(DB::raw('SUM(monto) as monto'))
+                                     ->first();
 
 
 
 }
 
-        return view('movimientos.labpagados.index', ['pagados' => $pagados]); 
+        return view('movimientos.labpagados.index', ['pagados' => $pagados,'total' => $total,'monto' => $monto]); 
 	}
 
 

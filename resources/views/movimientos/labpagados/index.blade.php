@@ -29,6 +29,7 @@
 				<div class="no-move"></div>
 				
 			</div>
+			
 			{!! Form::open(['method' => 'get', 'route' => ['labpagados.index']]) !!}
 
 			<div class="row">
@@ -60,7 +61,15 @@
 			</div>	
 
 		
+<div class="row">
+				<div class="col-md-2">
+				<strong>Total:</strong>{{$total->total}}
+				</div>
 
+				<div class="col-md-2">
+				<strong>Monto Pagado:</strong>{{$monto->monto}}
+				</div>
+			</div>
 
 			<div class="box-content no-padding">
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
