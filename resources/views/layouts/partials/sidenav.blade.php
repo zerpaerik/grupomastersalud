@@ -742,6 +742,12 @@
     <span class="hidden-xs">Archivos</span>
   </a>
   <ul class="dropdown-menu">
+     <li>
+      <a href="{{route('centros.index')}}"><i class="fa fa-hospital-o"></i> Centros Medicos</a>
+    </li>
+    <li>
+      <a href="{{route('profesionales.index')}}"><i class="fa fa-plus-square"></i> Prof. de apoyo</a>
+    </li>
     <li>
       <a href="{{route('analisis.index')}}"><i class="fa fa-renren"></i> Analisis de laboratorios</a>
     </li>
@@ -969,6 +975,23 @@
 
  <li class="dropdown">
   <a href="#" class="dropdown-toggle">
+    <i class="fa fa-inbox"></i>
+    <span class="hidden-xs">Archivos</span>
+  </a>
+  <ul class="dropdown-menu">
+    
+    <li>
+      <a href="{{route('centros.index')}}"><i class="fa fa-hospital-o"></i> Centros Medicos</a>
+    </li>
+    <li>
+      <a href="{{route('profesionales.index')}}"><i class="fa fa-plus-square"></i> Prof. de apoyo</a>
+    </li>
+    
+  </ul>
+</li>
+
+ <li class="dropdown">
+  <a href="#" class="dropdown-toggle">
     <i class="fa fa-refresh"></i>
     <span class="hidden-xs">Existencias</span>
   </a>
@@ -1098,6 +1121,22 @@
  
  
 @elseif(\Auth::user()->role_id == 8)
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle">
+    <i class="fa fa-inbox"></i>
+    <span class="hidden-xs">Archivos</span>
+  </a>
+  <ul class="dropdown-menu">
+   
+    <li>
+      <a href="{{route('centros.index')}}"><i class="fa fa-hospital-o"></i> Centros Medicos</a>
+    </li>
+    <li>
+      <a href="{{route('profesionales.index')}}"><i class="fa fa-plus-square"></i> Prof. de apoyo</a>
+    </li>
+     
+  </ul>
+</li>
 
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
