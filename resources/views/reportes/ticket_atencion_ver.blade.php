@@ -65,7 +65,8 @@ margin-top: -20px;
 </head>
 <body>
 
-	<div class="" style="font-size: 35px; text-align: center; margin-bottom: -15px;">
+
+	<div class="" style="font-size: 35px; text-align: center; margin-top: -40px;">
 		<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 30%;"/>
 	</div>
 
