@@ -66,10 +66,6 @@ margin-top: -20px;
 <body>
 
 
-	<div class="" style="font-size: 35px; text-align: center; margin-top: -40px;">
-		<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 30%;"/>
-	</div>
-
  	<div class="" style="font-size: 40px; text-align: center;margin-bottom:-40px;margin-top: 2px;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
 	    <p><strong>TICKET:{{ $ticket->id}}</strong></p>
