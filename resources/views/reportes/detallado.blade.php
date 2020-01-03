@@ -115,7 +115,7 @@
 			<tr>
 				<td>{{ $lab->id }}</td>
 				<td>{{ $lab->laboratorio }}</td>
-				<td>{{ $lab->nombres }},{{ $serv->apellidos }}</td>
+				<td>{{ $lab->nombres }},{{ $lab->apellidos }}</td>
 				<td>{{ $lab->monto }}</td>
 				<td>{{ $lab->abono }}</td>
 			    <td>{{ $lab->tipopago }}</td>
