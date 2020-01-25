@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Visitas extends Model
 {
     protected $fillable = [
-    	'id_profesional', 'id_visitador'
+    	'id_profesional', 'id_visitador','id_botica'
     ];
 }

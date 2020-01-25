@@ -27,13 +27,21 @@
 					<div class="form-group">
 						
 						<label class="col-sm-1 control-label">Profesional</label>
-						<div class="col-sm-9">
+						<div class="col-sm-4">
 							<select class="form-control" name="profesional" id="profesional">
 							@foreach($profesionales as $lab)
 							<option value="{{$lab->id}}">{{$lab->name}},{{$lab->apellidos}}</option>
 							@endforeach
 						</select>
+						</div>	<label class="col-sm-1 control-label">Bòticas</label>
+						<div class="col-sm-4">
+							<select class="form-control" name="id_botica" id="id_botica">
+							@foreach($boticas as $lab)
+							<option value="{{$lab->id}}">{{$lab->nombre}}</option>
+							@endforeach
+						</select>
 						</div>	
+
 													
 						<input type="button" onclick="form.submit()" style="margin-left:15px; margin-top: 20px;" class="col-sm-2 btn btn-primary" value="Agregar">
 

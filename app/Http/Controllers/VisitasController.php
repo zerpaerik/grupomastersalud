@@ -10,6 +10,7 @@ use App\Models\Profesionales\Profesional;
 use App\Models\Debitos;
 use App\Models\Visitas;
 use App\Models\Analisis;
+use App\Models\Botica;
 use Auth;
 use Toastr;
 
@@ -36,11 +37,12 @@ class VisitasController extends Controller
   private function elasticSearch($initial, $final)
   { 
         $visitas = DB::table('visitas as a')
-        ->select('a.id','a.id_profesional','a.id_visitador','a.created_at','b.name','b.apellidos','c.name as nomvi','c.lastname as apevi','b.centro','b.especialidad','d.name as centro','e.nombre as especialidad')/*,'c.name as nomvi','c.lastname as apevi','a.created_at'*/
+        ->select('a.id','a.id_profesional','a.id_botica','a.id_visitador','a.created_at','b.name','b.apellidos','c.name as nomvi','c.lastname as apevi','b.centro','b.especialidad','d.name as centro','e.nombre as especialidad','bo.nombre as botica')/*,'c.name as nomvi','c.lastname as apevi','a.created_at'*/
         ->join('profesionales as b','b.id','a.id_profesional')
         ->join('users as c','c.id','a.id_visitador')
         ->join('centros as d','b.centro','d.id')
         ->join('especialidades as e','e.id','b.especialidad')
+        ->join('boticas as bo','bo.id','a.id_botica')
         ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($initial)), date('Y-m-d 23:59:59', strtotime($final))])
         ->orderby('a.id','desc')
         ->get();
@@ -54,14 +56,15 @@ class VisitasController extends Controller
   public function createView() {
 
     $profesionales =Profesional::where("estatus", '=', 1)->get();
-    
-    return view('visitas.create', compact('profesionales'));
+    $boticas = Botica::where('estatus','=',1)->get();
+    return view('visitas.create', compact('profesionales','boticas'));
   }
 
   public function create(Request $request){
 
 		$visitas = Visitas::create([
 	      'id_profesional' => $request->profesional,
+        'id_botica'      => $request->id_botica,
 	      'id_visitador' => Auth::id()
 	    
    		]);
