@@ -37,7 +37,7 @@ class VisitasController extends Controller
   private function elasticSearch($initial, $final)
   { 
         $visitas = DB::table('visitas as a')
-        ->select('a.id','a.id_profesional','a.id_botica','a.id_visitador','a.created_at','b.name','b.apellidos','c.name as nomvi','c.lastname as apevi','b.centro','b.especialidad','d.name as centro','e.nombre as especialidad','bo.nombre as botica')/*,'c.name as nomvi','c.lastname as apevi','a.created_at'*/
+        ->select('a.id','a.id_profesional','a.id_botica','a.id_visitador','a.created_at','b.name','b.apellidos','c.name as nomvi','c.lastname as apevi','b.centro','b.especialidad','d.name as centro','e.nombre as especialidad','bo.nombre as botica')
         ->join('profesionales as b','b.id','a.id_profesional')
         ->join('users as c','c.id','a.id_visitador')
         ->join('centros as d','b.centro','d.id')
@@ -46,6 +46,10 @@ class VisitasController extends Controller
         ->whereBetween('a.created_at', [date('Y-m-d 00:00:00', strtotime($initial)), date('Y-m-d 23:59:59', strtotime($final))])
         ->orderby('a.id','desc')
         ->get();
+
+       // dd($visitas);
+
+
 
 
         return $visitas;
@@ -62,14 +66,22 @@ class VisitasController extends Controller
 
   public function create(Request $request){
 
-		$visitas = Visitas::create([
-	      'id_profesional' => $request->profesional,
-        'id_botica'      => $request->id_botica,
-	      'id_visitador' => Auth::id()
-	    
-   		]);
 
-		Toastr::success('La Visita Fue Registrada.', 'Profesional Visitadp!', ['progressBar' => true]);
+    $visitas = new Visitas();
+    if($request->id_profesional <> NULL){
+    $visitas->id_profesional =$request->id_profesional;
+    }else{
+    $visitas->id_profesional =99;
+    }
+    if($request->id_botica <> NULL){
+    $visitas->id_botica =$request->id_botica;
+    }else{
+    $visitas->id_botica =99;
+    }
+    $visitas->id_visitador = \Auth::user()->id;
+    $visitas->save(); 
+
+		Toastr::success('La Visita Fue Registrada.', 'Profesional Visitado!', ['progressBar' => true]);
        return redirect()->route('visitas.index');
 	}   
 }
