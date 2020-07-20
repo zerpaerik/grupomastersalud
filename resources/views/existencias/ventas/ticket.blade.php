@@ -63,9 +63,7 @@ margin-top: -20px;
 </head>
 <body>
 
-	<div class="" style="font-size: 35px; text-align: center; margin-bottom: -15px;">
-		<img src="/var/www/html/grupomastersalud/public/img/0.png"  style="width: 30%;"/>
-	</div>
+
 
    <div class="" style="font-size: 40px; text-align: center;">
 		<p><strong>GRUPO MASTER SALUD</strong></p>
