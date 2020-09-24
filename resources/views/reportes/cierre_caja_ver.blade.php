@@ -192,14 +192,14 @@
 			<th>Egresos</th>
 		</tr>
 		<tr>
-			<td>{{ $totalIngresos }}</td>
+			<td>{{ $efectivo->monto }}</td>
 			<td>{{ $totalEgresos }}</td>
 		</tr>
 		<tr>
 			<td>Total</td>
 			<td></td>
 			<td width="80">
-				{{ $totalIngresos - $totalEgresos }}
+				{{ $efectivo->monto - $totalEgresos }}
 			</td>
 		</tr>
 	</table>
