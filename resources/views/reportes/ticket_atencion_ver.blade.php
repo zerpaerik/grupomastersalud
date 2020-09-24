@@ -81,7 +81,7 @@ margin-top: -20px;
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>DETALLE:{{ $ticket->detalle}}
+		<p><strong>DETALLE: {{ $descripcion}}
 		</strong></p>
 	</div>
 
@@ -90,11 +90,11 @@ margin-top: -20px;
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>MONTO: {{ $ticket->monto}}</strong></p>
+		<p><strong>MONTO: {{ $ticket->montot}}</strong></p>
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>PAGADO:{{ $ticket->abono}}</strong></p>
+		<p><strong>PAGADO:{{ $ticket->abonot}}</strong></p>
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;">

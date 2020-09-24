@@ -142,7 +142,7 @@ class AtencionesController extends Controller
   public function create(Request $request)
   {
     if(is_null($request->origen_usuario) && ($request->origen <> 3)){
-      Toastr::error('Debe Seleccionar un Origen', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+      Toastr::error('Debe Seleccionar un Origen', 'Ingreso de Atenciï¿½n!', ['progressBar' => true]);
 
     return back();
   }
@@ -191,6 +191,7 @@ class AtencionesController extends Controller
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'INGRESO DE ATENCIONES';
+              $creditos->id_usuario = Auth::user()->id;
               $creditos->save();
 
 
@@ -433,6 +434,7 @@ class AtencionesController extends Controller
               $serv->particular = $request->particular;
               $serv->usuario = Auth::user()->id;
               $serv->ticket =AtencionesController::generarId($request);
+              $serv->atencion = $paq->id;
               $serv->save(); 
 
               $creditos = new Creditos();
@@ -442,6 +444,7 @@ class AtencionesController extends Controller
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'INGRESO DE ATENCIONES';
+              $creditos->id_usuario = Auth::user()->id;
               $creditos->save();
         } else {
 
@@ -492,6 +495,7 @@ class AtencionesController extends Controller
           $lab->particular = $request->particular;
        $lab->usuario = Auth::user()->id;
          $lab->ticket =AtencionesController::generarId($request);
+         $lab->atencion = $paq->id;
           $lab->save();
 
           $creditos = new Creditos();
@@ -501,6 +505,7 @@ class AtencionesController extends Controller
           $creditos->id_sede = $request->session()->get('sede');
           $creditos->tipo_ingreso = $request->tipopago;
           $creditos->descripcion = 'INGRESO DE ATENCIONES';
+          $creditos->id_usuario = Auth::user()->id;
           $creditos->save();
         } else {
 
@@ -509,7 +514,9 @@ class AtencionesController extends Controller
     }
     
     
-  } else {    
+  } else {  
+    
+    //NO ES PARTICULAR
     
     $searchUsuarioID = DB::table('users')
                     ->select('*')
@@ -535,7 +542,7 @@ class AtencionesController extends Controller
               $paq->id_paquete = $paquete->id;
               $paq->comollego = $request->comollego;
               $paq->es_paquete =  true;
-            $paq->serv_prog = FALSE;
+              $paq->serv_prog = FALSE;
               $paq->tipopago = $request->tipopago;
               $paq->porc_pagar = $paquete->porcentaje;
               $paq->pendiente = (float)$request->monto_p['paquetes'][$key]['monto'] - (float)$request->monto_abop['paquetes'][$key]['abono'];
@@ -545,8 +552,8 @@ class AtencionesController extends Controller
               $paq->id_sede =$request->session()->get('sede');
               $paq->estatus = 1;
               $paq->particular = $request->particular;
-                            $paq->usuario = Auth::user()->id;
-                                          $paq->ticket =AtencionesController::generarId($request);
+              $paq->usuario = Auth::user()->id;
+              $paq->ticket =AtencionesController::generarId($request);
               $paq->save(); 
 
               $creditos = new Creditos();
@@ -556,6 +563,7 @@ class AtencionesController extends Controller
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'INGRESO DE ATENCIONES';
+              $creditos->id_usuario = Auth::user()->id;
               $creditos->save();
 
 
@@ -618,8 +626,8 @@ class AtencionesController extends Controller
               $s->id_sede =$request->session()->get('sede');
               $s->estatus = 1;
               $s->particular = $request->particular;
-                            $s->usuario = Auth::user()->id;
-                                          $s->ticket =AtencionesController::generarId($request);
+              $s->usuario = Auth::user()->id;
+                    $s->ticket =AtencionesController::generarId($request);
                                                         $s->paquete=$paq->id;
               $s->save(); 
              
@@ -834,6 +842,7 @@ $paciente = DB::table('pacientes')
               $serv->particular = $request->particular;
               $serv->ticket =AtencionesController::generarId($request);
               $serv->usuario = Auth::user()->id;
+              $serv->atencion = $paq->id;
               $serv->save(); 
 
               $creditos = new Creditos();
@@ -843,6 +852,7 @@ $paciente = DB::table('pacientes')
               $creditos->id_sede = $request->session()->get('sede');
               $creditos->tipo_ingreso = $request->tipopago;
               $creditos->descripcion = 'INGRESO DE ATENCIONES';
+              $creditos->id_usuario = Auth::user()->id;
               $creditos->save();
         } else {
 
@@ -889,6 +899,7 @@ $paciente = DB::table('pacientes')
           $lab->particular = $request->particular;
           $lab->usuario = Auth::user()->id;
          $lab->ticket =AtencionesController::generarId($request);
+         $lab->atencion = $paq->id;
           $lab->save();
 
           $creditos = new Creditos();
@@ -898,6 +909,7 @@ $paciente = DB::table('pacientes')
           $creditos->id_sede = $request->session()->get('sede');
           $creditos->tipo_ingreso = $request->tipopago;
           $creditos->descripcion = 'INGRESO DE ATENCIONES';
+          $creditos->id_usuario = Auth::user()->id;
           $creditos->save();
         } else {
 
@@ -907,7 +919,7 @@ $paciente = DB::table('pacientes')
   }
   
   
-       Toastr::success('Registrado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+       Toastr::success('Registrado Exitosamente.', 'Ingreso de Atenciï¿½n!', ['progressBar' => true]);
 
 
     return redirect()->route('atenciones.index');
@@ -1042,7 +1054,7 @@ $paciente = DB::table('pacientes')
     private function elasticSearch($initial,$nombre,$apellido,Request $request)
   {
     $atenciones = DB::table('atenciones as a')
-    ->select('a.id','a.created_at','a.id_paciente','a.origen_usuario','a.origen','a.id_servicio','a.id_paquete','a.id_laboratorio','a.es_servicio','a.es_laboratorio','a.es_paquete','a.monto','a.porcentaje','a.abono','a.id_sede','b.nombres','b.apellidos','c.detalle as servicio','e.name','e.lastname','h.name as user','h.lastname as userp','d.name as laboratorio','f.detalle as paquete','cr.tipo_ingreso')
+    ->select('a.id','a.created_at','a.id_paciente','a.origen_usuario','a.origen','a.id_servicio','a.id_paquete','a.id_laboratorio','a.es_servicio','a.atencion','a.es_laboratorio','a.es_paquete','a.monto','a.porcentaje','a.abono','a.id_sede','b.nombres','b.apellidos','c.detalle as servicio','e.name','e.lastname','h.name as user','h.lastname as userp','d.name as laboratorio','f.detalle as paquete','cr.tipo_ingreso')
     ->join('pacientes as b','b.id','a.id_paciente')
     ->join('servicios as c','c.id','a.id_servicio')
     ->join('analises as d','d.id','a.id_laboratorio')
@@ -1074,7 +1086,7 @@ $paciente = DB::table('pacientes')
   $creditos = Creditos::where('id_atencion','=',$id);
     $creditos->delete();
   
-   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciï¿½n!', ['progressBar' => true]);
 
      return redirect()->action('AtencionesController@index', ["created" => true, "atenciones" => Atenciones::all()]);
   
@@ -1088,7 +1100,7 @@ $paciente = DB::table('pacientes')
   $creditos = Creditos::where('id_atencion','=',$id);
     $creditos->delete();
   
-   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciòn!', ['progressBar' => true]);
+   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenciï¿½n!', ['progressBar' => true]);
 
      return redirect()->action('AtencionesController@index', ["created" => true, "atenciones" => Atenciones::all()]);
   

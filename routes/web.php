@@ -353,7 +353,7 @@ Route::put('resultadosg-editl-{id}', 'ResultadosGuardadosController@editl')->nam
 
 
 
-Route::get('ticket-ver-{id}', 'ReportesController@ticket_ver')->name('ticket.ver');
+Route::get('ticket-ver-{id}', 'ReportesController@verTicket')->name('ticket.ver');
 
 
 Route::get('generalatenciones', 'ReporteIngresosController@indexa')->name('generalatenciones.indexa')->middleware('auth');
