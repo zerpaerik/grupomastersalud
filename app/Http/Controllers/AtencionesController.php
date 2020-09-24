@@ -1078,7 +1078,7 @@ $paciente = DB::table('pacientes')
   }
   
    public function delete($id){
-    $atenciones = Atenciones::find($id);
+    $atenciones = Atenciones::where('id','=',$id);
     $atenciones->delete();
 
      $atenciones1 = Atenciones::where('paquete','=',$id);
