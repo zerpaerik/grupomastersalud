@@ -98,7 +98,7 @@ margin-top: -20px;
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;">
-		<p><strong>RESTA: {{ $ticket->pendiente}}</strong></p>
+		<p><strong>RESTA: {{ $ticket->montot - $ticket->abonot}}</strong></p>
 	</div>
 
 	
