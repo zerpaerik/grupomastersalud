@@ -1078,18 +1078,30 @@ $paciente = DB::table('pacientes')
   }
   
    public function delete($id){
-    $atenciones = Atenciones::where('id','=',$id);
+    /*$atenciones = Atenciones::where('id','=',$id);
     $atenciones->delete();
 
      $atenciones1 = Atenciones::where('paquete','=',$id);
     $atenciones1->delete();
   
   $creditos = Creditos::where('id_atencion','=',$id);
-    $creditos->delete();
-  
-   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atenci�n!', ['progressBar' => true]);
+    $creditos->delete();*/
 
-     return redirect()->action('AtencionesController@index', ["created" => true, "atenciones" => Atenciones::all()]);
+    $atenciones = Atenciones::where('id','=',$id);
+    $atenciones->delete();
+    
+     $atenciones2 = Atenciones::where('paquete','=',$id);
+    $atenciones2->delete();
+	
+	$creditos = Creditos::where('id_atencion','=',$id);
+    $creditos->delete();
+       
+     $event= Event::where('paquete','=',$id);
+    $event->delete();
+  
+   Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atencion!', ['progressBar' => true]);
+
+     return redirect()->action('AtencionesController@index');
   
   }
   
