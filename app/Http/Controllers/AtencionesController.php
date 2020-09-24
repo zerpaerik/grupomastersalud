@@ -1070,6 +1070,7 @@ $paciente = DB::table('pacientes')
     ->orderby('a.id','desc')
     ->groupBy('a.id')
     ->get();
+    
   
   
 

@@ -208,6 +208,7 @@ class ProductoController extends Controller
           $lab->cantidad = $request->monto_abol['laboratorios'][$key]['abono'];
           $lab->id_venta = $ventas->id;
           $lab->paciente =$request->paciente;
+          $lab->id_usuario= Auth::user()->id;
           $lab->save();
 
           Producto::where('id', $laboratorio['laboratorio'])
@@ -223,6 +224,7 @@ class ProductoController extends Controller
               $creditos->tipo_ingreso ='EF';
               $creditos->descripcion = 'VENTA DE PRODUCTOS';
               $creditos->id_venta= $lab->id;
+              $creditos->id_usuario= Auth::user()->id;
               $creditos->save();
 
         } 

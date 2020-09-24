@@ -21,6 +21,7 @@ use App\Models\Existencias\{Producto, Existencia, Transferencia};
 use App\Historial;
 use App\Consulta;
 use Toastr;
+use Auth;
 
 class EventController extends Controller
 {
@@ -297,6 +298,7 @@ class EventController extends Controller
         $evt->sede=$request->session()->get('sede');
         $evt->tipo=$tipo;
         $evt->tipoc=$request->tipoc;
+        $evt->usuario=Auth::user()->id;
         $evt->save();
 
       $credito = Creditos::create([
@@ -305,7 +307,9 @@ class EventController extends Controller
         "monto" => $monto,
         "tipo_ingreso" => $request->tipopago,
         "id_sede" => $request->session()->get('sede'),
-        "id_event" => $evt->id
+        "id_event" => $evt->id,
+        "id_usuario" => Auth::user()->id
+
       ]);
     
   

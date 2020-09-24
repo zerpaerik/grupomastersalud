@@ -82,6 +82,7 @@ class CuentasporCobrarController extends Controller
                     $creditos->id_sede = $request->session()->get('sede');
                     $creditos->tipo_ingreso = $request->tipopago;
                     $creditos->descripcion = 'CUENTAS POR COBRAR';
+                    $creditos->id_usuario= Auth::user()->id;
                     $creditos->save();
 					
 					$historial = new Historiales();

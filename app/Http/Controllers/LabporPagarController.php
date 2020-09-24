@@ -112,6 +112,7 @@ class LabporPagarController extends Controller
                 $debitos->id_sede = $request->session()->get('sede');
                 $debitos->descripcion = $name;
                 $debitos->mostrar= 1;
+                $debitos->id_usuario= Auth::user()->id;
                 $debitos->save();  
 
             } else {
@@ -121,6 +122,7 @@ class LabporPagarController extends Controller
                 $debitos->monto= $costo;
                 $debitos->id_sede = $request->session()->get('sede');
                 $debitos->descripcion = $name;
+                $debitos->id_usuario= Auth::user()->id;
                 $debitos->save(); 
 
             }

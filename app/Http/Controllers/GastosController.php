@@ -56,16 +56,10 @@ class GastosController extends Controller
 	      'monto' => $request->monto,
         'nombre' => $request->nombre,
 	      'origen' => 'RELACION DE GASTOS',
-	      'id_sede' => $request->session()->get('sede')
+        'id_sede' => $request->session()->get('sede'),
+        "id_usuario" => Auth::user()->id
    		]);
 		
-		  $historial = new Historiales();
-          $historial->accion ='Registro';
-          $historial->origen ='Gasto';
-		  $historial->detalle = $request->descripcion;
-          $historial->id_usuario = \Auth::user()->id;
-		  $historial->sede = $request->session()->get('sede');
-          $historial->save();
 		  
 		return redirect()->action('GastosController@index', ["created" => true, "gastos" => Debitos::all()]);
 	}    

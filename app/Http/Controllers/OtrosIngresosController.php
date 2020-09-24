@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Creditos;
 use App\Models\Historiales;
 use DB;
+use Auth;
+
 
 class OtrosIngresosController extends Controller
 {
@@ -72,16 +74,11 @@ class OtrosIngresosController extends Controller
 	      'monto' => $request->monto,
 	      'origen' => 'OTROS INGRESOS',
 	      'tipo_ingreso' => $request->tipo_ingreso,
-	      'id_sede' => $request->session()->get('sede')
+        'id_sede' => $request->session()->get('sede'),
+        "id_usuario" => Auth::user()->id
    		]);
 		
-		 $historial = new Historiales();
-          $historial->accion ='Registro';
-          $historial->origen ='Otros Ingresos';
-		  $historial->detalle = $request->monto;
-          $historial->id_usuario = \Auth::user()->id;
-		  $historial->sede = $request->session()->get('sede');
-          $historial->save();
+		 
 		return redirect()->action('OtrosIngresosController@index', ["created" => true, "ingresos" => Creditos::all()]);
 	}    
 

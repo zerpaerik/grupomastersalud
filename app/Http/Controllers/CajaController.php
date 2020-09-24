@@ -34,10 +34,12 @@ class CajaController extends Controller
         ->join('users as b','b.id','a.usuario')
         ->whereBetween('a.fecha', [date('Y-m-d', strtotime($fecha1)), date('Y-m-d', strtotime($fecha2))])
         ->where('a.sede','=',$request->session()->get('sede'))
+        ->where('a.usuario','=',Auth::user()->id)
         ->get();
 
         $aten = Creditos::where('id_sede','=', $request->session()->get('sede'))
                        ->whereNotIn('monto',[0,0.00])
+                       ->where('id_usuario','=',Auth::user()->id)
                        ->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($fecha1)), date('Y-m-d 23:59:59', strtotime($fecha2))])
                        ->select(DB::raw('SUM(monto) as monto'))
                        ->first();
@@ -65,11 +67,13 @@ class CajaController extends Controller
         ->select('a.id','a.cierre_matutino','a.cierre_vespertino','a.fecha','a.balance','a.sede','a.usuario','b.name','b.lastname','a.created_at')
         ->join('users as b','b.id','a.usuario')
         ->where('a.fecha','=',Carbon::now()->toDateString())
+        ->where('a.usuario','=',Auth::user()->id)
         ->where('a.sede','=',$request->session()->get('sede'))
         ->get();
 
 	    $aten = Creditos::where('id_sede','=', $request->session()->get('sede'))
-	                   ->whereNotIn('monto',[0,0.00])
+                       ->whereNotIn('monto',[0,0.00])
+                       ->where('id_usuario','=',Auth::user()->id)
 	                   ->whereDate('created_at', '=',Carbon::today()->toDateString())
 	                   ->select(DB::raw('SUM(monto) as monto'))
 	                   ->first();
@@ -145,7 +149,7 @@ class CajaController extends Controller
 
      public function saldo(Request $request,$id){
 
-        $caja=Caja::where('fecha','=',Carbon::now()->toDateString())->where('sede','=',$request->session()->get('sede'))->first();
+        $caja=Caja::where('fecha','=',Carbon::now()->toDateString())->where('sede','=',$request->session()->get('sede'))->where('usuario','=',Auth::user()->id)->first();
 
         if($caja){
         $fechamañana=$caja->created_at; 
@@ -156,6 +160,7 @@ class CajaController extends Controller
          $atenciones = Creditos::where('origen', 'ATENCIONES')
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereNotIn('monto',[0,0.00,99999])
+                                    ->where('id_usuario','=',Auth::user()->id)
                                     ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -171,6 +176,7 @@ class CajaController extends Controller
 
 
          $consultas = Creditos::where('origen','CONSULTAS')
+                                     ->where('id_usuario','=',Auth::user()->id)
                                      ->where('id_sede','=', $request->session()->get('sede'))
                                       ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
@@ -181,6 +187,7 @@ class CajaController extends Controller
         }
 
         $otros_servicios = Creditos::where('origen', 'OTROS INGRESOS')
+                                    ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                       ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
@@ -191,6 +198,7 @@ class CajaController extends Controller
         }
 
         $cuentasXcobrar = Creditos::where('origen', 'CUENTAS POR COBRAR')
+                                   ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                        ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
@@ -201,6 +209,7 @@ class CajaController extends Controller
         }
 
           $metodos = Creditos::where('origen', 'METODOS ANTICONCEPTIVOS')
+          ->where('id_usuario','=',Auth::user()->id)
                                              ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
@@ -212,6 +221,7 @@ class CajaController extends Controller
 
 
          $ventas = Creditos::where('origen','VENTA DE PRODUCTOS')
+         ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
@@ -224,11 +234,13 @@ class CajaController extends Controller
 
         $egresos = Debitos::whereRaw("created_at > ? AND created_at <= ?", 
                                      array($fechamañana, $fechanoche))
+                                     ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                             ->select(DB::raw('origen, descripcion, monto'))
                             ->get();
 
         $efectivo = Creditos::where('tipo_ingreso','EF')
+        ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                             ->whereNotIn('monto',[0,0.00,99999])
                             ->whereRaw("created_at > ? AND created_at <= ?", 
@@ -240,6 +252,7 @@ class CajaController extends Controller
         }
 
         $tarjeta = Creditos::where('tipo_ingreso','TJ')
+        ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                             ->whereNotIn('monto',[0,0.00,99999])
                             ->whereRaw("created_at > ? AND created_at <= ?", 
@@ -266,6 +279,7 @@ class CajaController extends Controller
 
 
             $atenciones = Creditos::where('origen', 'ATENCIONES')
+            ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->whereNotIn('monto',[0,0.00])
@@ -278,6 +292,7 @@ class CajaController extends Controller
         }
 
         $consultas = Creditos::where('origen', 'CONSULTAS')
+        ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -287,6 +302,7 @@ class CajaController extends Controller
         }
 
         $otros_servicios = Creditos::where('origen', 'OTROS INGRESOS')
+        ->where('id_usuario','=',Auth::user()->id)
                                     ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -296,6 +312,7 @@ class CajaController extends Controller
         }
 
         $cuentasXcobrar = Creditos::where('origen', 'CUENTAS POR COBRAR')
+        ->where('id_usuario','=',Auth::user()->id)
                                             ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -305,6 +322,7 @@ class CajaController extends Controller
         }
         
          $ventas = Creditos::where('origen', 'VENTA DE PRODUCTOS')
+         ->where('id_usuario','=',Auth::user()->id)
                                              ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -314,6 +332,7 @@ class CajaController extends Controller
         }
 
           $metodos = Creditos::where('origen', 'METODOS ANTICONCEPTIVOS')
+          ->where('id_usuario','=',Auth::user()->id)
                                              ->where('id_sede','=', $request->session()->get('sede'))
                                     ->whereDate('created_at','=',$fecha)
                                     ->select(DB::raw('COUNT(*) as cantidad, SUM(monto) as monto'))
@@ -325,6 +344,7 @@ class CajaController extends Controller
        
 
         $egresos = Debitos::whereDate('created_at','=',$fecha)
+        ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                             ->select(DB::raw('origen, descripcion, monto'))
                             ->get();
@@ -332,6 +352,7 @@ class CajaController extends Controller
       
 
         $efectivo = Creditos::where('tipo_ingreso','=','EF')
+        ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                             ->whereDate('created_at','=',$fecha)
                             ->select(DB::raw('SUM(monto) as monto'))
@@ -341,6 +362,7 @@ class CajaController extends Controller
         }
 
         $tarjeta = Creditos::where('tipo_ingreso','=','TJ')
+        ->where('id_usuario','=',Auth::user()->id)
                             ->where('id_sede','=', $request->session()->get('sede'))
                            ->whereDate('created_at','=',$fecha)
                             ->select(DB::raw('SUM(monto) as monto'))
@@ -371,6 +393,7 @@ class CajaController extends Controller
         ->select('*')
         ->where('fecha','=',Carbon::now()->toDateString())
         ->where('sede','=', $request->session()->get('sede'))
+        ->where('usuario','=',Auth::user()->id)
         ->get();
 
       

@@ -129,7 +129,8 @@ class MetodosController extends Controller
 		        "monto" => $monto,
 		        "tipo_ingreso" => $request->tipopago,
 		        "id_sede" => $request->session()->get('sede'),
-		        "id_metodo" => $metodos->id
+            "id_metodo" => $metodos->id,
+            "id_usuario" => Auth::user()->id
 		      ]);
 
          $searchproducto = DB::table('productos')
