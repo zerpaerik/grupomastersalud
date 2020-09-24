@@ -33,9 +33,7 @@
         <p><strong>MONTO ABONADO: {{ $recibo->abono_parcial}}</strong></p>
     </div>
 
-    <div class="" style="font-size: 40px; text-align: left;margin-bottom: 40px;">
-        <p><strong>MONTO TOTAL ABONADO: {{ $recibo->abono}}</strong></p>
-    </div>
+    
 
     <div class="" style="font-size: 40px; text-align: left;">
         <p><strong>RESTA: {{ $recibo->pendiente}}</strong></p>
