@@ -81,7 +81,7 @@ margin-top: -20px;
 	</div>
 
 	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>DETALLE: 
+		<p><strong>DETALLE: {{ $descripcion}}
 		</strong></p>
 	</div>
 
