@@ -1096,8 +1096,7 @@ $paciente = DB::table('pacientes')
 	$creditos = Creditos::where('id_atencion','=',$id);
     $creditos->delete();
        
-     $event= Event::where('paquete','=',$id);
-    $event->delete();
+    
   
    Toastr::error('Eliminado Exitosamente.', 'Ingreso de Atencion!', ['progressBar' => true]);
 
