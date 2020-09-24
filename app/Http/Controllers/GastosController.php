@@ -8,6 +8,8 @@ use App\Models\Debitos;
 use App\Models\Historiales;
 use DB;
 use Carbon\Carbon;
+use Auth;
+
 
 class GastosController extends Controller
 {
