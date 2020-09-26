@@ -178,6 +178,24 @@ class ReportesController extends Controller
                             }
                 }  
 
+                 //DATA PAQUETES
+
+                 $data2 = \DB::table('atenciones')
+                 ->select('*')
+                 ->where('es_paquete','=',1)
+                 ->where('atencion', $id)
+                 ->get();
+         $descripcion='';
+         foreach ($data2 as $key => $value) {
+                     $datapaquete = \DB::table('paquetes')
+                     ->select('*')
+                     ->where('id', $value->id_paquete)
+                     ->get();
+                     foreach ($datapaquete as $key => $valueservicio) {
+                       $descripcion.= $valueservicio->detalle.',';
+                     }
+         }  
+
 
 
                // dd($searchtipo);
