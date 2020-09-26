@@ -185,7 +185,6 @@ class ReportesController extends Controller
                  ->where('es_paquete','=',1)
                  ->where('atencion', $id)
                  ->get();
-         $descripcion='';
          foreach ($data2 as $key => $value) {
                      $datapaquete = \DB::table('paquetes')
                      ->select('*')
