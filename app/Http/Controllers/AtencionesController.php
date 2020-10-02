@@ -199,6 +199,11 @@ class AtencionesController extends Controller
 
         }
       }
+
+      $editpaque= Atenciones::where('id','=', $paq->id)->first();
+      $editpaque->atencion =$paq->id;
+      $editpaque->save();
+
     
            
   ////////// guardar servicios y analisis que conforman el paquete
@@ -571,6 +576,10 @@ class AtencionesController extends Controller
 
         }
       }
+
+      $editpaque= Atenciones::where('id','=', $paq->id)->first();
+      $editpaque->atencion =$paq->id;
+      $editpaque->save();
     //////
      if(! is_null($request->id_paquete)){
      foreach ($request->id_paquete as $key => $value) {
