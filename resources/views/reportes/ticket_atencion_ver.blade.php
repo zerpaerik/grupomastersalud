@@ -75,32 +75,6 @@ margin-top: -20px;
 		<p><strong>FECHA:{{ $ticket->created_at}}</strong></p>
 	</div>
 
-	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>PACIENTE:{{ $ticket->nombres}},{{ $ticket->apellidos}}</strong></p>
-		<p><strong>DNI:{{ $ticket->dni}}</strong></p>
-	</div>
-
-	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>DETALLE: {{ $descripcion}}
-		</strong></p>
-	</div>
-
-	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>ORIGEN:{{ $ticket->nompac}},{{ $ticket->apepac}}</strong></p>
-	</div>
-
-	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>MONTO: {{ $ticket->montot}}</strong></p>
-	</div>
-
-	<div class="" style="font-size: 40px; text-align: left;margin-bottom:-40px;">
-		<p><strong>PAGADO:{{ $ticket->abonot}}</strong></p>
-	</div>
-
-	<div class="" style="font-size: 40px; text-align: left;">
-		<p><strong>RESTA: {{ $ticket->montot - $ticket->abonot}}</strong></p>
-	</div>
-
 	
 
 	

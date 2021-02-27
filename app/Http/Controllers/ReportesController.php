@@ -198,10 +198,8 @@ class ReportesController extends Controller
 
 
                // dd($searchtipo);
-             //   dd($descripcion);
               //  die();
          
-         dd($ticket);
            
               
 				
